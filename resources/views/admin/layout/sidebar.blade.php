@@ -64,17 +64,22 @@
             </div>
         </div>
     </li>
-
     <li class="nav-item">
-        <a class="nav-link" href="">
-            <i class="fa-solid fa-cart-flatbed"></i>
-            <span>Quản lý đơn hàng</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOder"
+            aria-expanded="true" aria-controls="collapseOder">
+            <i class="fa-regular fa-newspaper"></i>
+            <span>Quản lý đơn hàng</span>
+        </a>
+        <div id="collapseOder" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('admin.order.index')}}">Đơn hàng</a>
+                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+            </div>
+        </div>
     </li>
     <hr class="sidebar-divider">
-
-    <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 </ul>
-<!-- End of Sidebar -->
