@@ -20,7 +20,7 @@
                             <div>
                                 <form action="">                                    
                                     <div class="input-group">
-                                        <input type="search" id="form1" class="form-control-sm" placeholder="Tìm kiếm...." style="border: 1px solid #0d6efd; outline:none"/>
+                                        <input type="search" id="form1" class="form-control-sm" placeholder="Tìm đơn hàng...." style="border: 1px solid #0d6efd; outline:none"/>
                                         <button type="button" class="btn btn-primary btn-sm">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -49,7 +49,7 @@
                                             <th>Ngày tạo đơn</th>
                                             <th>Tên khách hàng</th>
                                             <th>Địa chỉ</th>
-                                            <th>Nổi bật</th>
+                                            <th>Hoá đơn</th>
                                             <th>Trạng thái</th>
                                             <th colspan="2" width="10%">Thao tác</th>
                                         </tr>
@@ -57,22 +57,22 @@
                                     <tbody>
                                         <tr class="text-center">
                                             <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">mô hình dragonball</td>
-                                            <td>850.000 đ</td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox" checked></td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Đang chuẩn bị</span></td>
+                                            <td>1234567</td>
+                                            <td>01-10-2024</td>
+                                            <td>Nguyễn Văn A</td>
+                                            <td>36 đường B, Phú thạnh, HCM</td>
+                                            <td class="text-danger">2.320.000 đ</td>
+                                            <td><span class="badge badge-primary rounded-pill d-inline">Chờ thanh toán</span></td>
                                             <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">mô hình one piece</td>
-                                            <td>950.000 đ</td>
-                                            <td><input type="checkbox" checked></td>
-                                            <td><input type="checkbox" checked></td>
+                                            <td>1234568</td>
+                                            <td>01-10-2024</td>
+                                            <td>Nguyễn Văn B</td>
+                                            <td>123 Tô Ký, Quận 12, HCM</td>
+                                            <td class="text-danger">5.540.000 đ</td>
                                             <td><span class="badge badge-success rounded-pill d-inline">Đang giao hàng</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
