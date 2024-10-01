@@ -49,41 +49,41 @@
                 <div class="col-lg-8">
                     <div class="card border-top-warning h-100">
                         <div class="card-body">
-                            <h4 class="header-title mb-3">Đơn hàng: #12537</h4>
+                            <h4 class="header-title mb-3">Đơn hàng: #123123</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
                                     <thead class="table-light">
                                         <tr>
                                             <th>Mô hình</th>
                                             <th>Số lượng</th>
-                                            <th>Giá</th>
-                                            <th>Tổng tiền</th>
+                                            <th class="text-end">Giá</th>
+                                            <th class="text-end">Tổng tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>The Military Duffle Bag</td>
                                             <td>3</td>
-                                            <td>$128</td>
-                                            <td>$384</td>
+                                            <td class="text-end">520.000 đ</td>
+                                            <td class="text-end">1.560.000 đ</td>
                                         </tr>
                                         <tr>
                                             <td>Mountain Basket Ball</td>
                                             <td>1</td>
-                                            <td>$199</td>
-                                            <td>$199</td>
+                                            <td class="text-end">330.000 đ</td>
+                                            <td class="text-end">330.000 đ</td>
                                         </tr>
                                         <tr>
                                             <td>Wavex Canvas Messenger Bag</td>
                                             <td>5</td>
-                                            <td>$180</td>
-                                            <td>$900</td>
+                                            <td class="text-end">480.000 đ</td>
+                                            <td class="text-end">2.400.000 đ</td>
                                         </tr>
                                         <tr>
                                             <td>The Utility Shirt</td>
                                             <td>2</td>
-                                            <td>$79</td>
-                                            <td>$158</td>
+                                            <td class="text-end">380.000 đ</td>
+                                            <td class="text-end">760.000 đ</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -106,7 +106,7 @@
                                     <tbody>
                                         <tr>
                                             <td>Tổng cộng:</td>
-                                            <td class="text-end">1.200.000 đ</td>
+                                            <td class="text-end">5.050.000 đ</td>
                                         </tr>
                                         <tr>
                                             <td>Phí vận chuyển:</td>
@@ -118,7 +118,7 @@
                                         </tr>
                                         <tr>
                                             <th>Thành tiền :</th>
-                                            <th class="text-end">1.223.000 đ</th>
+                                            <th class="text-end">5.073.000 đ</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -148,10 +148,10 @@
                             <h4 class="header-title mb-3">Thông tin thanh toán</h4>
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span> Credit Card</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Provider:</span> Visa ending in 2851</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Valid Date:</span> 02/2020</p>
-                                    <p class="mb-0"><span class="fw-bold me-2">CVV:</span> xxx</p>
+                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Credit Card</p>
+                                    <p class="mb-2"><span class="fw-bold me-2">Provider:</span>Visa ending in 2851</p>
+                                    <p class="mb-2"><span class="fw-bold me-2">Valid Date:</span>02/2020</p>
+                                    <p class="mb-0"><span class="fw-bold me-2">CVV:</span>xxx</p>
                                 </li>
                             </ul>
                         </div>
@@ -163,8 +163,8 @@
                             <h4 class="header-title mb-3">Tóm tắt</h4>
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <p class="mb-2"><span class="fw-bold me-2">Tình trạng:</span> Đang xử lý</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Thanh toán:</span> Chưa thanh toán</p>
+                                    <p class="mb-2"><span class="fw-bold me-2">Tình trạng:</span>Đang giao hàng</p>
+                                    <p class="mb-2"><span class="fw-bold me-2">Thanh toán:</span>Đã thanh toán</p>
                                 </li>
                             </ul>
                         </div>
