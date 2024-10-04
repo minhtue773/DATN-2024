@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh mục sản phẩm</li>
                 </ol>
             </nav>
             <div class="card border-top-primary shadow">
@@ -22,53 +22,38 @@
                     </div>
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách danh mục</h4>
-                        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <form action="">                                    
-                                    <div class="input-group">
-                                        <input type="search" id="form1" class="form-control-sm" placeholder="Tìm kiếm...." style="border: 1px solid #0d6efd; outline:none"/>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sắp xếp theo
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Tên: A-Z </a></li>
-                                    <li><a class="dropdown-item" href="#">Tên: Z-A </a></li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="col-12">
-                            <table class="table table-hover table-bordered">
-                                <thead>
+                            <table class="table table-hover table-bordered" id="myTable">
+                                <thead class="table-info">
                                     <tr class="text-center">
-                                        <th width="5%">STT</th>
-                                        <th>Hình</th>
-                                        <th width="25%">Tên mô hình</th>
-                                        <th>Hiển thị</th>
-                                        <th>Ngày tạo</th>
-                                        <th colspan="2" width="10%">Thao tác</th>
+                                        <th rowspan="2">STT</th>
+                                        <th rowspan="2">Hình</th>
+                                        <th rowspan="2">Tên danh mục</th>
+                                        <th rowspan="2">Hiển thị</th>
+                                        <th rowspan="2">Ngày tạo</th>
+                                        <th colspan="2">Thao tác</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Sữa</th>
+                                        <th>Xóa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="text-center">
-                                        <td>1</td>
-                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                        <td class="text-truncate" style="max-width:350px">mô hình dragonball</td>
+                                        <td class="text-center">1</td>
+                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                                                class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                        <td class="text-truncate" style="max-width:350px">a</td>
                                         <td><input type="checkbox" checked></td>
                                         <td>20-08-2024</td>
                                         <td><a href=""><i class="fa fa-edit"></i></a></td>
                                         <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                     </tr>
                                     <tr class="text-center">
-                                        <td>2</td>
-                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                        <td class="text-truncate" style="max-width:350px">mô hình dragonball</td>
+                                        <td class="text-center">2</td>
+                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                                                class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                        <td class="text-truncate" style="max-width:350px">b</td>
                                         <td><input type="checkbox" checked></td>
                                         <td>20-08-2024</td>
                                         <td><a href=""><i class="fa fa-edit"></i></a></td>
@@ -84,5 +69,44 @@
     </div>
 @endsection
 @section('js')
-    
+    <script>
+        new DataTable('#myTable', {
+            processing: true,
+            lengthMenu: [5, 10, 20],
+            searching: true,
+            info: false,
+            ordering: true,
+            paging: true,
+            responsive: true,
+            order: [
+                [2, 'asc']
+            ],
+            columnDefs: [{
+                    targets: [2, 4], // Các cột có thể sắp xếp
+                    orderable: true
+                },
+                {
+                    targets: [0, 1, 3, 5, 6], // Cột "Tên mô hình" không thể sắp xếp
+                    orderable: false
+                },
+            ],
+            language: {
+                "processing": "Đang tải dữ liệu",
+                "lengthMenu": "Hiển thị _MENU_ danh mục",
+                "zeroRecords": "Không tìm thấy danh mục nào",
+                "info": "Trang _PAGE_ của _PAGES_",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ danh mục)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "previous": "Trước",
+                    "next": "Sau"
+                },
+                "aria": {
+                    "sortAscending": ": Đợi xíu",
+                    "sortDescending": ": Đợi xíu",
+                }
+            }
+        });
+    </script>
 @endsection

@@ -16,42 +16,23 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách đơn hàng</h4>
-                        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <form action="">                                    
-                                    <div class="input-group">
-                                        <input type="search" id="form1" class="form-control-sm" placeholder="Tìm đơn hàng...." style="border: 1px solid #0d6efd; outline:none"/>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sắp xếp theo
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Giá: Tăng dần</a></li>
-                                    <li><a class="dropdown-item" href="#">Giá: Giảm dần</a></li>
-                                    <li><a class="dropdown-item" href="#">Tên: A-Z </a></li>
-                                    <li><a class="dropdown-item" href="#">Tên: Z-A </a></li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="col-12">
                             <form action="">
-                                <table class="table table-hover table-bordered">
+                                <table class="table table-hover table-bordered" id="myTable">
                                     <thead>
                                         <tr class="text-center">
-                                            <th width="5%"><input type="checkbox"></th>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Ngày tạo đơn</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Hoá đơn</th>
-                                            <th>Trạng thái</th>
+                                            <th rowspan="2"><input type="checkbox"></th>
+                                            <th rowspan="2">Mã đơn hàng</th>
+                                            <th rowspan="2">Ngày tạo đơn</th>
+                                            <th rowspan="2">Tên khách hàng</th>
+                                            <th rowspan="2">Địa chỉ</th>
+                                            <th rowspan="2">Hoá đơn</th>
+                                            <th rowspan="2">Trạng thái</th>
                                             <th colspan="2" width="10%">Thao tác</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Xem</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,5 +76,44 @@
     <!-- /.container-fluid -->
 @endsection
 @section('js')
-    
+<script>
+    new DataTable('#myTable', {
+        processing: true,
+        lengthMenu: [5, 10, 20],
+        searching: true,
+        info: false,
+        ordering: true,
+        paging: true,
+        responsive: true,
+        order: [
+            [1, 'asc']
+        ],
+        columnDefs: [{
+                targets: [1,2,3,5,6], // Các cột có thể sắp xếp
+                orderable: true
+            },
+            {
+                targets: [0,4,5,7,8], // Cột "Tên mô hình" không thể sắp xếp
+                orderable: false
+            },
+        ],
+        language: {
+            "processing": "Đang tải dữ liệu",
+            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+            "zeroRecords": "Không tìm thấy đơn hàng nào",
+            "info": "Trang _PAGE_ của _PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(lọc từ _MAX_ đơn hàng)",
+            "search": "Tìm kiếm:",
+            "paginate": {
+                "previous": "Trước",
+                "next": "Sau"
+            },
+            "aria": {
+                "sortAscending": ": Đợi xíu",
+                "sortDescending": ": Đợi xíu",
+            }
+        }
+    });
+</script>
 @endsection
