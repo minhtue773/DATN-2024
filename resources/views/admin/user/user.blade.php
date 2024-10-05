@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Sản phẩm
+    Người dùng
 @endsection
 @section('content')
     <!-- Begin Page Content -->
@@ -9,37 +9,34 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+                    <li class="breadcrumb-item active" aria-current="page">Người dùng</li>
                 </ol>
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
                     <div class="row">
                         <div class="d-flex">
-                            <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-plus me-1"></i>Thêm sản phẩm mới
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-plus me-1"></i>Thêm người dùng mới
                             </a>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <h4 class="text-gray-800 mb-3">Danh sách sản phẩm</h4>
-                        <div class="col-12">                            
+                        <h4 class="text-gray-800 mb-3">Danh sách người dùng</h4>
+                        <div class="col-12">
                             <form action="">
                                 <table id="myTable" class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="text-center">
                                             <th rowspan="2"><input type="checkbox"></th>
-                                            <th rowspan="2">Hình</th>
-                                            <th rowspan="2">Tên mô hình</th>
-                                            <th rowspan="2">Giá</th>
-                                            <th rowspan="2">Hiển thị</th>
-                                            <th rowspan="2">Nổi bật</th>
-                                            <th rowspan="2">Trạng thái</th>
-                                            <th colspan="3">Thao tác</th>
+                                            <th rowspan="2">Ảnh đại diện</th>
+                                            <th rowspan="2">Tên người dùng</th>
+                                            <th rowspan="2">Email</th>
+                                            <th rowspan="2">Vai trò</th>
+                                            <th colspan="2">Thao tác</th>
                                         </tr>
                                         <tr>
                                             <th>Xem</th>
-                                            <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </thead>
@@ -47,16 +44,22 @@
                                         <tr class="text-center">
                                             <td><input type="checkbox"></td>
                                             <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">mô hình dragonball</td>
-                                            <td>850.000 đ</td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox" checked></td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Best sale</span></td>
+                                            <td class="text-truncate" style="max-width:350px">Nguyễn Văn A</td>
+                                            <td>nguyenvana@example.com</td>
+                                            <td><span class="badge badge-primary rounded-pill d-inline">Khách hàng</span></td>
                                             <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
-                                    </tbody>                                    
+                                        <tr class="text-center">
+                                            <td><input type="checkbox"></td>
+                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                            <td class="text-truncate" style="max-width:350px">Admin</td>
+                                            <td>admin@gmail.com</td>
+                                            <td><span class="badge badge-success rounded-pill d-inline">Admin</span></td>
+                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
+                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <div class="d-flex mt-3">
                                     <button class="btn btn-danger btn-sm">
@@ -68,7 +71,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -86,21 +88,21 @@
         order: [[2, 'desc']],
         columnDefs: [
             {
-                targets: [2,3,4,5,6], // Các cột có thể sắp xếp
+                targets: [2,3,4], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,1,7,8,9], // Cột "Tên mô hình" không thể sắp xếp
+                targets: [0,1,4,5,6], // Cột "Tên người dùng" không thể sắp xếp
                 orderable: false
             },
         ],
         language: {
             "processing": "Đang tải dữ liệu",
-            "lengthMenu": "Hiển thị _MENU_ mô hình",
-            "zeroRecords": "Không tìm thấy mô hình nào",
+            "lengthMenu": "Hiển thị _MENU_ người dùng",
+            "zeroRecords": "Không tìm thấy người dùng nào",
             "info": "Trang _PAGE_ của _PAGES_",
             "infoEmpty": "Không có dữ liệu",
-            "infoFiltered": "(lọc từ _MAX_ mô hình)",
+            "infoFiltered": "(lọc từ _MAX_ người dùng)",
             "search": "Tìm kiếm:",
             "paginate": {
                 "previous": "Trước",

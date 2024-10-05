@@ -3,7 +3,10 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +15,10 @@ Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.p
 /*---------------------- Admin ----------------------*/
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('home', [AdminController::class, 'index'])->name('home');
+    Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('comment', CommentController::class);
+    Route::resource('promotion', PromotionController::class);
 });
