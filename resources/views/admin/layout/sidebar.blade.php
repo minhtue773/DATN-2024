@@ -59,7 +59,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="#">Danh mục</a>
-                <a class="collapse-item" href="#">Bài viết</a>
+                <a class="collapse-item" href="{{route('admin.blog.index')}}">Bài viết</a>
                 <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>

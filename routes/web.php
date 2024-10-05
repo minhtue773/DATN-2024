@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
@@ -19,6 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('order', OrderController::class);
+    Route::resource('blog', BlogController::class);
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);
 });
