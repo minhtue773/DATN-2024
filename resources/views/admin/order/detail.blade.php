@@ -21,7 +21,7 @@
                                 <li class="step0 active text-center" id="step1"></li>
                                 <li class="step0 active text-center" id="step2"></li>
                                 <li class="step0 active text-center" id="step3"></li>
-                                <li class="step0 text-muted text-end" id="step4"></li>
+                                <li class="step0 active text-muted text-end" id="step4"></li>
                             </ul>
                             <div class="d-flex justify-content-between">
                                 <div class="d-lg-flex align-items-center">
@@ -163,9 +163,10 @@
                             <h4 class="header-title mb-3">Tóm tắt</h4>
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <p class="mb-2"><span class="fw-bold me-2">Tình trạng:</span>Đang giao hàng</p>
                                     <p class="mb-2"><span class="fw-bold me-2">Thanh toán:</span>Đã thanh toán</p>
+                                    <p class="mb-2 text-primary"><span class="fw-bold me-2">Tình trạng:</span>Chờ xác nhận</p>
                                 </li>
+                                <a href="" class="btn btn-primary btn-sm float-right animate__animated animate__tada animate__infinite">Xác nhận</a>
                             </ul>
                         </div>
                     </div>

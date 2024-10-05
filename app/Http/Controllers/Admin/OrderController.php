@@ -11,12 +11,11 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('admin.order.order');
+        return view('admin.order.detail');
     }
 
     public function create()
     {
-        return view('admin.order.create');
     }
 
     public function store(StoreOrderRequest $request)
