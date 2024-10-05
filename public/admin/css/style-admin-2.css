@@ -11254,6 +11254,12 @@ a:focus {
 .border-top-purple {
   border-top: 0.25rem solid #6520ff !important;
 }
+.border-top-danger {
+  border-top: 0.25rem solid #dc3545 !important;
+}
+.border-top-success {
+  border-top: 0.25rem solid #198754 !important;
+}
 
 .border-bottom-primary {
   border-bottom: 0.25rem solid #4e73df !important;
@@ -12671,7 +12677,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 #progressbar-2 #step4:before {
-  content: '\f111';
+  content: '\f058';
   font-family: "Font Awesome 5 Free";
   color: #fff;
   width: 37px;
@@ -12727,8 +12733,14 @@ body.sidebar-toggled footer.sticky-footer {
 
 #progressbar-2 li.active:before,
 #progressbar-2 li.active:after {
-  background: #6520ff;
+  background: #6520ff !important;
 }
+
+#progressbar-2.cancelled li:before,
+#progressbar-2.cancelled li:after {
+  background: #dc3545 !important;
+}
+
 
 
 
