@@ -29,9 +29,9 @@ class BlogController extends Controller
         //
     }
 
-    public function edit(Blog $blog)
+    public function edit()
     {
-        //
+        return view('admin.blog.edit');
     }
 
     public function update(UpdateBlogRequest $request, Blog $blog)

@@ -24,12 +24,12 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="#">Slideshow</a>
-                <a class="collapse-item" href="#">Khuyến mãi</a>
+                <a class="collapse-item" href="{{route('admin.promotion.index')}}">Khuyến mãi</a>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('admin.user.index')}}">
             <i class="fa fa-users"></i>
             <span>Quản lý tài khoản</span>
         </a>
@@ -45,7 +45,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.category.index') }}">Danh mục</a>
                 <a class="collapse-item" href="{{ route('admin.product.index') }}">Sản phẩm</a>
-                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+                <a class="collapse-item" href="{{route('admin.product.trash')}}">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
     </li>
@@ -58,8 +58,22 @@
         <div id="collapseBlog" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Danh mục</a>
+                <a class="collapse-item" href="#">Chuyên mục</a>
                 <a class="collapse-item" href="{{route('admin.blog.index')}}">Bài viết</a>
+                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment"
+            aria-expanded="true" aria-controls="collapseComment">
+            <i class="fa-regular fa-newspaper"></i>
+            <span>Quản lý bình luận</span>
+        </a>
+        <div id="collapseComment" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('admin.comment.index')}}">Bình luận</a>
                 <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>

@@ -114,7 +114,7 @@
                 "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.1.0/"
             }
         }
-        </script>
+    </script>
     <script type="module">
         import {
             ClassicEditor,

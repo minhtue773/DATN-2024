@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        return view('admin.order.detail');
+        return view('admin.order.order');
     }
 
     public function create()
@@ -23,9 +23,9 @@ class OrderController extends Controller
         //
     }
 
-    public function show(Order $order)
+    public function show()
     {
-        //
+        return view('admin.order.detail');
     }
 
     public function edit(Order $order)

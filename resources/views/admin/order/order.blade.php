@@ -44,7 +44,7 @@
                                             <td>36 đường B, Phú thạnh, HCM</td>
                                             <td class="text-danger">2.320.000 đ</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Chờ thanh toán</span></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
+                                            <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -55,7 +55,7 @@
                                             <td>123 Tô Ký, Quận 12, HCM</td>
                                             <td class="text-danger">5.540.000 đ</td>
                                             <td><span class="badge badge-success rounded-pill d-inline">Đang giao hàng</span></td>
-                                            <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
+                                            <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                     </tbody>
