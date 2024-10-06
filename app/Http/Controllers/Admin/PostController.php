@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Blog;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreBlogRequest;
-use App\Http\Requests\UpdateBlogRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
-class BlogController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
@@ -19,12 +19,12 @@ class BlogController extends Controller
         return view('admin.blog.create');
     }
 
-    public function store(StoreBlogRequest $request)
+    public function store(StorePostRequest $request)
     {
         //
     }
 
-    public function show(Blog $blog)
+    public function show(Post $post)
     {
         //
     }
@@ -34,12 +34,12 @@ class BlogController extends Controller
         return view('admin.blog.edit');
     }
 
-    public function update(UpdateBlogRequest $request, Blog $blog)
+    public function update(UpdatePostRequest $request)
     {
         //
     }
 
-    public function destroy(Blog $blog)
+    public function destroy()
     {
         //
     }

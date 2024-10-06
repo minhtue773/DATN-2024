@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::create('discount_codes', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 50)->unique();
+            $table->integer('quantity')->default(0);
+            $table->tinyInteger('status')->default(0);
+            $table->decimal('discount_percentage');
+            $table->decimal('maximum_discount_amount')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promotions');
+        Schema::dropIfExists('discount_codes');
     }
 };
