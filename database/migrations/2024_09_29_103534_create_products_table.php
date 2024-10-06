@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0)->comment('0:none, 1:sp hot');
             $table->boolean('is_hidden')->default('0')->comment('0:hiển thị, 1:ẩn');
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
         });
     }
 
