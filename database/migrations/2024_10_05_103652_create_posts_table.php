@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
-            $table->string('name');
+            $table->string('title');
             $table->text('description')->nullable();
-            $table->string('image');
-            $table->decimal('price');
-            $table->integer('discount')->default(0);
-            $table->integer('stock')->default(0);
-            $table->integer('view')->default(0);
-            $table->tinyInteger('status')->default(0)->comment('0:none, 1:sp hot');
-            $table->boolean('is_hidden')->default('0')->comment('0:hiển thị, 1:ẩn');
+            $table->text('content');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('posts');
     }
 };

@@ -78,7 +78,7 @@
                                             <td>20-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -90,7 +90,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-success rounded-pill d-inline">Chưa xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -102,7 +102,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -114,7 +114,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                     </tbody>

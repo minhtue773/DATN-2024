@@ -29,7 +29,7 @@ class ProductController extends Controller
         //
     }
 
-    public function edit(Product $product)
+    public function edit()
     {
         return view('admin.product.edit');
     }
@@ -42,5 +42,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function trash() {
+        return view('admin.product.trash');
     }
 }

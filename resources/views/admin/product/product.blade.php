@@ -53,7 +53,7 @@
                                             <td><input type="checkbox" checked></td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Best sale</span></td>
                                             <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-edit"></i></a></td>
+                                            <td><a href="{{route('admin.product.edit', 1)}}"><i class="fa fa-edit"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                     </tbody>                                    

@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('total_price');
-            $table->tinyInteger('status')->default(0)->comment('0: Đang xử lý, 1: Đã hoàn thành, 2: Đã hủy');
-            $table->tinyInteger('payment_status')->default(0)->comment('0: Chưa thanh toán, 1: Đã thanh toán');
-            $table->string('shipping_address');
+            $table->decimal('total');
+            $table->enum('payment_method', ['cash','vnpay','momo'])->default('cash');
+            $table->string('recipient_phone', 15);
+            $table->string('recipient_address');
+            $table->string('applied_discount_code')->nullable();
+            $table->tinyInteger('status')->default(0)->comment('0:chờ xác nhận, 1:đang xử lý, 2:đang giao hàng, 3:hoàn thành, 4:yêu cầu hủy, 5:đã hủy');
+            $table->string('invoice_code', 50)->unique();
             $table->text('note')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
