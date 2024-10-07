@@ -10,11 +10,13 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Mô hình Luffy</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                 </ol>
             </nav>
             <a href="{{ route('admin.product.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="">
+            <form action="{{ route('admin.product.update', $product) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-8">
                         <div class="card border-top-primary shadow">
@@ -25,54 +27,61 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tên mô hình:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." value="Mô hình Luffy">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ $product->name ?? old('name') }}">
+                                        @error('name')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Slug:</label>
-                                        <input type="text" class="form-control form-control-sm" value="mo-hinh-luffy">
-                                    </div>                                      
+                                        <label class="form-label">Danh mục:</label>
+                                        <select class="form-select form-select-sm" aria-label="Default select example" name="product_category_id">
+                                            <option value="0">----Chọn danh mục---</option>
+                                            @foreach ($categories as $item)
+                                                <option value="{{ $item->id }}" {{ $product->product_category_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('product_category_id')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div> 
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Giá mô hình:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giá..." value="678.000 đ">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giá..." name="price" value="{{ $product->price ?? old('price') }}">
+                                        @error('price')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Giảm giá (%):</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giảm giá..." value="5%">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giảm giá..." name="discount" value="{{ $product->discount ?? old('discount')}}">
+                                        @error('discount')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                                                         
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Danh mục:</label>
-                                        <select class="form-select form-select-sm" aria-label="Default select example">
-                                            <option value="0">----Chọn danh mục---</option>
-                                            <option value="1" selected>Mô hình One Piece</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div>     
+                                        <label class="form-label">Số lượng:</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập số lượng..." name="stock" value="{{ $product->stock ?? old('stock') }}">
+                                        @error('stock')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div>                                                                         
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Trạng thái:</label>
-                                        <select class="form-select form-select-sm" aria-label="Default select example">
+                                        <select class="form-select form-select-sm" aria-label="Default select example" name="status">
                                             <option value="0">----Chọn trạng thái---</option>
-                                            <option value="1" selected>Sản phẩm Hot</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Sp bán chạy</option>
+                                            <option value="2" {{ $product->status == 2 ? 'selected' : '' }}>Sp hot</option>
                                         </select>
-                                    </div>     
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Tình trạng:</label>
-                                        <div class="d-flex align-items-center py-1">
-                                            <div class="form-check form-switch me-5">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">Nổi bật</label>
-                                            </div>                                          
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="check-show" checked>
-                                                <label class="form-check-label" for="check-show">Hiển thị</label>
-                                            </div>      
-                                        </div>                                        
-                                    </div>                                    
+                                        @error('status')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div>                                      
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name="" id="editor" style="height: 100px"></textarea>
+                                        <textarea class="form-control" name="description" id="editor" style="height: 100px">{{ $product->description ?? old('description') }}</textarea>
+                                        @error('description')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                 </div>
                             </div>
@@ -92,18 +101,20 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://bizweb.dktcdn.net/thumb/grande/100/418/981/products/1-3c9ff52a-852b-475c-b26f-62adaeaa4eaa.jpg?v=1726212838470" id="preview-image" class="img-fluid col-9">
+                                                <img src="{{ asset('uploads/product_images') }}/{{ $product->image }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
+                                                        @error('photo')
+                                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                                        @enderror
                                                     </label>
                                                 </div>
                                             </div>
-                                    
                                         </div>
                                     </div>
                                 </div>
@@ -118,11 +129,18 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="d-flex flex-wrap justify-content-between" id="preview-container">
-                                                <!-- Ảnh được chọn sẽ được tạo động và chèn vào đây -->
+                                                @if ($product->ProductImage->isNotEmpty())
+                                                    @foreach ($product->ProductImage as $item)
+                                                        <img src="{{ asset('uploads/product_images') }}/{{ $item->image }}" class="img-thumbnail mb-3" style="height: 75px; width: 75px">
+                                                    @endforeach
+                                                @endif
                                             </div>
                                             <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="inputGroupFile01" multiple>
+                                                <input type="file" class="form-control" id="inputGroupFile01" name="photos[]" multiple>
                                             </div>
+                                            @error('photos.*')
+                                                <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                            @enderror
                                             <button type="button" class="btn btn-outline-danger btn-sm float-right px-3" id="clearImagesBtn" style="display:none;">Hủy</button>
                                         </div>                                        
                                     </div>

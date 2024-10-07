@@ -64,7 +64,7 @@
                                                 </td>
                                                 <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                                 <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                                <td><a href="{{route('admin.product.edit', 1)}}"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="{{route('admin.product.edit', $item)}}"><i class="fa fa-edit"></i></a></td>
                                                 <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach
