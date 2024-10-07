@@ -9,57 +9,36 @@ use App\Http\Requests\UpdateBannerRequest;
 
 class BannerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return view('admin.banner.banner');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.banner.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreBannerRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Banner $banner)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Banner $banner)
+    public function edit($id)
     {
-        //
+        return view('admin.banner.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateBannerRequest $request, Banner $banner)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Banner $banner)
     {
         //

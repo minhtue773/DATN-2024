@@ -10,20 +10,19 @@
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{ route('admin.home') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Bảng điều khiển</span></a>
+        <span class="nav-link">Bảng điều khiển</span>
     </li>
+    <hr class="sidebar-divider my-0">
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHome"
             aria-expanded="true" aria-controls="collapseHome">
-            <i class="fa-solid fa-igloo"></i>
+            <i class="bi bi-house-add-fill"></i>
             <span>Nội dung trang chủ</span>
         </a>
         <div id="collapseHome" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Slideshow</a>
+                <a class="collapse-item" href="{{route('admin.banner.index')}}">Banner</a>
                 <a class="collapse-item" href="{{route('admin.promotion.index')}}">Khuyến mãi</a>
             </div>
         </div>
@@ -67,7 +66,8 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment"
             aria-expanded="true" aria-controls="collapseComment">
-            <i class="fa-regular fa-newspaper"></i>
+            {{-- <i class="fa-regular fa-newspaper"></i> --}}
+            <i class="bi bi-chat-quote-fill"></i>
             <span>Quản lý bình luận</span>
         </a>
         <div id="collapseComment" class="collapse" aria-labelledby="headingUtilities"
@@ -81,7 +81,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOder"
             aria-expanded="true" aria-controls="collapseOder">
-            <i class="fa-regular fa-newspaper"></i>
+            <i class="bi bi-box-seam-fill"></i>
             <span>Quản lý đơn hàng</span>
         </a>
         <div id="collapseOder" class="collapse" aria-labelledby="headingUtilities"
