@@ -19,9 +19,9 @@ Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.p
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('home', [AdminController::class, 'index'])->name('home');
     Route::resource('user', UserController::class);
+    Route::resource('category', ProductCategoryController::class);
     Route::get('product/trash', [ProductController::class, 'trash'])->name('product.trash');
     Route::resource('product', ProductController::class);
-    Route::resource('category', ProductCategoryController::class);
     Route::resource('order', OrderController::class);
     Route::resource('blog', PostCategoryController::class);
     Route::resource('comment', CommentController::class);

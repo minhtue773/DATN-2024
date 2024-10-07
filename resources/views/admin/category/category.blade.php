@@ -26,7 +26,6 @@
                             <table class="table table-hover table-bordered" id="myTable">
                                 <thead class="table-info">
                                     <tr class="text-center">
-                                        <th rowspan="2">STT</th>
                                         <th rowspan="2">Hình</th>
                                         <th rowspan="2">Tên danh mục</th>
                                         <th rowspan="2">Hiển thị</th>
@@ -39,26 +38,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                        <td class="text-center">1</td>
-                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
-                                                class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                        <td class="text-truncate" style="max-width:350px">a</td>
-                                        <td><input type="checkbox" checked></td>
-                                        <td>20-08-2024</td>
-                                        <td><a href=""><i class="fa fa-edit"></i></a></td>
-                                        <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                    </tr>
-                                    <tr class="text-center">
-                                        <td class="text-center">2</td>
-                                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
-                                                class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                        <td class="text-truncate" style="max-width:350px">b</td>
-                                        <td><input type="checkbox" checked></td>
-                                        <td>20-08-2024</td>
-                                        <td><a href=""><i class="fa fa-edit"></i></a></td>
-                                        <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                    </tr>
+                                    @foreach ($categories as $item)
+                                        <tr class="text-center">
+                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                                                    class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                            <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
+                                            <td><input type="checkbox" {{ $item->is_hidden == 0 ? 'checked' : '' }}></td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td><a href=""><i class="fa fa-edit"></i></a></td>
+                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -79,14 +69,14 @@
             paging: true,
             responsive: true,
             order: [
-                [2, 'asc']
+                [3, 'asc']
             ],
             columnDefs: [{
-                    targets: [2, 4], // Các cột có thể sắp xếp
+                    targets: [1,3], // Các cột có thể sắp xếp
                     orderable: true
                 },
                 {
-                    targets: [0, 1, 3, 5, 6], // Cột "Tên mô hình" không thể sắp xếp
+                    targets: [0,2,4,5], // Cột "Tên mô hình" không thể sắp xếp
                     orderable: false
                 },
             ],

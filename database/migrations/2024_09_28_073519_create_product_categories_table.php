@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('order_number')->nullable();
+            $table->boolean('is_hidden')->default(0)->comment('0:Hiển thị, 1:Ẩn');
             $table->timestamps();
         });
     }

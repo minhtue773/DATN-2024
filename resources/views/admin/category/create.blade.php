@@ -13,7 +13,9 @@
                 </ol>
             </nav>
             <a href="{{ route('admin.category.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="">
+            <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
                 <div class="row">
                     <div class="col-8">
                         <div class="card border-top-primary shadow">
@@ -24,20 +26,26 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tên danh mục:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên...">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ old('name') }}">
+                                        @error('name')
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tình trạng:</label>
                                         <div class="d-flex align-items-center py-1">                                        
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="check-show">
+                                                <input class="form-check-input" type="checkbox" id="check-show" name="status" value="1" {{ old('status') ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="check-show">Hiển thị</label>
                                             </div>      
                                         </div>                                        
                                     </div>                                    
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name="" id="editor" style="height: 100px"></textarea>
+                                        <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ old('description') }}</textarea>
+                                        @error('description')
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                 </div>
                             </div>
@@ -60,11 +68,14 @@
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
+                                                        @error('photo')
+                                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                                        @enderror
                                                     </label>
                                                 </div>
                                             </div>

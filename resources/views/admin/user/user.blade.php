@@ -14,13 +14,13 @@
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="d-flex">
                             <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-plus me-1"></i>Thêm người dùng mới
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách người dùng</h4>
                         <div class="col-12">
@@ -32,6 +32,7 @@
                                             <th rowspan="2">Ảnh đại diện</th>
                                             <th rowspan="2">Tên người dùng</th>
                                             <th rowspan="2">Email</th>
+                                            <th rowspan="2">Phone</th>
                                             <th rowspan="2">Vai trò</th>
                                             <th colspan="2">Thao tác</th>
                                         </tr>
@@ -41,24 +42,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">Nguyễn Văn A</td>
-                                            <td>nguyenvana@example.com</td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Khách hàng</span></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">Admin</td>
-                                            <td>admin@gmail.com</td>
-                                            <td><span class="badge badge-success rounded-pill d-inline">Admin</span></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
+                                        @foreach ($users as $item)
+                                            <tr class="text-center">
+                                                <td><input type="checkbox"></td>
+                                                <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                                <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->phone_number }}</td>
+                                                <td>
+                                                    @if ($item->role == 0)
+                                                        <span class="badge badge-primary rounded-pill d-inline">Khách hàng</span>
+                                                    @else
+                                                        <span class="badge badge-success rounded-pill d-inline">Admin</span>
+                                                    @endif
+                                                </td>
+                                                <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
+                                                <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex mt-3">
@@ -85,14 +86,14 @@
         ordering: true,
         paging: true,
         responsive: true,
-        order: [[2, 'desc']],
+        order: [[1, 'desc']],
         columnDefs: [
             {
-                targets: [2,3,4], // Các cột có thể sắp xếp
+                targets: [1,2,3,4,5], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,1,4,5,6], // Cột "Tên người dùng" không thể sắp xếp
+                targets: [0,6,7], // Cột "Tên người dùng" không thể sắp xếp
                 orderable: false
             },
         ],

@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        // ProductCategory::factory()
-        // ->count(4)
-        // ->state(new Sequence(
-        //     ['name' => 'Mô hình One Piece'],
-        //     ['name' => 'Mô hình Dragon Ball'],
-        //     ['name' => 'Mô hình Gundam'],
-        //     ['name' => 'Mô hình Naruto']
-        // ))
-        // ->has(Product::factory()->count(5))
-        // ->create();
+        User::factory(10)->create();
+        ProductCategory::factory()
+        ->count(4)
+        ->state(new Sequence(
+            ['name' => 'Mô hình One Piece'],
+            ['name' => 'Mô hình Dragon Ball'],
+            ['name' => 'Mô hình Gundam'],
+            ['name' => 'Mô hình Naruto']
+        ))
+        ->has(Product::factory()->count(5))
+        ->create();
     }
 }
