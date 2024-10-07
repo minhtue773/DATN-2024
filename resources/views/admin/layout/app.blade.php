@@ -120,13 +120,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.7/js/dataTables.bootstrap5.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.0.0/mdb.umd.min.js"></script>
     <script src="{{ asset('admin') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('admin') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="{{ asset('admin') }}/js/sb-admin-2.js"></script>
-    <script src="{{ asset('admin') }}/vendor/chart.js/Chart.min.js"></script>
-    <script src="{{ asset('admin') }}/js/demo/chart-area-demo.js"></script>
-    <script src="{{ asset('admin') }}/js/demo/chart-pie-demo.js"></script>
     @yield('js')    
 </body>
 

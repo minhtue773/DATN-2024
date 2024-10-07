@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Thêm sản phẩm
+    Cập nhật danh mục
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -8,84 +8,40 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Sản phẩm</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Thêm sản phẩm</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.category.index') }}">Danh mục</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cập nhật {{ $category->name }}</li>
                 </ol>
             </nav>
-            <a href="{{ route('admin.product.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+            <a href="{{ route('admin.category.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
+            <form action="{{ route('admin.category.update', $category) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('POST')
+                @method('PUT')
                 <div class="row">
                     <div class="col-8">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
-                                Thông tin sản phẩm
+                                Thông tin danh mục
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tên mô hình:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ old('name') }}">
+                                        <label class="form-label">Tên danh mục:</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ $category->name ?? old('name') }}">
                                         @error('name')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                        @enderror
-                                    </div>          
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Danh mục:</label>
-                                        <select class="form-select form-select-sm" name="product_category_id">
-                                            <option>----Chọn danh mục---</option>
-                                            @foreach ($categories as $item)
-                                                <option value="{{ $item->id }}" {{ old('product_category_id') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('product_category_id')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                        @enderror
-                                    </div>                                                                     
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Giá mô hình:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giá..." name="price" value="{{ old('price') }}">
-                                        @error('price')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                        @enderror
-                                    </div>                                      
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Giảm giá (%):</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập giảm giá..." name="discount" value="{{ old('discount') ?? 0 }}">
-                                        @error('discount')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                        @enderror
-                                    </div>                                                                         
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Số lượng:</label>
-                                        <input type="text" class="form-control form-control-sm" name="stock" value="{{ old('stock') ?? 0 }}">
-                                        @error('stock')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
                                     </div>
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Trạng thái:</label>
-                                        <select class="form-select form-select-sm" name="status">
-                                            <option value="0">----Chọn trạng thái---</option>
-                                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Bán chạy</option>
-                                            <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>Sản phẩm hot</option>
-                                        </select>
-                                        @error('status')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                        @enderror
-                                    </div>                                     
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name="description" id="editor" style="height: 100px">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ $category->description ?? old('description') }}</textarea>
                                         @error('description')
-                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
-                                    </div>                                      
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Thêm mới</button>
+                                <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Lưu</button>
                                 <a href="{{ route('admin.product.index') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
                             </div>
                         </div>
@@ -94,7 +50,7 @@
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">
-                                    Hình ảnh sản phẩm
+                                    Ảnh danh mục
                                 </div>
                                 <div class="card-body">
                                     <div class="row d-flex justify-content-center">
@@ -109,7 +65,7 @@
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
                                                         @error('photo')
-                                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                                         @enderror
                                                     </label>
                                                 </div>
@@ -119,29 +75,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mb-3">
-                            <div class="card border-top-primary shadow">
-                                <div class="card-header text-gray-800">
-                                    Ảnh liên quan
-                                </div>
-                                <div class="card-body">
-                                    <div class="row d-flex justify-content-center">
-                                        <div class="col-12">
-                                            <div class="d-flex flex-wrap justify-content-between" id="preview-container">
-                                                <!-- Ảnh được chọn sẽ được tạo động và chèn vào đây -->
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="inputGroupFile01" name="photos[]" multiple>
-                                            </div>
-                                            @error('photos.*')
-                                                <p class="text-danger m-0 mt-1">* {{ $message }}</p>
-                                            @enderror
-                                            <button type="button" class="btn btn-outline-danger btn-sm float-right px-3" id="clearImagesBtn" style="display:none;">Hủy</button>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
                     </div>
                 </div>
             </form>
@@ -158,43 +91,6 @@
         };
         reader.readAsDataURL(event.target.files[0]);
         }
-
-        document.getElementById('inputGroupFile01').addEventListener('change', function(event) {
-            var files = event.target.files;
-            var previewContainer = document.getElementById('preview-container');
-            var clearImagesBtn = document.getElementById('clearImagesBtn');
-            previewContainer.innerHTML = '';
-            for (var i = 0; i < files.length; i++) {
-                var reader = new FileReader();
-                var img = document.createElement('img');
-                img.classList.add('img-thumbnail', 'mb-3');
-                img.style.height = '75px';
-                img.style.width = '75px';
-                reader.onload = (function(img) {
-                    return function(e) {
-                        img.src = e.target.result;
-                        previewContainer.appendChild(img);  
-
-                        
-                        clearImagesBtn.style.display = 'block';
-                    };
-                })(img);
-                reader.readAsDataURL(files[i]);  
-            } 
-            if (files.length === 0) {
-                clearImagesBtn.style.display = 'none';
-            }
-        });
-        document.getElementById('clearImagesBtn').addEventListener('click', function() {
-            var previewContainer = document.getElementById('preview-container');
-            var fileInput = document.getElementById('inputGroupFile01');
-            var clearImagesBtn = document.getElementById('clearImagesBtn');
-            previewContainer.innerHTML = '';
-            fileInput.value = '';     
-            clearImagesBtn.style.display = 'none';
-        });
-
-
     </script>
     <script type="importmap">
         {

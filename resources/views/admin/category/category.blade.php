@@ -43,10 +43,19 @@
                                             <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
-                                            <td><input type="checkbox" {{ $item->is_hidden == 0 ? 'checked' : '' }}></td>
+                                            <td>
+                                                <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
+                                                onchange="updateCategoryStatus({{ $item->id }}, this.checked)">
+                                            </td>                                            
                                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                                            <td><a href=""><i class="fa fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                            <td><a href="{{ route('admin.category.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
+                                            <td>
+                                                <form action="{{ route('admin.category.destroy', $item) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="border-0 bg-transparent" onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $item->name }} không?')"><i class="fa fa-trash text-danger"></i></button>
+                                                </form>
+                                        </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -99,4 +108,17 @@
             }
         });
     </script>
+    <script>
+        function updateCategoryStatus(id, isChecked) {
+            $.ajax({
+                url: '{{ route("admin.category.updateStatus") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    status: isChecked ? 1 : 0
+                }
+            });
+        }
+    </script>    
 @endsection

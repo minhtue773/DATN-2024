@@ -31,10 +31,11 @@
                                             <th rowspan="2"><input type="checkbox"></th>
                                             <th rowspan="2">Hình</th>
                                             <th rowspan="2">Tên mô hình</th>
+                                            <th rowspan="2">Danh mục</th>
                                             <th rowspan="2">Giá</th>
                                             <th rowspan="2">Hiển thị</th>
-                                            <th rowspan="2">Nổi bật</th>
                                             <th rowspan="2">Trạng thái</th>
+                                            <th rowspan="2">Ngày tạo</th>
                                             <th colspan="3">Thao tác</th>
                                         </tr>
                                         <tr>
@@ -44,18 +45,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">mô hình dragonball</td>
-                                            <td>850.000 đ</td>
-                                            <td><input type="checkbox"></td>
-                                            <td><input type="checkbox" checked></td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Best sale</span></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.product.edit', 1)}}"><i class="fa fa-edit"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
+                                        @foreach ($products as $item)
+                                            <tr class="text-center">
+                                                <td><input type="checkbox"></td>
+                                                <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->ProductCategory->name }}</td>
+                                                <td>{{ number_format($item->price,0,'.','.') }} đ</td>
+                                                <td>
+                                                    <input type="checkbox" {{ $item->is_hidden == 0 ? 'checked' : '' }} onchange="updateHidden({{ $item->id }}, this.checked)">
+                                                </td>
+                                                <td>
+                                                    @if ($item->status == 0)
+                                                        <span class="badge badge-primary rounded-pill d-inline">Best sale</span>
+                                                    @else
+                                                        <span class="badge badge-danger rounded-pill d-inline">Hot</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                                <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
+                                                <td><a href="{{route('admin.product.edit', 1)}}"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>                                    
                                 </table>
                                 <div class="d-flex mt-3">
@@ -83,14 +95,14 @@
         ordering: true,
         paging: true,
         responsive: true,
-        order: [[2, 'desc']],
+        order: [[6, 'desc']],
         columnDefs: [
             {
-                targets: [2,3,4,5,6], // Các cột có thể sắp xếp
+                targets: [2,3,4,6,7], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,1,7,8,9], // Cột "Tên mô hình" không thể sắp xếp
+                targets: [0,1,5,8,9,10], // Cột "Tên mô hình" không thể sắp xếp
                 orderable: false
             },
         ],
@@ -112,5 +124,18 @@
             }
         }
     });
+</script>
+<script>
+    function updateHidden(id, isChecked){
+        $.ajax({
+            url: ' {{ route("admin.product.updateHidden") }} ',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                is_hidden: isChecked ? 0 : 1
+            }
+        });
+    }
 </script>
 @endsection

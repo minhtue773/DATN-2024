@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Thêm sản phẩm
+    Thêm danh mục
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -30,16 +30,7 @@
                                         @error('name')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
-                                    </div>                                      
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Tình trạng:</label>
-                                        <div class="d-flex align-items-center py-1">                                        
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="check-show" name="status" value="1" {{ old('status') ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="check-show">Hiển thị</label>
-                                            </div>      
-                                        </div>                                        
-                                    </div>                                    
+                                    </div>                                  
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
                                         <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ old('description') }}</textarea>

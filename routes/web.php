@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PostCategoryController;
@@ -19,7 +17,9 @@ Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.p
 Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('home', [AdminController::class, 'index'])->name('home');
     Route::resource('user', UserController::class);
+    Route::post('category/update-status', [ProductCategoryController::class, 'updateStatus'])->name('category.updateStatus');
     Route::resource('category', ProductCategoryController::class);
+    Route::post('product/updateHidden', [ProductController::class, 'updateHidden'])->name('product.updateHidden');
     Route::get('product/trash', [ProductController::class, 'trash'])->name('product.trash');
     Route::resource('product', ProductController::class);
     Route::resource('order', OrderController::class);
@@ -27,5 +27,4 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);
     Route::resource('banner', BannerController::class);
-
 });

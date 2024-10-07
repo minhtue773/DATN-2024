@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->decimal('price');
-            $table->integer('discount')->default(0);
-            $table->integer('stock')->default(0);
+            $table->decimal('price',10,2);
+            $table->integer('discount')->nullable();
+            $table->integer('stock');
             $table->integer('view')->default(0);
-            $table->tinyInteger('status')->default(0)->comment('0:none, 1:sp hot');
+            $table->tinyInteger('status')->default(0)->comment('0:none,1:bán chạy, 2:sp hot');
             $table->boolean('is_hidden')->default('0')->comment('0:hiển thị, 1:ẩn');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
             $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
         });
     }
