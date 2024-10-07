@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('phone_number', 15)->nullable();
+            $table->string('phone_number', 20)->nullable();
             $table->string('address')->nullable();
             $table->enum('gender', ['nam', 'nữ', 'orther'])->default('orther');
             $table->date('birthday')->nullable();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('product_category_id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0)->comment('0:none, 1:sp hot');
             $table->boolean('is_hidden')->default('0')->comment('0:hiển thị, 1:ẩn');
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
         });
     }
 
