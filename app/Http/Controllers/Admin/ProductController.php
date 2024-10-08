@@ -39,14 +39,14 @@ class ProductController extends Controller
         try {
             if($request->hasFile('photo')){
                 $image = time() . '_' . uniqid() . '.' . $request->photo->extension();
-                $request->photo->move(public_path('uploads/product_images'),$image);
+                $request->photo->move(public_path('uploads/images/product'),$image);
                 $request->merge(['image'=>$image]);
             }
             $product = Product::create($request->all());
             if($request->hasFile('photos')){
                 foreach($request->photos as $photo){
                     $image = time() . '_' . uniqid() . '.' . $photo->extension();
-                    $photo->move(public_path('uploads/product_images'),$image);
+                    $photo->move(public_path('uploads/images/product'),$image);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $image
@@ -61,9 +61,10 @@ class ProductController extends Controller
         }
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.product.detail', compact('product'));
     }
 
     public function edit(Product $product)
@@ -76,11 +77,11 @@ class ProductController extends Controller
     {
         try {
             if ($request->hasFile('photo')) {
-                if ($product->image && file_exists(public_path('uploads/product_images/' . $product->image))) {
-                    unlink(public_path('uploads/product_images/' . $product->image));
+                if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
+                    unlink(public_path('uploads/images/product/' . $product->image));
                 }
                 $image = time() . '_' . uniqid() . '.' . $request->photo->extension();
-                $request->photo->move(public_path('uploads/product_images'), $image);
+                $request->photo->move(public_path('uploads/images/product'), $image);
                 $request->merge(['image' => $image]);
             }
             
@@ -89,14 +90,14 @@ class ProductController extends Controller
             if ($request->hasFile('photos')) {
                 $oldImages = ProductImage::where('product_id', $product->id)->get();
                 foreach ($oldImages as $oldImage) {
-                    if (file_exists(public_path('uploads/product_images/' . $oldImage->image))) {
-                        unlink(public_path('uploads/product_images/' . $oldImage->image));
+                    if (file_exists(public_path('uploads/images/product/' . $oldImage->image))) {
+                        unlink(public_path('uploads/images/product/' . $oldImage->image));
                     }
                 }
                 ProductImage::where('product_id', $product->id)->delete();
                 foreach ($request->photos as $photo) {
                     $image = time() . '_' . uniqid() . '.' . $photo->extension();
-                    $photo->move(public_path('uploads/product_images'), $image);
+                    $photo->move(public_path('uploads/images/product'), $image);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $image

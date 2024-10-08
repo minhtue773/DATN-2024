@@ -104,7 +104,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="{{ asset('uploads/product_images') }}/{{ $product->image }}" id="preview-image" class="img-fluid col-9">
+                                                <img src="{{ asset('uploads/images/product') }}/{{ $product->image }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
                                                         <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
@@ -134,7 +134,7 @@
                                             <div class="d-flex flex-wrap justify-content-between" id="preview-container">
                                                 @if ($product->ProductImage->isNotEmpty())
                                                     @foreach ($product->ProductImage as $item)
-                                                        <img src="{{ asset('uploads/product_images') }}/{{ $item->image }}" class="img-thumbnail mb-3" style="height: 75px; width: 75px">
+                                                        <img src="{{ asset('uploads/images/product') }}/{{ $item->image }}" class="img-thumbnail mb-3" style="height: 75px; width: 75px">
                                                     @endforeach
                                                 @endif
                                             </div>
