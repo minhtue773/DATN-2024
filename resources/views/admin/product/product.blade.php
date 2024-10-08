@@ -33,9 +33,10 @@
                                             <th rowspan="2">Tên mô hình</th>
                                             <th rowspan="2">Danh mục</th>
                                             <th rowspan="2">Giá</th>
-                                            <th rowspan="2">Hiển thị</th>
+                                            <th rowspan="2">Số lượng</th>
                                             <th rowspan="2">Trạng thái</th>
                                             <th rowspan="2">Ngày tạo</th>
+                                            <th rowspan="2">Hiển thị</th>
                                             <th colspan="3">Thao tác</th>
                                         </tr>
                                         <tr>
@@ -52,19 +53,37 @@
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->ProductCategory->name }}</td>
                                                 <td>{{ number_format($item->price,0,'.','.') }} đ</td>
+                                                <td>{{ $item->stock }}</td>
+                                                <td>
+                                                    @switch($item->status)
+                                                        @case(0)
+                                                            <span class="badge badge-primary rounded-pill d-inline">Đang bán</span>
+                                                            @break
+                                                        @case(1)
+                                                            <span class="badge badge-success rounded-pill d-inline">Sản phẩm mới</span>
+                                                            @break
+                                                        @case(2)
+                                                            <span class="badge badge-info rounded-pill d-inline">HOT</span>
+                                                            @break
+                                                        @case(3)
+                                                            <span class="badge badge-warning rounded-pill d-inline">Sắp hết hàng</span>
+                                                            @break
+                                                        @case(4)
+                                                            <span class="badge badge-danger rounded-pill d-inline">Hết hàng</span>
+                                                            @break
+                                                        @case(5)
+                                                            <span class="badge badge-secondary rounded-pill d-inline">Ngừng bán</span>
+                                                            @break
+                                                        @default
+                                                            
+                                                    @endswitch
+                                                </td>
+                                                <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                                 <td>
                                                     <input type="checkbox" {{ $item->is_hidden == 0 ? 'checked' : '' }} onchange="updateHidden({{ $item->id }}, this.checked)">
                                                 </td>
-                                                <td>
-                                                    @if ($item->status == 0)
-                                                        <span class="badge badge-primary rounded-pill d-inline">Best sale</span>
-                                                    @else
-                                                        <span class="badge badge-danger rounded-pill d-inline">Hot</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                                 <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                                <td><a href="{{route('admin.product.edit', 1)}}"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="{{route('admin.product.edit', $item)}}"><i class="fa fa-edit"></i></a></td>
                                                 <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach
@@ -95,14 +114,14 @@
         ordering: true,
         paging: true,
         responsive: true,
-        order: [[6, 'desc']],
+        order: [[7, 'desc']],
         columnDefs: [
             {
-                targets: [2,3,4,6,7], // Các cột có thể sắp xếp
+                targets: [2,3,4,5,7], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,1,5,8,9,10], // Cột "Tên mô hình" không thể sắp xếp
+                targets: [0,1,6,8,9,10,11], // Cột "Tên mô hình" không thể sắp xếp
                 orderable: false
             },
         ],

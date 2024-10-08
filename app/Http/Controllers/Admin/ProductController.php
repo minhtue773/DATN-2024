@@ -56,15 +56,52 @@ class ProductController extends Controller
         //
     }
 
-    public function edit()
+    public function edit(Product $product)
     {
-        return view('admin.product.edit');
+        $categories = ProductCategory::all();
+        return view('admin.product.edit',compact('product','categories'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        try {
+            if ($request->hasFile('photo')) {
+                if ($product->image && file_exists(public_path('uploads/product_images/' . $product->image))) {
+                    unlink(public_path('uploads/product_images/' . $product->image));
+                }
+                $image = time() . '_' . uniqid() . '.' . $request->photo->extension();
+                $request->photo->move(public_path('uploads/product_images'), $image);
+                $request->merge(['image' => $image]);
+            }
+            
+            $product->update($request->all());
+
+            if ($request->hasFile('photos')) {
+                $oldImages = ProductImage::where('product_id', $product->id)->get();
+                foreach ($oldImages as $oldImage) {
+                    if (file_exists(public_path('uploads/product_images/' . $oldImage->image))) {
+                        unlink(public_path('uploads/product_images/' . $oldImage->image));
+                    }
+                }
+                ProductImage::where('product_id', $product->id)->delete();
+                foreach ($request->photos as $photo) {
+                    $image = time() . '_' . uniqid() . '.' . $photo->extension();
+                    $photo->move(public_path('uploads/product_images'), $image);
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image' => $image
+                    ]);
+                }
+            }
+
+            flash()->success('Cập nhật sản phẩm thành công');
+            return redirect()->route('admin.product.index');
+        } catch (\Throwable $th) {
+            flash()->error('Cập nhật sản phẩm thất bại');
+            return redirect()->back();
+        }
     }
+    
 
     public function destroy(Product $product)
     {

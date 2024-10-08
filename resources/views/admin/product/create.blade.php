@@ -17,7 +17,7 @@
                 @csrf
                 @method('POST')
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-3">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Thông tin sản phẩm
@@ -67,8 +67,7 @@
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Trạng thái:</label>
                                         <select class="form-select form-select-sm" name="status">
-                                            <option value="0">----Chọn trạng thái---</option>
-                                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Bán chạy</option>
+                                            <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Sản phẩm mới</option>
                                             <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>Sản phẩm hot</option>
                                         </select>
                                         @error('status')
@@ -90,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 no-gutters">
+                    <div class="col-12 col-sm-12 col-md- col-lg-4 no-gutters">
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">
