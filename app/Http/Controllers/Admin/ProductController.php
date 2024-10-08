@@ -73,8 +73,8 @@ class ProductController extends Controller
                 $request->photo->move(public_path('uploads/product_images'), $image);
                 $request->merge(['image' => $image]);
             }
+            
             $product->update($request->all());
-
 
             if ($request->hasFile('photos')) {
                 $oldImages = ProductImage::where('product_id', $product->id)->get();

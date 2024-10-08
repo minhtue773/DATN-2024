@@ -18,7 +18,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-3">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Thông tin sản phẩm
@@ -69,8 +69,11 @@
                                         <label class="form-label">Trạng thái:</label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" name="status">
                                             <option value="0">----Chọn trạng thái---</option>
-                                            <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Sp bán chạy</option>
-                                            <option value="2" {{ $product->status == 2 ? 'selected' : '' }}>Sp hot</option>
+                                            <option value="1" {{ $product->status == 1 ? 'selected' : '' }}>Sản phẩm mới</option>
+                                            <option value="2" {{ $product->status == 2 ? 'selected' : '' }}>Sản phẩm hot</option>
+                                            <option value="3" {{ $product->status == 3 ? 'selected' : '' }}>Sắp hết hàng</option>
+                                            <option value="4" {{ $product->status == 4 ? 'selected' : '' }}>Hết hàng</option>
+                                            <option value="5" {{ $product->status == 5 ? 'selected' : '' }}>Ngừng bán</option>
                                         </select>
                                         @error('status')
                                             <p class="text-danger m-0 mt-1">* {{ $message }}</p>
@@ -91,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 no-gutters">
+                    <div class="col-12 col-sm-12 col-md- col-lg-4 no-gutters">
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">

@@ -23,7 +23,8 @@ class ProductFactory extends Factory
             'price' => fake()->numberBetween(100000, 900000),
             'discount' => fake()->randomElement([0,5,10,20,25]),
             'stock' => fake()->numberBetween(20, 500),
-            'view' => fake()->numberBetween(200, 5000)
+            'view' => fake()->numberBetween(200, 5000),
+            'status' => fake()->numberBetween(0,5)
         ];
     }
 }

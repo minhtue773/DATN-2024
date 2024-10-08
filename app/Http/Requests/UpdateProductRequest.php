@@ -27,7 +27,7 @@ class UpdateProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'discount' => 'nullable|integer|min:0|max:100', // Giảm giá không vượt quá 100%
             'stock' => 'required|integer|min:0',
-            'status' => 'nullable|in:0,1',
+            'status' => 'nullable|in:0,1,2,3,4,5',
             'description' => 'nullable|string',
             'photo' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048', // Không bắt buộc, 2MB max
             'photos.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048', // 2MB max cho từng ảnh

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('order_number')->nullable();
-            $table->boolean('status')->comment('0:Ẩn, 1:Hiển thị');
+            $table->boolean('status')->default(1)->comment('0:Ẩn, 1:Hiển thị');
             $table->timestamps();
         });
     }
