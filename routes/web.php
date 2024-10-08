@@ -9,12 +9,13 @@ use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
 /*---------------------- Admin ----------------------*/
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->group(function(){
     Route::get('home', [AdminController::class, 'index'])->name('home');
     Route::resource('user', UserController::class);
     Route::post('category/update-status', [ProductCategoryController::class, 'updateStatus'])->name('category.updateStatus');

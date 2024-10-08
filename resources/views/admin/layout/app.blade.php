@@ -122,7 +122,9 @@
     <script src="https://cdn.datatables.net/2.1.7/js/dataTables.bootstrap5.js"></script>
     <script src="{{ asset('admin') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('admin') }}/js/sb-admin-2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')    
+    @include('admin.layout.toast')
 </body>
 
 </html>

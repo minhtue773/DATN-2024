@@ -20,6 +20,6 @@ class AdminController extends Controller
         if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'role' => 1])){
             return redirect()->route('admin.home')->with('ok', 'Đăng nhập thành công');
         }
-        return redirect()->back()->with('no', 'Đăng nhập thất bại');
+        return redirect()->back()->with('no', 'Hãy thử đăng nhập lại');
     }
 }

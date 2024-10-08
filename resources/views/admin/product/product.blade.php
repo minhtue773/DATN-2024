@@ -14,15 +14,34 @@
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="d-flex">
-                            <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-plus me-1"></i>Thêm sản phẩm mới
-                            </a>
-                        </div>
-                    </div>
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách sản phẩm</h4>
+                        <form action="" method="GET">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-database-fill-add me-2"></i>Thêm sản phẩm mới
+                                    </a>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm" name="category">
+                                            <option selected>---Danh mục---</option>
+                                            <option value="1">Sản phẩm mới</option>
+                                            <option value="2">Sản phẩm hot</option>
+                                        </select>
+                                    </div>
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm" name="status">
+                                            <option selected>---Trạng thái---</option>
+                                            <option value="1">Sản phẩm mới</option>
+                                            <option value="2">Sản phẩm hot</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i> Lọc</button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="col-12">                            
                             <form action="">
                                 <table id="myTable" class="table table-hover table-bordered">

@@ -30,7 +30,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Đăng nhập</h1>
                                     </div>
-                                    <form class="user" action="" method="POST">
+                                    <form class="user" action="{{ route('admin.postLogin') }}" method="POST">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
@@ -55,5 +55,6 @@
         </div>
     </div>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@include('admin.layout.toast')
 </html>
