@@ -49,7 +49,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBlog"
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseBlog"
             aria-expanded="true" aria-controls="collapseBlog">
             <i class="fa-regular fa-newspaper"></i>
             <span>Quản lý bài viết</span>
@@ -58,7 +58,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="#">Chuyên mục</a>
-                <a class="collapse-item" href="{{route('admin.blog.index')}}">Bài viết</a>
+                <a class="collapse-item" href="{{route('admin.post.index')}}">Bài viết</a>
                 <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>

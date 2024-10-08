@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Thêm bài viết
+    Cập nhật bài viết
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -8,11 +8,11 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.blog.index') }}">Bài viết</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Thêm bài viết mới</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.post.index') }}">Bài viết</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi hàng tỷ đồng sưu tập đồ chơi mô hình</li>
                 </ol>
             </nav>
-            <a href="{{ route('admin.blog.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
+            <a href="{{ route('admin.post.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
             <form action="">
                 <div class="row">
                     <div class="col-8">
@@ -24,13 +24,13 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tiêu đề:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề...">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề..." value="Chi hàng tỷ đồng sưu tập đồ chơi mô hình">
                                     </div>                                                                                                                                                
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Chuyên mục:</label>
                                         <select class="form-select form-select-sm">
                                             <option value="0">----Chọn chuyên mục---</option>
-                                            <option value="1">One</option>
+                                            <option value="1" selected>Đồ chơi mô hình</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
                                         </select>
@@ -50,7 +50,7 @@
                                     </div>                                    
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name=""></textarea>
+                                        <textarea class="form-control" name="">Hà Nội, Hàng trăm nhân vật phim, truyện nổi tiếng xuất hiện trong bộ sưu tập đồ chơi mô hình do anh Phùng Thanh Độ bỏ công sức sưu tập trong hơn 7 năm.</textarea>
                                     </div>                                      
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung chi tiết:</label>
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Thêm mới</button>
+                                <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Cập nhật</button>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9">
+                                                <img src="https://kenh14cdn.com/203336854389633024/2022/3/16/photo-1-16474270328981696584922.jpg" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
                                                         <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
@@ -114,7 +114,7 @@
                 "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.1.0/"
             }
         }
-        </script>
+    </script>
     <script type="module">
         import {
             ClassicEditor,

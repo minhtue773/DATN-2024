@@ -18,7 +18,7 @@
                         <h4 class="text-gray-800 mb-3">Danh sách bài viết</h4>
                         <div class="row mb-3">
                             <div class="d-flex">
-                                <a href="{{ route('admin.blog.create') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-plus me-1"></i>Bài viết mới
                                 </a>
                             </div>
@@ -78,7 +78,7 @@
                                             <td>20-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -90,7 +90,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-success rounded-pill d-inline">Chưa xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -102,7 +102,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                         <tr class="text-center">
@@ -114,7 +114,7 @@
                                             <td>23-08-2024</td>
                                             <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
                                             <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.blog.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
                                     </tbody>

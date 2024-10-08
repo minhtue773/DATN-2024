@@ -16,32 +16,36 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách sản phẩm</h4>
-                        <form action="" method="GET">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div>
-                                    <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">
-                                        <i class="bi bi-database-fill-add me-2"></i>Thêm sản phẩm mới
-                                    </a>
-                                </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-database-fill-add me-2"></i>Thêm sản phẩm mới
+                                </a>
+                            </div>
+                            <form action="" method="GET">
                                 <div class="d-flex">
                                     <div class="me-3">
                                         <select class="form-select form-select-sm" name="category">
-                                            <option selected>---Danh mục---</option>
-                                            <option value="1">Sản phẩm mới</option>
-                                            <option value="2">Sản phẩm hot</option>
+                                            <option value="0">Tất cả danh mục --</option>
+                                            @foreach ($categories as $item)
+                                                <option value="{{ $item->id }}" {{ request('category') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="me-3">
-                                        <select class="form-select form-select-sm" name="status">
-                                            <option selected>---Trạng thái---</option>
-                                            <option value="1">Sản phẩm mới</option>
-                                            <option value="2">Sản phẩm hot</option>
+                                        <select class="form-select form-select-sm form-outline-dark" name="status">
+                                            <option value="0">Tất cả trạng thái --</option>
+                                            <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Sản phẩm mới</option>
+                                            <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Sản phẩm hot</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i> Lọc</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                            
+                        </div>
                         <div class="col-12">                            
                             <form action="">
                                 <table id="myTable" class="table table-hover table-bordered">
@@ -145,6 +149,7 @@
             },
         ],
         language: {
+            "emptyTable": "Không có dữ liệu",
             "processing": "Đang tải dữ liệu",
             "lengthMenu": "Hiển thị _MENU_ mô hình",
             "zeroRecords": "Không tìm thấy mô hình nào",

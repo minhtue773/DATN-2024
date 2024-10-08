@@ -11,12 +11,12 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('admin.blog.blog');
+        return view('admin.post.post');
     }
 
     public function create()
     {
-        return view('admin.blog.create');
+        return view('admin.post.create');
     }
 
     public function store(StorePostRequest $request)

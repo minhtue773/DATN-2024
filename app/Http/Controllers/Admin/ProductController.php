@@ -12,10 +12,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('admin.product.product', compact('products'));
+        $categories = ProductCategory::all();
+        $query = Product::query();
+        if ($request->category > 0 && $request->status > 0){
+            $query->where('product_category_id',$request->category)
+                ->where('status', $request->status);
+        }elseif ($request->category > 0){
+            $query->where('product_category_id', $request->category);
+        }elseif ($request->status > 0){
+            $query->where('status', $request->status);
+        }
+        $products = $query->get();
+        return view('admin.product.product', compact('products','categories'));
     }
 
     public function create()
