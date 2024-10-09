@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class PostCategory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'order_number',
+    ];
 }
