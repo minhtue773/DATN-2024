@@ -22,4 +22,8 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('no', 'Hãy thử đăng nhập lại');
     }
+
+    public function trash() {
+        return view('admin.product.trash');
+    }
 }

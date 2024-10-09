@@ -24,9 +24,10 @@ class UserController extends Controller
         //
     }
 
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.user.detail', compact('user'));
     }
 
     public function edit(string $id)
@@ -39,8 +40,13 @@ class UserController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        try {
+            $user->delete();
+            return redirect()->back()->with('success', "Xóa người dùng {$user->name} thành công");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', "Xóa người dùng {$user->name} thất bại");
+        }
     }
 }
