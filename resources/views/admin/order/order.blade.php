@@ -12,6 +12,46 @@
                     <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
                 </ol>
             </nav>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <div class="card border-left-primary">
+                        <div class="card-body p-0">
+                            <div class="d-flex justify-content-between align-items-stretch">
+                                <div class="d-flex flex-column align-items-center p-3">
+                                    <i class="bi bi-clipboard-minus fs-1"></i>
+                                    <h6>Chờ xác nhận</h6>
+                                    <p class="text-muted">(5 đơn hàng)</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center bg-gray-300" style="width: 60px; border-radius: 0 0.375rem 0.375rem 0">
+                                    <button class="border-0 bg-transparent"><i class="bi bi-card-checklist fs-2 text-primary"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-3">
+                    <div class="card border-left-warning">
+                        <div class="card-body">
+                        đang giao hàng
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card border-left-success">
+                        <div class="card-body">
+                            Thành công
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card border-left-danger">
+                        <div class="card-body">
+                            yêu cầu hủy
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
                     <div class="row mt-2">

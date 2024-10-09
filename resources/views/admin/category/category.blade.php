@@ -14,22 +14,22 @@
             <div class="card border-top-primary shadow">
                 <div class="card-body">
                     <div class="row">
-                        <div class="d-flex">
-                            <a href="{{ route('admin.category.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-plus me-1"></i>Thêm danh mục mới
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách danh mục</h4>
+                        <div class="row mb-3">
+                            <div class="d-flex">
+                                <a href="{{ route('admin.category.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-plus me-1"></i>Thêm danh mục mới
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <table class="table table-hover table-bordered" id="myTable">
-                                <thead class="table-info">
+                                <thead>
                                     <tr class="text-center">
                                         <th rowspan="2">Hình</th>
                                         <th rowspan="2">Tên danh mục</th>
-                                        <th rowspan="2">Hiển thị</th>
                                         <th rowspan="2">Ngày tạo</th>
+                                        <th rowspan="2">Hiển thị</th>
                                         <th colspan="2">Thao tác</th>
                                     </tr>
                                     <tr>
@@ -40,20 +40,20 @@
                                 <tbody>
                                     @foreach ($categories as $item)
                                         <tr class="text-center">
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                                            <td><img src="{{ asset('uploads/images/product_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
                                                 onchange="updateCategoryStatus({{ $item->id }}, this.checked)">
                                             </td>                                            
-                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td><a href="{{ route('admin.category.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
                                             <td>
                                                 <form action="{{ route('admin.category.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="border-0 bg-transparent" onclick="return confirm('Bạn có chắc chắn muốn xóa {{ $item->name }} không?')"><i class="fa fa-trash text-danger"></i></button>
+                                                    <button type="button" class="border-0 bg-transparent" onclick="confirmDelete('{{ $item->name }}', this.form)"><i class="fa fa-trash text-danger"></i></button>
                                                 </form>
                                         </td>
                                         </tr>
@@ -69,6 +69,24 @@
 @endsection
 @section('js')
     <script>
+    function confirmDelete(itemName, form) {
+        Swal.fire({
+            title: 'Xóa danh mục',
+            text: `Tất cả sản phẩm thuộc ${itemName} đều sẽ bị xóa!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Vẫn xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+    </script>    
+    <script>
         new DataTable('#myTable', {
             processing: true,
             lengthMenu: [5, 10, 20],
@@ -78,14 +96,14 @@
             paging: true,
             responsive: true,
             order: [
-                [3, 'asc']
+                [1, 'asc']
             ],
             columnDefs: [{
-                    targets: [1,3], // Các cột có thể sắp xếp
+                    targets: [1,2], // Các cột có thể sắp xếp
                     orderable: true
                 },
                 {
-                    targets: [0,2,4,5], // Cột "Tên mô hình" không thể sắp xếp
+                    targets: [0,3,4,5], // Cột "Tên mô hình" không thể sắp xếp
                     orderable: false
                 },
             ],

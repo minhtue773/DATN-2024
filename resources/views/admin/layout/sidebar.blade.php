@@ -44,7 +44,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.category.index') }}">Danh mục</a>
                 <a class="collapse-item" href="{{ route('admin.product.index') }}">Sản phẩm</a>
-                <a class="collapse-item" href="{{route('admin.product.trash')}}">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
     </li>
@@ -59,24 +58,14 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="#">Chuyên mục</a>
                 <a class="collapse-item" href="{{route('admin.post.index')}}">Bài viết</a>
-                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment"
-            aria-expanded="true" aria-controls="collapseComment">
-            {{-- <i class="fa-regular fa-newspaper"></i> --}}
+        <a class="nav-link collapsed" href="{{route('admin.comment.index')}}">
             <i class="bi bi-chat-quote-fill"></i>
             <span>Quản lý bình luận</span>
         </a>
-        <div id="collapseComment" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.comment.index')}}">Bình luận</a>
-                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
-            </div>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOder"
@@ -88,9 +77,15 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('admin.order.index')}}">Đơn hàng</a>
-                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+                <a class="collapse-item" href="#">Lịch sữ xóa <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.trash') }}">
+            <i class="bi bi-trash"></i>
+            <span>Thùng rác <span class="badge text-bg-danger p-0 px-2 ms-2">2</span></span>
+        </a>
     </li>
     <hr class="sidebar-divider">
     <div class="text-center d-none d-md-inline">
