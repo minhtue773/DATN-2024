@@ -18,12 +18,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('image')->nullable();
             $table->string('phone_number', 20)->nullable();
             $table->string('address')->nullable();
-            $table->enum('gender', ['nam', 'nữ', 'orther'])->default('orther');
+            $table->enum('gender', ['nam', 'nữ', 'other'])->default('other');
             $table->date('birthday')->nullable();
             $table->tinyInteger('role')->default(0)->comment('0: khách, 1: admin');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(0)->comment('0:chưa kích hoạt, 1:đã kích hoạt, 2:đã chặn');
             $table->timestamps();
             $table->softDeletes('deleted_at');
         });
