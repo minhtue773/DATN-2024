@@ -7028,6 +7028,7 @@ a.close.disabled {
   background-color: #4e73df !important;
 }
 
+
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -11284,6 +11285,9 @@ a:focus {
 .border-left-info {
   border-left: 0.25rem solid #36b9cc !important;
 }
+.border-top-info {
+  border-top: 0.25rem solid #36b9cc !important;
+}
 
 .border-bottom-info {
   border-bottom: 0.25rem solid #36b9cc !important;
@@ -12741,3 +12745,8 @@ body.sidebar-toggled footer.sticky-footer {
   background: #dc3545 !important;
 }
 
+.gradient-custom {
+  background: #f6d365;
+  background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+  background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}

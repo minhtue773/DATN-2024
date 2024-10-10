@@ -14,7 +14,7 @@
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
-                    <div class="row mt-2">
+                    <div class="row">
                         <h4 class="text-gray-800 mb-3">Danh sách sản phẩm</h4>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
@@ -51,11 +51,12 @@
 
                         </div>
                         <div class="col-12">
-                            <form action="">
+                            <form action="{{ route('admin.product.destroyBox') }}" method="POST">
+                                @csrf
                                 <table id="myTable" class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="text-center">
-                                            <th rowspan="2"><input type="checkbox"></th>
+                                            <th rowspan="2"><input type="checkbox" id="checkAll"></th>
                                             <th rowspan="2">Hình</th>
                                             <th rowspan="2">Tên mô hình</th>
                                             <th rowspan="2">Danh mục</th>
@@ -75,7 +76,7 @@
                                     <tbody>
                                         @foreach ($products as $item)
                                             <tr class="text-center">
-                                                <td><input type="checkbox"></td>
+                                                <td><input class="product-checkbox" type="checkbox" name="product_ids[]" value="{{ $item->id }}"></td>
                                                 <td><img src="{{ asset('uploads/images/product') }}/{{ $item->image }}"
                                                         class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                                 <td>{{ $item->name }}</td>
@@ -122,15 +123,14 @@
                                                 <td><a href="javascript:void(0);"
                                                         onclick="showProductDetail({{ $item->id }})"><i
                                                             class="fa-solid fa-eye text-success"></i></a></td>
-                                                <td><a href="{{ route('admin.product.edit', $item) }}"><i
-                                                            class="fa fa-edit"></i></a></td>
-                                                <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                                <td><a href="{{ route('admin.product.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
+                                                <td><a href="{{ route('admin.product.delete', $item) }}"><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex mt-3">
-                                    <button class="btn btn-danger btn-sm">
+                                    <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
                                     </button>
                                 </div>
@@ -160,73 +160,84 @@
     </div>    
 @endsection
 @section('js')
+{{-- check-all --}}
     <script>
-        new DataTable('#myTable', {
-            processing: true,
-            lengthMenu: [5, 10, 20],
-            searching: true,
-            info: false,
-            ordering: true,
-            paging: true,
-            responsive: true,
-            order: [
-                [7, 'desc']
-            ],
-            columnDefs: [{
-                    targets: [2, 3, 4, 5, 7], // Các cột có thể sắp xếp
-                    orderable: true
-                },
-                {
-                    targets: [0, 1, 6, 8, 9, 10, 11], // Cột "Tên mô hình" không thể sắp xếp
-                    orderable: false
-                },
-            ],
-            language: {
-                "emptyTable": "Không có dữ liệu",
-                "processing": "Đang tải dữ liệu",
-                "lengthMenu": "Hiển thị _MENU_ mô hình",
-                "zeroRecords": "Không tìm thấy mô hình nào",
-                "info": "Trang _PAGE_ của _PAGES_",
-                "infoEmpty": "Không có dữ liệu",
-                "infoFiltered": "(lọc từ _MAX_ mô hình)",
-                "search": "Tìm kiếm:",
-                "paginate": {
-                    "previous": "Trước",
-                    "next": "Sau"
-                },
-                "aria": {
-                    "sortAscending": ": Đợi xíu",
-                    "sortDescending": ": Đợi xíu",
-                }
-            }
+        document.getElementById('checkAll').addEventListener('change', function() {
+            let checkboxes = document.querySelectorAll('.product-checkbox');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = this.checked;
+            });
         });
     </script>
-    <script>
-        function updateHidden(id, isChecked) {
-            $.ajax({
-                url: ' {{ route('admin.product.updateHidden') }} ',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: id,
-                    is_hidden: isChecked ? 0 : 1
-                }
+{{-- Datatables --}}
+<script>
+    new DataTable('#myTable', {
+        processing: true,
+        lengthMenu: [5, 10, 20],
+        searching: true,
+        info: false,
+        ordering: true,
+        paging: true,
+        responsive: true,
+        order: [
+            [7, 'desc']
+        ],
+        columnDefs: [{
+                targets: [2, 3, 4, 5, 7], // Các cột có thể sắp xếp
+                orderable: true
+            },
+            {
+                targets: [0, 1, 6, 8, 9, 10, 11], // Cột "Tên mô hình" không thể sắp xếp
+                orderable: false
+            },
+        ],
+        language: {
+            "emptyTable": "Không có dữ liệu",
+            "processing": "Đang tải dữ liệu",
+            "lengthMenu": "Hiển thị _MENU_ trên _TOTAL_ mô hình ",
+            "zeroRecords": "Không tìm thấy mô hình nào",
+            "info": "Trang _PAGE_ của _PAGES_ trong tổng số _TOTAL_ mô hình",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(lọc từ _MAX_ mô hình)",
+            "search": "Tìm kiếm:",
+            "paginate": {
+                "previous": "Trước",
+                "next": "Sau"
+            },
+            "aria": {
+                "sortAscending": ": Đợi xíu",
+                "sortDescending": ": Đợi xíu",
+            }
+        }
+    });
+</script>
+{{-- update hidden --}}
+<script>
+    function updateHidden(id, isChecked) {
+        $.ajax({
+            url: ' {{ route('admin.product.updateHidden') }} ',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                is_hidden: isChecked ? 0 : 1
+            }
+        });
+    }
+</script>
+{{-- Show detail modal --}}
+<script>
+    function showProductDetail(productId) {
+        fetch('/admin/product/' + productId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('modalContent').innerHTML = data;
+                var myModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+                myModal.show();
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải chi tiết sản phẩm:', error);
             });
-        }
-    </script>
-    <script>
-        function showProductDetail(productId) {
-            fetch('/admin/product/' + productId)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('modalContent').innerHTML = data;
-                    var myModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
-                    myModal.show();
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải chi tiết sản phẩm:', error);
-                });
-        }
-
-    </script>    
+    }
+</script>
 @endsection

@@ -12,10 +12,88 @@
                     <li class="breadcrumb-item active" aria-current="page">Đơn hàng</li>
                 </ol>
             </nav>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <div class="card border-left-primary">
+                        <div class="card-body p-0">
+                            <div class="d-flex">
+                                <!-- Nội dung chính full chiều ngang -->
+                                <div class="d-flex flex-column align-items-center p-3 flex-grow-1">
+                                    <i class="bi bi-clipboard-minus fs-1 text-primary"></i>
+                                    <h6>Chờ xác nhận</h6>
+                                    <p class="text-muted">{{ $countStatus[0] }} đơn hàng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card border-left-info">
+                        <div class="card-body p-0">
+                            <div class="d-flex">
+                                <!-- Nội dung chính full chiều ngang -->
+                                <div class="d-flex flex-column align-items-center p-3 flex-grow-1">
+                                    <i class="bi bi-truck fs-1" style="color: #36b9cc"></i>
+                                    <h6>Đang giao</h6>
+                                    <p class="text-muted">{{ $countStatus[2] }} đơn hàng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card border-left-success">
+                        <div class="card-body p-0">
+                            <div class="d-flex">
+                                <!-- Nội dung chính full chiều ngang -->
+                                <div class="d-flex flex-column align-items-center p-3 flex-grow-1">
+                                    <i class="bi bi-check2-square fs-1 text-success"></i>
+                                    <h6>Giao thành công</h6>
+                                    <p class="text-muted">{{ $countStatus[3] }} đơn hàng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card border-left-warning">
+                        <div class="card-body p-0">
+                            <div class="d-flex">
+                                <!-- Nội dung chính full chiều ngang -->
+                                <div class="d-flex flex-column align-items-center p-3 flex-grow-1">
+                                    <i class="bi bi-question-circle fs-1 text-warning"></i>
+                                    <h6>Yêu cầu hủy</h6>
+                                    <p class="text-muted">{{ $countStatus[4] }} yêu cầu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
                     <div class="row mt-2">
-                        <h4 class="text-gray-800 mb-3">Danh sách đơn hàng</h4>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h4 class="text-gray-800 p-0 m-0">Danh sách đơn hàng</h4>
+                            </div>
+                            <form method="GET">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm form-outline-dark" name="status">
+                                            <option value="" selected>Tất cả trạng thái --</option>
+                                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Chờ xác nhận</option>
+                                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Đang xử lý</option>
+                                            <option value="2" {{ request('status') === '2' ? 'selected' : '' }}>Đang giao hàng</option>
+                                            <option value="3" {{ request('status') === '3' ? 'selected' : '' }}>Giao thành công</option>
+                                            <option value="4" {{ request('status') === '4' ? 'selected' : '' }}>Yêu cầu hủy</option>
+                                            <option value="5" {{ request('status') === '5' ? 'selected' : '' }}>Đã hủy</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i>Lọc</button>
+                                </div>
+                            </form>
+                        </div>
                         <div class="col-12">
                             <form action="">
                                 <table class="table table-hover table-bordered" id="myTable">
@@ -36,28 +114,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td>1234567</td>
-                                            <td>01-10-2024</td>
-                                            <td>Nguyễn Văn A</td>
-                                            <td>36 đường B, Phú thạnh, HCM</td>
-                                            <td class="text-danger">2.320.000 đ</td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Chờ thanh toán</span></td>
-                                            <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td>1234568</td>
-                                            <td>01-10-2024</td>
-                                            <td>Nguyễn Văn B</td>
-                                            <td>123 Tô Ký, Quận 12, HCM</td>
-                                            <td class="text-danger">5.540.000 đ</td>
-                                            <td><span class="badge badge-success rounded-pill d-inline">Đang giao hàng</span></td>
-                                            <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
+                                        @foreach ($orders as $item)
+                                            <tr class="text-center">
+                                                <td><input type="checkbox"></td>
+                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                                <td>{{ $item->User->name }}</td>
+                                                <td>{{ $item->recipient_address }}</td>
+                                                <td class="text-danger">{{ number_format($item->total,0,'.','.') }} đ</td>
+                                                <td>
+                                                    @switch($item->status)
+                                                        @case(0)<span class="badge badge-primary rounded-pill d-inline">Chờ xác nhận</span>@break
+                                                        @case(1)<span class="badge badge-primary rounded-pill d-inline">Đang xử lý</span>@break
+                                                        @case(2)<span class="badge badge-info rounded-pill d-inline">Đang giao hàng</span>@break
+                                                        @case(3)<span class="badge badge-success rounded-pill d-inline">Giao thành công</span>@break
+                                                        @case(4)<span class="badge badge-warning rounded-pill d-inline">Yêu cầu hủy</span>@break
+                                                        @case(5)<span class="badge badge-danger rounded-pill d-inline">Đã hủy</span>@break
+                                                        @default
+                                                        <span class="badge badge-primary rounded-pill d-inline">Chờ xác nhận</span>
+                                                    @endswitch
+                                                </td>
+                                                <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
+                                                <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                            </tr>
+                                        @endforeach 
                                     </tbody>
                                 </table>
                                 <div class="d-flex">
@@ -79,21 +159,21 @@
 <script>
     new DataTable('#myTable', {
         processing: true,
-        lengthMenu: [5, 10, 20],
+        lengthMenu: [10, 15, 20],
         searching: true,
         info: false,
         ordering: true,
         paging: true,
         responsive: true,
         order: [
-            [1, 'asc']
+            [2, 'desc']
         ],
         columnDefs: [{
-                targets: [1,2,3,5,6], // Các cột có thể sắp xếp
+                targets: [1,2,3,5], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,4,5,7,8], // Cột "Tên mô hình" không thể sắp xếp
+                targets: [0,4,5,6,7,8], // Cột "Tên mô hình" không thể sắp xếp
                 orderable: false
             },
         ],
