@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,29 +11,19 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'phone_number',
-        'image',
+        'name',      
+        'image',    
         'address',
-        'gender',
-        'birthday',
         'role',
+        'gender',
         'status',
+        'birthday',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -53,19 +42,19 @@ class User extends Authenticatable
         ];
     }
 
-    public function FavoriteProducts () {
+    public function favoriteProducts () {
         return $this->hasMany(FavoriteProduct::class);
     }
-    public function Posts () {
+    public function posts () {
         return $this->hasMany(Post::class);
     }
-    public function Comments () {
+    public function comments () {
         return $this->hasMany(Comment::class);
     }
-    public function Orders () {
+    public function orders () {
         return $this->hasMany(Order::class);
     }
-    public function DiscountCodeHistories () {
+    public function discountCodeHistories () {
         return $this->hasMany(DiscountCodeHistory::class);
     }
 }
