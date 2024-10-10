@@ -47,9 +47,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'phone_number' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'nullable|string|max:255',
-            'gender' => 'required|in:other,nam,nữ',
+            'gender' => 'required|in:other,male,female',
             'birthday' => 'nullable|date',
-            'role' => 'required|in:0,1',
+            'role' => 'required|in:customer,admin',
             'status' => 'required|in:0,1,2',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ],[

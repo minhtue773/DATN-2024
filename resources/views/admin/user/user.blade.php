@@ -66,10 +66,10 @@
                                             <td>{{ $item->email }}</td>
                                             <td>{{ $item->phone_number }}</td>
                                             <td>
-                                                @if ($item->role == 0)
-                                                    <span class="badge badge-primary rounded-pill d-inline">Khách hàng</span>
+                                                @if ($item->role == 'admin')
+                                                <span class="badge badge-success rounded-pill d-inline">Admin</span>
                                                 @else
-                                                    <span class="badge badge-success rounded-pill d-inline">Admin</span>
+                                                <span class="badge badge-primary rounded-pill d-inline">Khách hàng</span>
                                                 @endif
                                             </td>
                                             <td>

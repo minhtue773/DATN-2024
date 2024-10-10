@@ -80,7 +80,7 @@
                                                 <td><img src="{{ asset('uploads/images/product') }}/{{ $item->image }}"
                                                         class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                                 <td>{{ $item->name }}</td>
-                                                <td>{{ $item->ProductCategory->name }}</td>
+                                                <td>{{ $item->productCategory->name }}</td>
                                                 <td>{{ number_format($item->price, 0, '.', '.') }} đ</td>
                                                 <td>{{ $item->stock }}</td>
                                                 <td>

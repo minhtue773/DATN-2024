@@ -64,8 +64,8 @@
                                         <label class="form-label">Giới tính:</label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" name="gender">
                                             <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Order</option>
-                                            <option value="nam" {{ $user->gender == 'nam' ? 'selected' : '' }}>Nam</option>
-                                            <option value="nữ" {{ $user->gender == 'nữ' ? 'selected' : '' }}>Nữ</option>
+                                            <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Nam</option>
+                                            <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Nữ</option>
                                         </select>
                                         @error('gender')
                                             <p class="text-danger m-0 mt-1">* {{ $message }}</p>
@@ -81,8 +81,8 @@
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Vai trò:</label>
                                         <select class="form-select form-select-sm" aria-label="Default select example" name="role">
-                                            <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>Khách hàng</option>
-                                            <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Admin</option>
+                                            <option value="customer" {{ $user->role == 'customer' ? 'selected' : '' }}>Khách hàng</option>
+                                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
                                         </select>
                                         @error('role')
                                             <p class="text-danger m-0 mt-1">* {{ $message }}</p>
