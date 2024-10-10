@@ -178,6 +178,7 @@
             },
         ],
         language: {
+            "emptyTable": "Không có dữ liệu",
             "processing": "Đang tải dữ liệu",
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "zeroRecords": "Không tìm thấy đơn hàng nào",
