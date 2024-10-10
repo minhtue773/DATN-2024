@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Sản phẩm đã xóa
+    Lịch sữ đã xóa
 @endsection
 @section('content')
     <!-- Begin Page Content -->
@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Sản phẩm đã xóa</li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch sữ đã xóa</li>
                 </ol>
             </nav>
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -18,8 +18,8 @@
                         type="button" role="tab" aria-controls="product" aria-selected="true">Sản phẩm</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                        type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                    <button class="nav-link" id="post-tab" data-bs-toggle="tab" data-bs-target="#post"
+                        type="button" role="tab" aria-controls="post" aria-selected="false">Bài viết</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="post" role="tabpanel" aria-labelledby="post-tab">...</div>
                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
         </div>

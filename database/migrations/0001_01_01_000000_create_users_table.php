@@ -15,14 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();
+            $table->string('image')->nullable();
             $table->string('phone_number', 15)->nullable();
             $table->string('name')->nullable();
             $table->text('address')->nullable();
             $table->enum('role', ['admin', 'customer'])->default('customer');
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(0)->comment('0:chưa kích hoạt, 1:đã kích hoạt, 2:đã chặn');
             $table->date('birthday')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -105,10 +105,10 @@ class ProductController extends Controller
                 }
             }
 
-            flash()->success('Cập nhật sản phẩm thành công');
+            flash()->success("Cập nhật $product->name thành công");
             return redirect()->route('admin.product.index');
         } catch (\Throwable $th) {
-            flash()->error('Cập nhật sản phẩm thất bại');
+            flash()->error("Cập nhật $product->name thất bại");
             return redirect()->back();
         }
     }
@@ -116,12 +116,32 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        //
+        
     }
 
-    public function trash() {
-        return view('admin.product.trash');
+    public function destroyBox(Request $request)
+    {
+        if ($request->has('product_ids') && count($request->product_ids) > 0) {
+            Product::destroy($request->product_ids);
+            $count = count($request->product_ids);
+            flash()->success("Xóa $count sản phẩm thành công!");
+            return redirect()->back();
+        } else {
+            return redirect()->back()->with('no', 'Bạn chưa chọn sản phẩm nào!');
+        }
     }
+
+    public function delete(Product $product) {
+        try {
+            $product->delete();
+            flash()->success("Xóa $product->name thành công!");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            flash()->error("Xóa $product->name thất bại!");
+            return redirect()->back();
+        }
+    }
+
 
     public function updateHidden(Request $request) {
         $product = Product::find($request->id);
