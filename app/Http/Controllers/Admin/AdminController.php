@@ -22,13 +22,4 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('no', 'Hãy thử đăng nhập lại');
     }
-
-    public function logout() {
-        Auth::logout();
-        return redirect()->route('admin.login')->with('ok', 'Đăng xuất thành công');
-    }
-
-    public function trash() {
-        return view('admin.product.trash');
-    }
 }
