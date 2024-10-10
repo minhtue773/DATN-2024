@@ -14,11 +14,11 @@ class Product extends Model
 
     protected $fillable = ['product_category_id','name','description','image','price','discount','stock','view','status','is_hidden'];
     
-    public function ProductCategory() {
+    public function productCategory() {
         return $this->belongsTo(ProductCategory::class);
     }
 
-    public function ProductImage() {
+    public function productImage() {
         return $this->hasMany(ProductImage::class);
     }
 }

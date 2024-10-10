@@ -33,7 +33,7 @@
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center">
                                                 <i class="bi bi-cart-check fs-1 font-weight-bold"></i>
-                                                <h4>{{ $user->Orders->where('status',3)->count() }}</h4>
+                                                <h4>{{ $user->orders->where('status',3)->count() }}</h4>
                                                 <p>Đơn hàng dã mua</p>
                                             </div>
                                         </div>
@@ -44,7 +44,7 @@
                                         <div class="card-body">
                                             <div class="d-flex flex-column align-items-center">
                                                 <i class="bi bi-chat-dots fs-1 font-weight-bold"></i>
-                                                <h4>{{ $user->Comments->count() + $user->Posts->count() }}</h4>
+                                                <h4>{{ $user->comments->count() + $user->Posts->count() }}</h4>
                                                 <p>Đánh giá & bình luận</p>
                                             </div>
                                         </div>
