@@ -52,4 +52,20 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function FavoriteProducts () {
+        return $this->hasMany(FavoriteProduct::class);
+    }
+    public function Posts () {
+        return $this->hasMany(Post::class);
+    }
+    public function Comments () {
+        return $this->hasMany(Comment::class);
+    }
+    public function Orders () {
+        return $this->hasMany(Order::class);
+    }
+    public function DiscountCodeHistories () {
+        return $this->hasMany(DiscountCodeHistory::class);
+    }
 }
