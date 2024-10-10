@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Người dùng
+    Quản lý tài khoản
 @endsection
 @section('content')
     <!-- Begin Page Content -->
@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Người dùng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Quản lý tài khoản</li>
                 </ol>
             </nav>
             <div class="card border-top-primary shadow">
@@ -22,7 +22,24 @@
                         </div>
                     </div> --}}
                     <div class="row">
-                        <h4 class="text-gray-800 mb-3">Danh sách người dùng</h4>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h4 class="text-gray-800 p-0 m-0">Danh sách người dùng</h4>
+                            </div>
+                            <form method="GET">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm form-outline-dark" name="status">
+                                            <option value="" selected>Tất cả trạng thái --</option>
+                                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Chưa kích hoạt</option>
+                                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Đã kích hoạt</option>
+                                            <option value="2" {{ request('status') === '2' ? 'selected' : '' }}>Đã chặn</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i>Lọc</button>
+                                </div>
+                            </form>
+                        </div>
                         <div class="col-12">
                             <table id="myTable" class="table table-hover table-bordered">
                                 <thead>
@@ -32,10 +49,12 @@
                                         <th rowspan="2">Email</th>
                                         <th rowspan="2">Phone</th>
                                         <th rowspan="2">Vai trò</th>
-                                        <th colspan="2">Thao tác</th>
+                                        <th rowspan="2">Trạng thái</th>
+                                        <th colspan="3">Thao tác</th>
                                     </tr>
                                     <tr>
                                         <th>Xem</th>
+                                        <th>Sữa</th>
                                         <th>Xóa</th>
                                     </tr>
                                 </thead>
@@ -53,7 +72,17 @@
                                                     <span class="badge badge-success rounded-pill d-inline">Admin</span>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @switch($item->status)
+                                                    @case(0)<span class="badge badge-warning rounded-pill d-inline">Chưa kích hoạt</span>@break
+                                                    @case(1)<span class="badge badge-success rounded-pill d-inline">Đã kích hoạt</span>@break
+                                                    @case(2)<span class="badge badge-danger rounded-pill d-inline">Đã chặn</span>@break
+                                                    @default
+                                                    <span class="badge badge-warning rounded-pill d-inline">Chưa kích hoạt</span>
+                                                @endswitch
+                                            </td>
                                             <td><a href="javascrip:void(0)" onclick="showUserDetail({{ $item->id }})"><i class="fa-solid fa-eye text-success"></i></a></td>
+                                            <td><a href="{{ route('admin.user.edit', $item) }}"><i class="fa-solid fa-edit text-primary"></i></a></td>
                                             <td>
                                                 <form action="{{ route('admin.user.destroy', $item) }}" method="post">
                                                     @csrf
@@ -120,11 +149,11 @@
         order: [[4, 'asc']],
         columnDefs: [
             {
-                targets: [1,2,4], // Các cột có thể sắp xếp
+                targets: [1,2,4,5], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,3,5,6], // Cột "Tên người dùng" không thể sắp xếp
+                targets: [0,3,6,7,8], // Cột "Tên người dùng" không thể sắp xếp
                 orderable: false
             },
         ],

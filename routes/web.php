@@ -15,12 +15,11 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
+Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 /*---------------------- Admin ----------------------*/
 Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->group(function(){
     Route::get('home', [AdminController::class, 'index'])->name('home');
     Route::get('trash', [AdminController::class, 'trash'])->name('trash');
-    
-    
     Route::resource('user', UserController::class);
     Route::post('category/update-status', [ProductCategoryController::class, 'updateStatus'])->name('category.updateStatus');
     Route::resource('category', ProductCategoryController::class);

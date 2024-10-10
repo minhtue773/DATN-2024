@@ -15,16 +15,19 @@
                         <div class="card-body p-4">
                             <h6>Thông tin cá nhân</h6>
                             <hr class="mt-0 mb-4">
-                            <div class="row d-flex pt-1">
-                                <div class="col-12 mb-3">
+                            <div class="row d-flex">
+                                <div class="col-8 mb-2">
                                     <h6><p><i class="bi bi-envelope me-2"></i>Email: {{ $user->email }}</p></h6>
                                 </div>
-                                <div class="col-12 mb-3">
+                                <div class="col-12 mb-2">
                                     <h6><p><i class="bi bi-telephone me-2"></i>Số điện thoại: {{ $user->phone_number }}</p></h6>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <h6><p><i class="bi bi-geo-alt me-2"></i>Địa chỉ: {{ $user->address }}</p></h6>
                                 </div>
                             </div>
                             <hr class="mt-0 mb-4">
-                            <div class="row pt-1">
+                            <div class="row">
                                 <div class="col-6">
                                     <div class="card border-top-warning">
                                         <div class="card-body">
@@ -48,11 +51,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="d-flex justify-content-center">
-                                <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
