@@ -9,7 +9,7 @@
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                             alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                         <h5>{{ $user->name }}</h5>
-                        <p>{{ $user->role == 1 ? 'Admin' : "khách hàng" }}</p>
+                        <p>{{ $user->role == 'admin' ? 'Admin' : "khách hàng" }}</p>
                     </div>
                     <div class="col-md-8 bg-dark text-white" style="border-top-right-radius: .5rem; border-bottom-right-radius: .5rem;">
                         <div class="card-body p-4">
