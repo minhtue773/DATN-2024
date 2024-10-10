@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\ProductUserController;
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
@@ -30,3 +31,6 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::resource('promotion', PromotionController::class);
     Route::resource('banner', BannerController::class);
 });
+
+
+Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');

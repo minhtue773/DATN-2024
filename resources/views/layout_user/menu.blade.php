@@ -5,32 +5,32 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Hobby Zone</title>
-    <meta name="description" content="Welcome to Hobby Zone, your one-stop shop for model kits and accessories.">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
 
     <!-- All CSS Files -->
-    <!-- Bootstrap framework main css -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Nivo-slider css -->
-    <link rel="stylesheet" href="{{ asset('lib/css/nivo-slider.css') }}">
-    <!-- Core CSS containing all plugin styles -->
-    <link rel="stylesheet" href="{{ asset('css/core.css') }}">
+    <link rel="stylesheet" href="lib/css/nivo-slider.css">
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="css/core.css">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="{{ asset('css/shortcode/shortcodes.css') }}">
+    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="style.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="css/responsive.css">
     <!-- Template color css -->
-    <link href="{{ asset('css/color/color-core.css') }}" data-style="styles" rel="stylesheet">
+    <link href="css/color/color-core.css" data-style="styles" rel="stylesheet">
     <!-- User style -->
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="css/custom.css">
 
     <!-- Modernizr JS -->
-    <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -89,7 +89,7 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img style="height: 32px; width: 191px;" src="{{ asset('img/logo/logo.png') }}" alt="logo chính">
+                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png" alt="logo chính">
                                     </a>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                                 </div>
                                                 <div class="mega-menu-photo f-left">
                                                     <a href="#">
-                                                        <img src="{{ asset('img/mega-menu/1.jpg') }}" alt="hình ảnh mega menu">
+                                                        <img src="img/mega-menu/1.jpg" alt="hình ảnh mega menu">
                                                     </a>
                                                 </div>
                                             </div>
@@ -185,7 +185,8 @@
                                                         <div class="single-cart clearfix">
                                                             <div class="cart-img f-left">
                                                                 <a href="#">
-                                                                    <img src="{{ asset('img/cart/1.jpg') }}" alt="Mô hình xe cộ trong giỏ">
+                                                                    <img src="img/cart/1.jpg"
+                                                                        alt="Mô hình xe cộ trong giỏ">
                                                                 </a>
                                                                 <div class="del-icon">
                                                                     <a href="#">
@@ -197,13 +198,17 @@
                                                                 <h6 class="text-capitalize">
                                                                     <a href="#">Mô hình xe Ferrari</a>
                                                                 </h6>
-                                                                <p><span>Thành tiền:</span> 800.000 VNĐ</p>
+                                                                <p><span>Thương hiệu <strong>:</strong></span> Tamiya
+                                                                </p>
+                                                                <p><span>Tỉ lệ <strong>:</strong></span> 1:24</p>
                                                             </div>
                                                         </div>
+                                                        <!-- Sản phẩm trong giỏ -->
                                                         <div class="single-cart clearfix">
                                                             <div class="cart-img f-left">
                                                                 <a href="#">
-                                                                    <img src="{{ asset('img/cart/2.jpg') }}" alt="Mô hình máy bay trong giỏ">
+                                                                    <img src="img/cart/2.jpg"
+                                                                        alt="Mô hình Gundam trong giỏ">
                                                                 </a>
                                                                 <div class="del-icon">
                                                                     <a href="#">
@@ -213,21 +218,34 @@
                                                             </div>
                                                             <div class="cart-info f-left">
                                                                 <h6 class="text-capitalize">
-                                                                    <a href="#">Mô hình máy bay Boeing</a>
+                                                                    <a href="#">Gundam RX-78-2</a>
                                                                 </h6>
-                                                                <p><span>Thành tiền:</span> 1.200.000 VNĐ</p>
+                                                                <p><span>Thương hiệu <strong>:</strong></span> Bandai
+                                                                </p>
+                                                                <p><span>Loại <strong>:</strong></span> High Grade 1:144
+                                                                </p>
                                                             </div>
                                                         </div>
-                                                        <div class="top-cart-inner">
-                                                            <div class="cart-total">
-                                                                <h6 class="text-capitalize">Tổng cộng</h6>
-                                                                <p>2.000.000 VNĐ</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="checkout-cart">
-                                                            <a href="cart.html" class="btn btn-md">Xem giỏ hàng</a>
-                                                            <a href="checkout.html" class="btn btn-md">Thanh toán</a>
-                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner subtotal">
+                                                        <h4 class="text-uppercase gill">Tổng phụ :</h4>
+                                                        <h4 class="text-uppercase gill">Tổng cộng :</h4>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner view-cart">
+                                                        <h6>
+                                                            <a href="#">Xem giỏ hàng</a>
+                                                        </h6>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner check-out">
+                                                        <h6>
+                                                            <a href="#">Thanh toán</a>
+                                                        </h6>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -235,13 +253,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Hết tìm kiếm và giỏ hàng -->
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Khu vực cuối của tiêu đề -->
+            <!-- Hết khu vực giữa của tiêu đề -->
         </header>
-
         <!-- END HEADER AREA -->
 
         <!-- START MOBILE MENU AREA -->
