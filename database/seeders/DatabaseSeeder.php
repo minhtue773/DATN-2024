@@ -7,9 +7,9 @@ use App\Models\ProductCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker; // Khai báo đúng namespace cho Faker
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Carbon\Carbon; // Khai báo Carbon
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
