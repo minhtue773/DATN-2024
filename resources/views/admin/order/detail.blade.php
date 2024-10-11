@@ -15,7 +15,16 @@
             </nav>
             <div class="row d-flex justify-content-center align-items-center h-100 mb-4">
                 <div class="col-12">
-                    <div class="card card-stepper">
+                    <div class="card 
+                        @if($order->status == 3)
+                        border-top-success
+                        @elseif($order->status == 4)
+                        border-top-warning
+                        @elseif($order->status == 5)
+                        border-top-danger
+                        @else
+                        border-top-primary
+                        @endif ">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex flex-column">
@@ -33,7 +42,7 @@
                                             <span class="lead fw-normal text-success">(*) Đơn hàng đã được giao thành công</span>
                                         @break
                                         @case(4)
-                                            <span class="lead fw-normal text-danger">(*) Yêu cầu hủy đơn hàng #{{ $order->invoice_code }}</span>
+                                            <span class="lead fw-normal text-warning">(*) Yêu cầu hủy đơn hàng #{{ $order->invoice_code }}</span>
                                             <span class="text-muted small">Lý do của khách hàng: Tôi muốn thay đổi địa chỉ nhận hàng.</span>
                                         @break
                                         @case(5)
@@ -45,38 +54,86 @@
                                 <div>
                                     @switch($order->status)
                                         @case(0)
-                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Xác nhận đơn hàng</a>
+                                            <a href="javascrip:void(0)" class="btn btn-primary btn-sm animate__animated animate__pulse animate__infinite" onclick="confirmStatus('{{ route('admin.order.updateStatus',$order) }}')">Xác nhận đơn hàng</a>
                                         @break
                                         @case(1)
-                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Giao hàng</a>
+                                            <a href="{{ route('admin.order.updateStatus',$order) }}" class="btn btn-primary btn-sm animate__animated animate__pulse animate__infinite">Giao hàng</a>
                                         @break
                                         @case(2)
-                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Xác nhận đã giao</a>
+                                            <a href="{{ route('admin.order.updateStatus',$order) }}" class="btn btn-outline-success btn-sm">Xác nhận đã giao</a>
                                         @break
                                         @case(3)
-                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xóa đơn hàng</a>
+                                            <a href="javascrip:void(0)" class="btn btn-outline-danger btn-sm" onclick="confirmStatusDel('{{ route('admin.order.updateStatus',$order) }}')">Xóa đơn hàng</a>
                                         @break
                                         @case(4)
-                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xác nhận hủy</a>
+                                            <a href="javascrip:void(0)" class="btn btn-warning btn-sm animate__animated animate__pulse animate__infinite" onclick="confirmStatusCancel('{{ route('admin.order.updateStatus',$order) }}')">Xác nhận hủy</a>
                                         @break
                                         @case(5)
-                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xóa đơn hàng</a>
+                                            <a href="javascrip:void(0)" class="btn btn-outline-danger btn-sm" onclick="confirmStatusDel('{{ route('admin.order.updateStatus',$order) }}')">Xóa đơn hàng</a>
                                         @break
                                         @default
                                     @endswitch
                                 </div>                                
                             </div>
                             <hr class="my-4">
-                            <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-                                {!! $order->status == 0 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                <hr class="flex-fill track-line">{!! $order->status == 1 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                @if ($order->status >= 4)
-                                    <hr class="flex-fill track-line">{!! $order->status == 4 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-question text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                    <hr class="flex-fill track-line">{!! $order->status == 5 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                @else
-                                    <hr class="flex-fill track-line">{!! $order->status == 2 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                    <hr class="flex-fill track-line">{!! $order->status == 3 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
-                                @endif
+                            <div class="d-flex flex-row justify-content-between align-items-center align-content-center text-gray-100">
+                                @switch($order->status)
+                                @case(0)
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-primary"><i class="fa-solid fa-hourglass-half text-white"></i></span>
+                                <hr class="flex-fill track-line">
+                                <span class="dot"></span>  
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>    
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>
+                                @break
+                                @case(1)
+                                <span class="dot bg-primary"></span>
+                                <hr class="flex-fill track-line bg-primary">
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-primary "><i class="fa-solid fa-dolly text-white"></i></span>
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>    
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>
+                                @break
+                                @case(2)
+                                <span class="dot bg-primary"></span>
+                                <hr class="flex-fill track-line bg-primary">
+                                <span class="dot bg-primary"></span>    
+                                <hr class="flex-fill track-line bg-primary">
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-primary"><i class="fa-solid fa-truck-fast text-white"></i></span>
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>
+                                @break
+                                @case(3)
+                                <span class="dot bg-success"></span>
+                                <hr class="flex-fill track-line bg-success">
+                                <span class="dot bg-success"></span>    
+                                <hr class="flex-fill track-line bg-success">
+                                <span class="dot bg-success"></span>
+                                <hr class="flex-fill track-line bg-success">
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-success"><i class="fa fa-check text-white"></i></span>
+                                @break
+                                @case(4)
+                                <span class="dot bg-warning"></span>
+                                <hr class="flex-fill track-line bg-warning">
+                                <span class="dot bg-warning"></span>    
+                                <hr class="flex-fill track-line bg-warning">
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-warning"><i class="fa-solid fa-question text-white"></i></span>
+                                <hr class="flex-fill track-line ">
+                                <span class="dot"></span>
+                                @break
+                                @case(5)
+                                <span class="dot bg-danger"></span>
+                                <hr class="flex-fill track-line bg-danger">
+                                <span class="dot bg-danger"></span>    
+                                <hr class="flex-fill track-line bg-danger">
+                                <span class="dot bg-danger"></span>
+                                <hr class="flex-fill track-line bg-danger">
+                                <span class="d-flex justify-content-center align-items-center big-dot bg-danger"><i class="fa fa-check text-white"></i></span>
+                                @break
+                                @default  
+                                @endswitch
                             </div>
                             <div class="d-flex flex-row justify-content-between align-items-center">
                                 <span>Chờ xác nhận</span>
@@ -197,4 +254,54 @@
     </div>
 @endsection
 @section('js')
+<script>
+function confirmStatus(urlPath) {
+    Swal.fire({
+        title: 'Thông báo',
+        text: 'Bạn có muốn xác nhận đơn hàng này?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlPath;
+        }
+    });
+}
+function confirmStatusCancel(urlPath) {
+    Swal.fire({
+        title: 'Thông báo',
+        text: 'Bạn muốn hủy đơn hàng này?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xác nhận hủy',
+        cancelButtonText: 'Hủy!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlPath;
+        }
+    });
+}
+function confirmStatusDel(urlPath) {
+    Swal.fire({
+        title: 'Thông báo',
+        text: 'Bạn muốn xóa đơn hàng này?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa đơn',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlPath;
+        }
+    });
+}
+</script>
 @endsection

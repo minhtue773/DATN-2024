@@ -17,7 +17,7 @@
   --pink: #e83e8c;
   --red: #e74a3b;
   --orange: #fd7e14;
-  --yellow: #f6c23e;
+  --yellow: #ffc107;
   --green: #1cc88a;
   --teal: #20c9a6;
   --cyan: #36b9cc;
@@ -28,7 +28,7 @@
   --secondary: #858796;
   --success: #1cc88a;
   --info: #36b9cc;
-  --warning: #f6c23e;
+  --warning: #ffc107;
   --danger: #e74a3b;
   --light: #f8f9fc;
   --dark: #5a5c69;
@@ -2859,8 +2859,8 @@ fieldset:disabled a.btn {
 
 .btn-warning {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-warning:hover {
@@ -2880,8 +2880,8 @@ fieldset:disabled a.btn {
 .btn-warning.disabled,
 .btn-warning:disabled {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-warning:not(:disabled):not(.disabled):active,
@@ -3166,14 +3166,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-warning {
-  color: #f6c23e;
-  border-color: #f6c23e;
+  color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-outline-warning:hover {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-outline-warning:focus,
@@ -3183,7 +3183,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-warning.disabled,
 .btn-outline-warning:disabled {
-  color: #f6c23e;
+  color: #ffc107;
   background-color: transparent;
 }
 
@@ -3191,8 +3191,8 @@ fieldset:disabled a.btn {
 .btn-outline-warning:not(:disabled):not(.disabled).active,
 .show>.btn-outline-warning.dropdown-toggle {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-outline-warning:not(:disabled):not(.disabled):active:focus,
@@ -5470,7 +5470,7 @@ a.badge-info.focus {
 
 .badge-warning {
   color: #fff;
-  background-color: #f6c23e;
+  background-color: #ffc107;
 }
 
 a.badge-warning:hover,
@@ -7070,7 +7070,7 @@ button.bg-info:focus {
 }
 
 .bg-warning {
-  background-color: #f6c23e !important;
+  background-color: #ffc107 !important;
 }
 
 a.bg-warning:hover,
@@ -7178,7 +7178,7 @@ button.bg-dark:focus {
 }
 
 .border-warning {
-  border-color: #f6c23e !important;
+  border-color: #ffc107 !important;
 }
 
 .border-danger {
@@ -10798,7 +10798,7 @@ a.text-info:focus {
 }
 
 .text-warning {
-  color: #f6c23e !important;
+  color: #ffc107 !important;
 }
 
 a.text-warning:hover,
@@ -11128,8 +11128,8 @@ a:focus {
 }
 
 .bg-gradient-warning {
-  background-color: #f6c23e;
-  background-image: linear-gradient(180deg, #f6c23e 10%, #dda20a 100%);
+  background-color: #ffc107;
+  background-image: linear-gradient(180deg, #ffc107 10%, #dda20a 100%);
   background-size: cover;
 }
 
@@ -11294,15 +11294,15 @@ a:focus {
 }
 
 .border-left-warning {
-  border-left: 0.25rem solid #f6c23e !important;
+  border-left: 0.25rem solid #ffc107 !important;
 }
 
 .border-top-warning {
-  border-top: 0.25rem solid #f6c23e !important;
+  border-top: 0.25rem solid #ffc107 !important;
 }
 
 .border-bottom-warning {
-  border-bottom: 0.25rem solid #f6c23e !important;
+  border-bottom: 0.25rem solid #ffc107 !important;
 }
 
 .border-left-danger {
@@ -12633,45 +12633,43 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .background-banner {
-  background-image: url('https://c4.wallpaperflare.com/wallpaper/586/603/742/minimalism-4k-for-mac-desktop-wallpaper-preview.jpg');
+  background-image: url('../img/bg-banner-tiny.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
 }
 
 
 .track-line {
   height: 3px !important;
-  background-color: #488978;
+  background-color: #ccc;
   opacity: 1;
-  }
-  
-  .dot {
+}
+
+.dot {
   height: 10px;
   width: 10px;
   margin-left: 3px;
   margin-right: 3px;
   margin-top: 0px;
-  background-color: #488978;
   border-radius: 50%;
-  display: inline-block
-  }
-  
-  .big-dot {
+  display: inline-block;
+  background-color: #ccc;
+}
+
+.big-dot {
   height: 30px;
   width: 30px;
   margin-left: 0px;
   margin-right: 0px;
   margin-top: 0px;
-  background-color: #488978;
   border-radius: 50%;
   display: inline-block;
-  }
-  
-  .big-dot i {
-  font-size: 12px;
-  }
+}
 
+
+.big-dot i {
+  font-size: 18px;
+}
 
 .gradient-custom {
   background: #f6d365;
@@ -12681,4 +12679,8 @@ body.sidebar-toggled footer.sticky-footer {
 
 .text-order{
   color: #6520ff !important;
+}
+
+#myTable thead th{
+  text-align: center !important;
 }

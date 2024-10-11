@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="{{ asset('admin/img/icon/favicon.png') }}" type="image/png">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
     <link
@@ -13,34 +14,38 @@
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin') }}/css/style-admin-2.css" rel="stylesheet">
-
 </head>
-
 <body class="background-banner">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center align-items-center" style="height:100vh;">
-            <div class="col-8">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="col-6">
+                <div class="card border-0">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
                         <div class="row d-flex justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="p-5">
+                            <div class="col-8">
+                                <div class="py-5 px-3">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Đăng nhập</h1>
+                                        <img class="img-fluid mb-3" src="{{ asset('img/logo/logo.png') }}" alt="">
+                                        <h1 class="h4 text-gray-900 mb-4">Đăng nhập Admin</h1>
                                     </div>
                                     <form class="user" action="{{ route('admin.postLogin') }}" method="POST">
                                         @csrf
                                         @method('POST')
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" name="email"
+                                            <input type="email" class="form-control form-control-user mb-1" name="email"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Nhập email...">
+                                            @error('email')
+                                                <span class="text-danger">(*){{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" name="password"
                                                 id="exampleInputPassword" placeholder="Password">
+                                            @error('password')
+                                                <span class="text-danger">(*){{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Đăng nhập

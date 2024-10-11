@@ -21,8 +21,8 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes('deleted_at');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('post_categories');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('category_id')->references('id')->on('post_categories')->onDelete('cascade');;
         });
     }
 
