@@ -30,17 +30,7 @@
                                         @error('name')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
-                                    </div>                 
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Thứ tự:</label>
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-text">#</span>
-                                            <input type="number" class="form-control" name="order_number" value="{{ old('order_number') ?? 0 }}" >
-                                            @error('order_number')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
-                                            @enderror
-                                        </div>                                                                      
-                                    </div>              
+                                    </div>                                  
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
                                         <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ old('description') }}</textarea>
