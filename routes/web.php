@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\ProductCategoryController;
@@ -31,6 +32,9 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('order/delete/{order}', [OrderController::class,'delete'])->name('order.delete');
     Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
     Route::resource('order', OrderController::class)->only(['index', 'show']);
+    
+    Route::resource('post-category',PostCategoryController::class);
+    
     Route::resource('post', PostController::class);
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);

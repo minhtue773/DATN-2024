@@ -53,7 +53,7 @@
         <div id="collapseBlog" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Chuyên mục</a>
+                <a class="collapse-item" href="{{ route('admin.post-category.index') }}">Chuyên mục</a>
                 <a class="collapse-item" href="{{route('admin.post.index')}}">Bài viết</a>
             </div>
         </div>
