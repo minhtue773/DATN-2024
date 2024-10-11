@@ -134,7 +134,7 @@
                                                         <span class="badge badge-primary rounded-pill d-inline">Chờ xác nhận</span>
                                                     @endswitch
                                                 </td>
-                                                <td><a href="{{route('admin.order.show', 1)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
+                                                <td><a href="{{route('admin.order.show', $item)}}"><i class="fa-solid fa-eye text-success"></i></a></td>
                                                 <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach 
@@ -178,6 +178,7 @@
             },
         ],
         language: {
+            "emptyTable": "Không có dữ liệu",
             "processing": "Đang tải dữ liệu",
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
             "zeroRecords": "Không tìm thấy đơn hàng nào",
