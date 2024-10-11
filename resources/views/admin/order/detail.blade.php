@@ -216,7 +216,7 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-lg-8    ">
+                <div class="col-8">
                     <div class="card h-100 border-left-primary">
                         <div class="card-body">
                             <div class="row">
@@ -241,12 +241,16 @@
                                             <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Ví VNPay
                                                 (Thành công)</p>
                                             <p class="mb-2"><span class="fw-bold me-2">Mã hóa đơn:</span>#923173617</p>
-                                            <p class="mb-2"><span class="fw-bold me-2">Ngày:</span>02/10/2024</p>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="h-100">
+                        <iframe src="https://giphy.com/embed/5Ogi2l7LNzIRy" style="height:100%; width:100%" frameBorder="0" class="giphy-embed bg-white rounded-2 border" allowFullScreen></iframe>
                     </div>
                 </div>
             </div>

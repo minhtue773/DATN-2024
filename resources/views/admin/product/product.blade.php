@@ -38,10 +38,11 @@
                                     <div class="me-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="0">Tất cả trạng thái --</option>
-                                            <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Sản phẩm
-                                                mới</option>
-                                            <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Sản phẩm
-                                                hot</option>
+                                            <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Mô hình mới</option>
+                                            <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Mô hình hot</option>
+                                            <option value="3" {{ request('status') == 3 ? 'selected' : '' }}>Sắp hết hàng</option>
+                                            <option value="4" {{ request('status') == 4 ? 'selected' : '' }}>Hết hàng</option>
+                                            <option value="5" {{ request('status') == 5 ? 'selected' : '' }}>Đã ngừng bán</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i>
