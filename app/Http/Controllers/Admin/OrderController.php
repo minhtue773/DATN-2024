@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -38,9 +39,9 @@ class OrderController extends Controller
         //
     }
 
-    public function show()
+    public function show(Order $order)
     {
-        return view('admin.order.detail');
+        return view('admin.order.detail', compact('order'));
     }
 
     public function edit(Order $order)

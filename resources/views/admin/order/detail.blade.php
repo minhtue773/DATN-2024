@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('title')
-    Đơn hàng #123123
+    Đơn hàng #{{ $order->invoice_code }}
 @endsection
 @section('content')
     <!-- Begin Page Content -->
@@ -10,36 +10,84 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.order.index') }}">Đơn hàng</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Mã đơn #123123</li>
+                    <li class="breadcrumb-item active" aria-current="page">Mã đơn #{{ $order->invoice_code }}</li>
                 </ol>
             </nav>
             <div class="row d-flex justify-content-center align-items-center h-100 mb-4">
                 <div class="col-12">
-                    <div class="card card-stepper border-top-purple" style="border-radius: 16px;">
-                        <div class="card-body p-5">
-                            <ul id="progressbar-2" class="d-flex justify-content-between mx-0 mt-0 mb-3 px-0 pt-0 pb-2">
-                                <li class="step0 active text-center" id="step1"></li>
-                                <li class="step0 active text-center" id="step2"></li>
-                                <li class="step0 active text-center" id="step3"></li>
-                                <li class="step0 active text-muted text-end" id="step4"></li>
-                            </ul>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-clipboard-list align-self-start fa-3x mb-2"></i>
-                                    <p class="mb-0">Chờ xác nhận</p>
+                    <div class="card card-stepper">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex flex-column">
+                                    @switch($order->status)
+                                        @case(0)
+                                            <span class="lead fw-normal">(*) Đơn hàng chưa được xác nhận!</span>
+                                        @break
+                                        @case(1)
+                                            <span class="lead fw-normal">(*) Đơn hàng đang trong quá trình xử lý!</span>
+                                        @break
+                                        @case(2)
+                                            <span class="lead fw-normal">(*) Đơn hàng đang trên đường vận chuyển!</span>
+                                        @break
+                                        @case(3)
+                                            <span class="lead fw-normal text-success">(*) Đơn hàng đã được giao thành công</span>
+                                        @break
+                                        @case(4)
+                                            <span class="lead fw-normal text-danger">(*) Yêu cầu hủy đơn hàng #{{ $order->invoice_code }}</span>
+                                            <span class="text-muted small">Lý do của khách hàng: Tôi muốn thay đổi địa chỉ nhận hàng.</span>
+                                        @break
+                                        @case(5)
+                                            <span class="lead fw-normal text-danger">(*) Đơn hàng đã bị hủy!</span>
+                                        @break
+                                        @default
+                                    @endswitch
                                 </div>
-                                <div class="d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-box-open fa-3x align-self-start mb-2"></i>
-                                    <p class="mb-0">Đang chuẩn bị</p>
-                                </div>
-                                <div class="d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-truck-fast align-self-start fa-3x mb-2"></i>
-                                    <p class="mb-0">Giao hàng</p>
-                                </div>
-                                <div class="d-flex flex-column align-items-center">
-                                    <i class="fa-solid fa-clipboard-check fa-3x align-self-end mb-2"></i>
-                                    <p class="mb-0">Hoàn thành</p>
-                                </div>
+                                <div>
+                                    @switch($order->status)
+                                        @case(0)
+                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Xác nhận đơn hàng</a>
+                                        @break
+                                        @case(1)
+                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Giao hàng</a>
+                                        @break
+                                        @case(2)
+                                            <a href="#" class="btn btn-outline-primary btn-sm" type="button">Xác nhận đã giao</a>
+                                        @break
+                                        @case(3)
+                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xóa đơn hàng</a>
+                                        @break
+                                        @case(4)
+                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xác nhận hủy</a>
+                                        @break
+                                        @case(5)
+                                            <a href="#" class="btn btn-outline-danger btn-sm" type="button">Xóa đơn hàng</a>
+                                        @break
+                                        @default
+                                    @endswitch
+                                </div>                                
+                            </div>
+                            <hr class="my-4">
+                            <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                                {!! $order->status == 0 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                <hr class="flex-fill track-line">{!! $order->status == 1 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                @if ($order->status >= 4)
+                                    <hr class="flex-fill track-line">{!! $order->status == 4 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-question text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                    <hr class="flex-fill track-line">{!! $order->status == 5 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                @else
+                                    <hr class="flex-fill track-line">{!! $order->status == 2 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                    <hr class="flex-fill track-line">{!! $order->status == 3 ? '<span class="d-flex justify-content-center align-items-center big-dot dot"><i class="fa fa-check text-white"></i></span>' : '<span class="dot"></span>' !!}
+                                @endif
+                            </div>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <span>Chờ xác nhận</span>
+                                <span>Đang xử lý</span>
+                                @if ($order->status >= 4)
+                                    <span>Yêu cầu hủy</span>
+                                    <span>Đã hủy</span>
+                                @else
+                                    <span>Đang giao</span>
+                                    <span>Thành công</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -49,42 +97,29 @@
                 <div class="col-lg-8">
                     <div class="card border-top-warning h-100">
                         <div class="card-body">
-                            <h4 class="header-title mb-3">Đơn hàng: #123123</h4>
+                            <h4 class="header-title mb-3">Chi tiết đơn hàng: #{{ $order->invoice_code }}</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
                                     <thead class="table-light">
                                         <tr>
+                                            <th>#</th>
                                             <th>Mô hình</th>
-                                            <th>Số lượng</th>
+                                            <th class="text-center">Số lượng</th>
                                             <th class="text-end">Giá</th>
                                             <th class="text-end">Tổng tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>The Military Duffle Bag</td>
-                                            <td class="text-center">3</td>
-                                            <td class="text-end">520.000 đ</td>
-                                            <td class="text-end">1.560.000 đ</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mountain Basket Ball</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-end">330.000 đ</td>
-                                            <td class="text-end">330.000 đ</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Wavex Canvas Messenger Bag</td>
-                                            <td class="text-center">5</td>
-                                            <td class="text-end">480.000 đ</td>
-                                            <td class="text-end">2.400.000 đ</td>
-                                        </tr>
-                                        <tr>
-                                            <td>The Utility Shirt</td>
-                                            <td class="text-center">2</td>
-                                            <td class="text-end">380.000 đ</td>
-                                            <td class="text-end">760.000 đ</td>
-                                        </tr>
+                                        @foreach ($order->orderDetails as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->product->name }}</td>
+                                                <td class="text-center">{{ $item->quantity }}</td>
+                                                <td class="text-end">{{ number_format($item->price, 0, '.', '.') }} đ</td>
+                                                <td class="text-end">
+                                                    {{ number_format($item->quantity * $item->price, 0, '.', '.') }} đ</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -106,19 +141,15 @@
                                     <tbody>
                                         <tr>
                                             <td>Tổng cộng:</td>
-                                            <td class="text-end">5.050.000 đ</td>
+                                            <td class="text-end">{{ number_format($order->total, 0, '.', '.') }} đ</td>
                                         </tr>
                                         <tr>
                                             <td>Phí vận chuyển:</td>
                                             <td class="text-end">23.000 đ</td>
                                         </tr>
                                         <tr>
-                                            <td>Thuế: </td>
-                                            <td class="text-end">0 đ</td>
-                                        </tr>
-                                        <tr>
                                             <th>Thành tiền :</th>
-                                            <th class="text-end">5.073.000 đ</th>
+                                            <th class="text-end">{{ number_format($order->total, 0, '.', '.') }} đ</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,46 +159,36 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-lg-4">
+                <div class="col-lg-8    ">
                     <div class="card h-100 border-left-primary">
                         <div class="card-body">
-                            <h4 class="header-title mb-3">Thông tin giao hàng</h4>
-                            <h5 class="mb-3">Nguyễn Minh Tuệ</h5>
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <p class="mb-2"><i class="fa-solid fa-house-user me-2"></i>36 đường B, Phú Thạnh, Tân Phú, HCM</p>
-                                    <p class="mb-2"><i class="fa-solid fa-phone me-2"></i>0899384048</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card h-100 border-left-info">
-                        <div class="card-body">
-                            <h4 class="header-title mb-3">Thông tin thanh toán</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Credit Card</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Provider:</span>Visa ending in 2851</p>
-                                    <p class="mb-2"><span class="fw-bold me-2">Valid Date:</span>02/2020</p>
-                                    <p class="mb-0"><span class="fw-bold me-2">CVV:</span>xxx</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card h-100 border-left-success">
-                        <div class="card-body">
-                            <h4 class="header-title mb-3">Tóm tắt</h4>
-                            <ul class="list-unstyled mb-0">
-                                <li>
-                                    <p class="mb-2"><span class="fw-bold me-2">Thanh toán:</span>Đã thanh toán</p>
-                                    <p class="mb-2 text-primary"><span class="fw-bold me-2">Tình trạng:</span>Chờ xác nhận</p>
-                                </li>
-                                <a href="" class="btn btn-primary btn-sm float-right animate__animated animate__tada animate__infinite">Xác nhận</a>
-                            </ul>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 class="header-title mb-3">Thông tin giao hàng</h4>
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <p class="mb-2"><span class="fw-bold me-2">Tên người
+                                                    nhận:</span>{{ $order->user->name }}</p>
+                                            <p class="mb-2"><i
+                                                    class="fa-solid fa-house-user me-2"></i>{{ $order->recipient_address }}
+                                            </p>
+                                            <p class="mb-2"><i
+                                                    class="fa-solid fa-phone me-2"></i>{{ $order->recipient_phone }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <h4 class="header-title mb-3">Thông tin thanh toán</h4>
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Ví VNPay
+                                                (Thành công)</p>
+                                            <p class="mb-2"><span class="fw-bold me-2">Mã hóa đơn:</span>#923173617</p>
+                                            <p class="mb-2"><span class="fw-bold me-2">Ngày:</span>02/10/2024</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
