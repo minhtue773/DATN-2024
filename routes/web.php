@@ -26,8 +26,11 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('product/delete/{product}', [ProductController::class,'delete'])->name('product.delete');
     Route::post('product/updateHidden', [ProductController::class, 'updateHidden'])->name('product.updateHidden');
     Route::post('product/destroyBox', [ProductController::class, 'destroyBox'])->name('product.destroyBox');
-    Route::resource('product', ProductController::class);
-    Route::resource('order', OrderController::class);
+    Route::resource('product', ProductController::class)->except(['destroy']);
+    Route::get('order/updateStatus/{order}', [OrderController::class,'updateStatus'])->name('order.updateStatus');
+    Route::get('order/delete/{order}', [OrderController::class,'delete'])->name('order.delete');
+    Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
+    Route::resource('order', OrderController::class)->only(['index', 'show']);
     Route::resource('post', PostController::class);
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);

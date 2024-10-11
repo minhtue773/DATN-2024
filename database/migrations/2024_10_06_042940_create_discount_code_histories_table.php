@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('discount_code_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamp('applied_date')->default(now());
-            $table->foreign('discount_code_id')->references('id')->on('discount_codes');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('discount_code_id')->references('id')->on('discount_codes')->onDelete('cascade');;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->timestamps();
         });
     }

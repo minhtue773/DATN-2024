@@ -130,7 +130,7 @@
                                     </tbody>
                                 </table>
                                 <div class="d-flex mt-3">
-                                    <button type="submit" class="btn btn-danger btn-sm">
+                                    <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
                                     </button>
                                 </div>
@@ -239,5 +239,23 @@
                 console.error('Lỗi khi tải chi tiết sản phẩm:', error);
             });
     }
+</script>
+<script>
+function confirmDelete(form) {
+Swal.fire({
+    title: 'Xóa sản phẩm',
+    text: 'Tất cả sản phẩm bạn chọn đều sẽ bị xóa!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Vẫn xóa!',
+    cancelButtonText: 'Không'
+}).then((result) => {
+    if (result.isConfirmed) {
+        form.submit();
+    }
+});
+}
 </script>
 @endsection
