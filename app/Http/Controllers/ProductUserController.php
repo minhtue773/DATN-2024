@@ -9,10 +9,10 @@ class ProductUserController extends Controller
 {
     public function index()
     {
-        // Lấy danh sách sản phẩm từ database
-        $products = Product::all(); // Hoặc sử dụng phương thức phù hợp khác
+        // Lấy danh sách sản phẩm từ database và phân trang với mỗi trang 9 sản phẩm
+        $products = Product::paginate(9); // Phân trang
 
         // Trả về view với danh sách sản phẩm
-        return view('layout_user.shop', compact('products'));
+        return view('shop', compact('products'));
     }
 }

@@ -42,7 +42,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');// Route cho danh sách bài viết
-Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show'); // Route cho bài viết cụ thể
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show'); 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });

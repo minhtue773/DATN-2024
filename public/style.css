@@ -90,6 +90,9 @@
     position: relative;
     width: 1240px;
 }
+.nav-link {
+  text-decoration: none;
+}
 .boxed-layout .sticky {
     left: auto;
     margin: auto;

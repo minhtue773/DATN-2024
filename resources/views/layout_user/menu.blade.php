@@ -14,6 +14,7 @@
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    
     <!-- Nivo-slider css -->
     <link rel="stylesheet" href="lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
@@ -89,7 +90,8 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png" alt="logo chính">
+                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png"
+                                            alt="logo chính">
                                     </a>
                                 </div>
                             </div>
@@ -97,9 +99,9 @@
                             <div class="col-md-8 hidden-sm hidden-xs">
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
-                                        <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                                        <li><a href="/"><i class="fas fa-home"></i> Trang chủ</a></li>
                                         <li class="mega-parent">
-                                            <a href="shop.html"><i class="fas fa-box"></i> Mô hình</a>
+                                            <a href="/products"><i class="fas fa-box"></i> Mô hình</a>
                                             <div class="mega-menu-area clearfix">
                                                 <div class="mega-menu-link f-left">
                                                     <ul class="single-mega-item">
@@ -273,7 +275,7 @@
                                     <li><a href="index.html">Trang Chủ</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">Sản Phẩm</a>
+                                        <a href="/products">Sản Phẩm</a>
                                     </li>
                                     <li><a href="blog.html">Blog</a>
                                         <ul>
@@ -313,3 +315,5 @@
                 </div>
             </div>
         </div>
+        
+       

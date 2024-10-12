@@ -21,6 +21,9 @@
   line-height: 0.75em;
   vertical-align: -15%;
 }
+.nav-link {
+  text-decoration: none;
+}
 .zmdi-hc-2x {
   font-size: 2em;
 }
