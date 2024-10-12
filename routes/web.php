@@ -33,6 +33,7 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
     Route::resource('order', OrderController::class)->only(['index', 'show']);
     
+    Route::get('post-category/updateStatus',[PostCategoryController::class])->name('post-category.updateStatus');
     Route::resource('post-category',PostCategoryController::class);
     
     Route::resource('post', PostController::class);

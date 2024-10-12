@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostCategoryRequest;
-use App\Http\Requests\UpdatePostCategoryRequest;
 use App\Models\PostCategory;
+use Illuminate\Http\Request;
 
 class PostCategoryController extends Controller
 {
     public function index()
     {
-        $categories = [];
+        $categories = PostCategory::all();
         return view('admin.post-category.post-category', compact('categories'));
     }
 
@@ -20,7 +19,7 @@ class PostCategoryController extends Controller
         //
     }
 
-    public function store(StorePostCategoryRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,13 +34,24 @@ class PostCategoryController extends Controller
         //
     }
 
-    public function update(UpdatePostCategoryRequest $request, PostCategory $postCategory)
+    public function update(Request $request, PostCategory $postCategory)
     {
         //
     }
 
     public function destroy(PostCategory $postCategory)
     {
-        //
+        
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $category = PostCategory::find($request->id);
+        if ($category) {
+            $category->status = $request->status;
+            $category->save();
+            return response()->json(['message' => 'Cập nhật thành công!']);
+        }
+        return response()->json(['message' => 'Không tìm thấy danh mục!'], 404);
     }
 }

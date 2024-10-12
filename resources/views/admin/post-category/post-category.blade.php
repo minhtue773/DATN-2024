@@ -48,9 +48,9 @@
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
                                                 onchange="updateCategoryStatus({{ $item->id }}, this.checked)">
                                             </td>                                            
-                                            <td><a href="{{ route('admin.category.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
+                                            <td><a href="{{ route('admin.post-category.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
                                             <td>
-                                                <form action="{{ route('admin.category.destroy', $item) }}" method="post">
+                                                <form action="{{ route('admin.post-category.destroy', $item) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="border-0 bg-transparent" onclick="confirmDelete('{{ $item->name }}', this.form)"><i class="fa fa-trash text-danger"></i></button>
@@ -71,8 +71,8 @@
     <script>
     function confirmDelete(itemName, form) {
         Swal.fire({
-            title: 'Xóa danh mục',
-            text: `Tất cả sản phẩm thuộc ${itemName} đều sẽ bị xóa!`,
+            title: 'Xóa chyên mục',
+            text: `Tất cả bài viết thuộc ${itemName} đều sẽ bị xóa!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -129,7 +129,7 @@
     <script>
         function updateCategoryStatus(id, isChecked) {
             $.ajax({
-                url: '{{ route("admin.category.updateStatus") }}',
+                url: '{{ route("admin.post-category.updateStatus") }}',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
