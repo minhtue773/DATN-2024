@@ -131,3 +131,72 @@
     </div>
 @endforeach
 @endsection
+@section('san_pham_ngang')
+@foreach ($products as $product)
+    <div class="col-md-12">
+        <div class="shop-list product-item">
+            <div class="product-img">
+                <a href="single-product.html">
+                    <img src="{{$product->image}}" alt="" />
+                </a>
+            </div>
+            <div class="product-info">
+                <div class="clearfix">
+                    <h6 class="product-title f-left">
+                        <a href="single-product.html">{{$product->name}}</a>
+                    </h6>
+                    <div class="pro-rating f-right">
+                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                    </div>
+                </div>
+                <h6 class="brand-name mb-30">{{ $product->ProductCategory->name }}</h6>
+                <del><span class="old-price">{{ number_format($product->price, 0, ',', '.') }} VND</span></del>
+                <h3 class="pro-price">
+                    {{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }} VND
+                </h3>
+                <p>{{$product->description}}</p>
+                <ul class="action-button">
+                    <li>
+                        <a href="#" title="Danh sách yêu thích"><i class="zmdi zmdi-favorite"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#product-{{$product->id}}" title="Xem nhanh"><i
+                                class="zmdi zmdi-zoom-in"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="So sánh"><i class="zmdi zmdi-refresh"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" title="Thêm vào giỏ hàng"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+@endforeach
+@endsection
+@section('san_pham_moi')
+@foreach ($newProducts as $Products)
+    <!-- product-item start -->
+    <div class="product-item">
+        <div class="product-img">
+            <a href="single-product.html">
+                <img src="{{$product->image}}" alt="" />
+            </a>
+        </div>
+        <div class="product-info">
+            <h6 class="product-title">
+                <a href="single-product.html">{{$product->name}}</a>
+            </h6>
+            <h3 class="pro-price">
+                {{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }} VND
+            </h3>
+        </div>
+    </div>
+    <!-- product-item end -->
+@endforeach
+@endsection
