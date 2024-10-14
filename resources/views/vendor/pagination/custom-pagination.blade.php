@@ -4,7 +4,7 @@
         @if ($paginator->onFirstPage())
             <li class="disabled"><span><i class="zmdi zmdi-chevron-left"></i></span></li>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}"><i class="zmdi zmdi-chevron-left"></i></a></li>
+            <li><a href="{{ $paginator->previousPageUrl() }}&category_id={{ request('category_id') }}&sort_by={{ request('sort_by') }}"><i class="zmdi zmdi-chevron-left"></i></a></li>
         @endif
 
         {{-- Danh sách các trang --}}
@@ -20,7 +20,7 @@
                     @if ($page == $paginator->currentPage())
                         <li class="active"><a href="#">{{ $page }}</a></li>
                     @else
-                        <li><a href="{{ $url }}">{{ $page }}</a></li>
+                        <li><a href="{{ $url }}&category_id={{ request('category_id') }}&sort_by={{ request('sort_by') }}">{{ $page }}</a></li>
                     @endif
                 @endforeach
             @endif
@@ -28,7 +28,7 @@
 
         {{-- Nút "Next" --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}"><i class="zmdi zmdi-chevron-right"></i></a></li>
+            <li><a href="{{ $paginator->nextPageUrl() }}&category_id={{ request('category_id') }}&sort_by={{ request('sort_by') }}"><i class="zmdi zmdi-chevron-right"></i></a></li>
         @else
             <li class="disabled"><span><i class="zmdi zmdi-chevron-right"></i></span></li>
         @endif

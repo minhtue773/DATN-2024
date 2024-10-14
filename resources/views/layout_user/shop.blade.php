@@ -41,13 +41,20 @@
                             <!-- short-by -->
                             <div class="short-by f-left text-center">
                                 <span>Sắp xếp theo:</span>
-                                <select>
-                                    <option value="volvo">Sản phẩm mới nhất</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
+                                <select id="sort-select" onchange="changeSort()">
+                                    <option value="newest" {{ request('sort_by') == 'newest' ? 'selected' : '' }}>Sản phẩm
+                                        mới nhất</option>
+                                    <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>
+                                        Giá từ thấp đến cao</option>
+                                    <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>
+                                        Giá từ cao đến thấp</option>
+                                    <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Tên
+                                        A-Z</option>
+                                    <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>
+                                        Tên Z-A</option>
                                 </select>
                             </div>
+
                             <!-- showing -->
                             <div class="showing f-right text-right">
                                 <span>Đang hiển thị: 01-09</span>
@@ -65,8 +72,8 @@
                             <!-- list-view -->
                             <div role="tabpanel" class="tab-pane" id="list-view">
                                 <div class="row">
-                                   @yield('san_pham_ngang')
-                                   
+                                    @yield('san_pham_ngang')
+
                                 </div>
                             </div>
                         </div>
@@ -83,8 +90,9 @@
                 <div class="col-md-3 col-md-pull-9 col-sm-12">
                     <!-- widget-search -->
                     <aside class="widget-search mb-30">
-                        <form action="#">
-                            <input type="text" placeholder="Tìm kiếm mô hình...">
+                        <form action="{{ route('products.index') }}" method="GET">
+                            <input type="text" name="search" placeholder="Tìm kiếm sản phẩm..."
+                                value="{{ request('search') }}">
                             <button type="submit"><i class="zmdi zmdi-search"></i></button>
                         </form>
                     </aside>
@@ -94,32 +102,7 @@
                         <h6 class="widget-title border-left mb-20">Danh mục</h6>
                         <div id="cat-treeview" class="product-cat">
                             <ul>
-                                <li class="closed"><a href="#">Mô hình xe hơi</a>
-                                    <ul>
-                                        <li><a href="#">Xe đua</a></li>
-                                        <li><a href="#">Xe hơi cổ điển</a></li>
-                                        <li><a href="#">Xe thể thao</a></li>
-                                    </ul>
-                                </li>
-                                <li class="open"><a href="#">Mô hình máy bay</a>
-                                    <ul>
-                                        <li><a href="#">Máy bay chiến đấu</a></li>
-                                        <li><a href="#">Máy bay thương mại</a></li>
-                                        <li><a href="#">Máy bay trực thăng</a></li>
-                                    </ul>
-                                </li>
-                                <li class="closed"><a href="#">Mô hình tàu thủy</a>
-                                    <ul>
-                                        <li><a href="#">Tàu chiến</a></li>
-                                        <li><a href="#">Tàu du lịch</a></li>
-                                    </ul>
-                                </li>
-                                <li class="closed"><a href="#">Mô hình nhân vật</a>
-                                    <ul>
-                                        <li><a href="#">Nhân vật hoạt hình</a></li>
-                                        <li><a href="#">Nhân vật trong phim</a></li>
-                                    </ul>
-                                </li>
+                                @yield('danh_muc')
                             </ul>
                         </div>
                     </aside>
@@ -127,12 +110,39 @@
                     <!-- shop-filter -->
                     <aside class="widget shop-filter box-shadow mb-30">
                         <h6 class="widget-title border-left mb-20">Giá</h6>
-                        <div class="price_filter">
-                            <div class="price_slider_amount">
-                                <input type="submit" value="Khoảng giá :" />
-                                <input type="text" id="amount" name="price" placeholder="Nhập giá của bạn" />
-                            </div>
-                            <div id="slider-range"></div>
+                        <div id="cat-treeview" class="product-cat">
+                            <ul>
+                                <li class="{{ request('price_range') == 'under_1m' ? 'open' : 'closed' }}">
+                                    <a
+                                        href="{{ route('products.index', ['price_range' => 'under_1m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
+                                        Dưới 1.000.000 VND
+                                    </a>
+                                </li>
+                                <li class="{{ request('price_range') == '1m_to_2m' ? 'open' : 'closed' }}">
+                                    <a
+                                        href="{{ route('products.index', ['price_range' => '1m_to_2m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
+                                        Từ 1.000.000 đến 2.000.000 VND
+                                    </a>
+                                </li>
+                                <li class="{{ request('price_range') == '2m_to_5m' ? 'open' : 'closed' }}">
+                                    <a
+                                        href="{{ route('products.index', ['price_range' => '2m_to_5m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
+                                        Từ 2.000.000 đến 5.000.000 VND
+                                    </a>
+                                </li>
+                                <li class="{{ request('price_range') == '5m_to_10m' ? 'open' : 'closed' }}">
+                                    <a
+                                        href="{{ route('products.index', ['price_range' => '5m_to_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
+                                        Từ 5.000.000 đến 10.000.000 VND
+                                    </a>
+                                </li>
+                                <li class="{{ request('price_range') == 'above_10m' ? 'open' : 'closed' }}">
+                                    <a
+                                        href="{{ route('products.index', ['price_range' => 'above_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
+                                        Trên 10.000.000 VND
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </aside>
 

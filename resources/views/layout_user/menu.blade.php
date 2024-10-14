@@ -14,7 +14,7 @@
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+
     <!-- Nivo-slider css -->
     <link rel="stylesheet" href="lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
@@ -154,9 +154,10 @@
                                             <button class="search-toggle">
                                                 <i class="zmdi zmdi-search"></i>
                                             </button>
-                                            <form action="#">
+                                            <form action="{{ route('products.index') }}" method="GET">
                                                 <div class="top-search-box">
-                                                    <input type="text" placeholder="Tìm kiếm mô hình...">
+                                                    <input type="text" name="search" placeholder="Tìm kiếm mô hình..."
+                                                        value="{{ request('search') }}">
                                                     <button type="submit">
                                                         <i class="zmdi zmdi-search"></i>
                                                     </button>
@@ -315,5 +316,3 @@
                 </div>
             </div>
         </div>
-        
-       

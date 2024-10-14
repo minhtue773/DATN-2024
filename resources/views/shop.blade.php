@@ -180,7 +180,7 @@
 @endforeach
 @endsection
 @section('san_pham_moi')
-@foreach ($newProducts as $Products)
+@foreach ($newProducts as $product)
     <!-- product-item start -->
     <div class="product-item">
         <div class="product-img">
@@ -198,5 +198,16 @@
         </div>
     </div>
     <!-- product-item end -->
+@endforeach
+@endsection
+@section('danh_muc')
+<li class="{{ request('category_id') === null ? 'open' : 'closed' }}">
+    <a href="{{ route('products.index', ['category_id' => null, 'sort_by' => request('sort_by')]) }}">Tất cả</a>
+</li>
+@foreach ($categories as $category)
+    <li class="{{ request('category_id') == $category->id ? 'open' : 'closed' }}">
+        <a
+            href="{{ route('products.index', ['category_id' => $category->id, 'sort_by' => request('sort_by')]) }}">{{ $category->name }}</a>
+    </li>
 @endforeach
 @endsection
