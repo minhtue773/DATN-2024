@@ -9,11 +9,13 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.post.index') }}">Bài viết</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Chi hàng tỷ đồng sưu tập đồ chơi mô hình</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
                 </ol>
             </nav>
             <a href="{{ route('admin.post.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="">
+            <form action="{{ route('admin.post.update',$post) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-8">
                         <div class="card border-top-primary shadow">
@@ -23,39 +25,60 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tiêu đề:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề..." value="Chi hàng tỷ đồng sưu tập đồ chơi mô hình">
+                                        <label class="sform-label">Tiêu đề:</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề..." name="title" value="{{ $post->title ?? old('title') }}"> 
+                                        @error('title')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                                                                                                                                
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Chuyên mục:</label>
-                                        <select class="form-select form-select-sm">
-                                            <option value="0">----Chọn chuyên mục---</option>
-                                            <option value="1" selected>Đồ chơi mô hình</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="form-select form-select-sm" name="category_id">
+                                            <option>----Chọn chuyên mục---</option>
+                                            @foreach ($categories as $item)
+                                            <option value="{{ $item->id }}" {{ $item->id == $post->category_id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('category_id')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>    
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tình trạng:</label>
-                                        <div class="d-flex align-items-center py-1">
+                                        <label class="form-label">Trạng thái:</label>
+                                        <select class="form-select form-select-sm" name="status">
+                                            <option value="0" {{ $post->status == 0 ? 'selected' : '' }}>Công khai</option>
+                                            <option value="1" {{ $post->status == 1 ? 'selected' : '' }}>Riêng tư</option>
+                                        </select>
+                                        @error('status')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div>    
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Nổi bật trên trang chủ:</label>
+                                        <div class="d-flex align-items-center">
                                             <div class="form-check form-switch me-5">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="is_featured" {{ $post->is_featured == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Nổi bật</label>
-                                            </div>                                          
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="check-show" checked>
-                                                <label class="form-check-label" for="check-show">Hiển thị</label>
-                                            </div>      
-                                        </div>                                        
+                                            </div>                                               
+                                        </div>  
+                                        @error('is_featured')
+                                        <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror                                  
                                     </div>                                    
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name="">Hà Nội, Hàng trăm nhân vật phim, truyện nổi tiếng xuất hiện trong bộ sưu tập đồ chơi mô hình do anh Phùng Thanh Độ bỏ công sức sưu tập trong hơn 7 năm.</textarea>
+                                        <textarea class="form-control" name="description">{{ $post->description }}</textarea>    
+                                        @error('description')
+                                        <p class="text-danger">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung chi tiết:</label>
-                                        <textarea class="form-control" name="" id="editor" style="height: 100px"></textarea>
-                                    </div>                                      
+                                        <textarea class="form-control" name="content" id="editor" style="height: 100px">{{ $post->description }}</textarea>
+                                        @error('content')
+                                        <p class="text-danger">* {{ $message }}</p>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -73,7 +96,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://kenh14cdn.com/203336854389633024/2022/3/16/photo-1-16474270328981696584922.jpg" id="preview-image" class="img-fluid col-9">
+                                                <img src="{{ asset('uploads/images/post') }}/{{ $post->image }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
                                                         <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
@@ -81,10 +104,12 @@
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
+                                                        @error('photo')
+                                                        <p class="text-danger">* {{ $message }}</p>
+                                                        @enderror
                                                     </label>
                                                 </div>
                                             </div>
-                                    
                                         </div>
                                     </div>
                                 </div>

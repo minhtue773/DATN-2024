@@ -17,7 +17,7 @@
                         <h4 class="text-gray-800 mb-3">Danh sách chuyên mục</h4>
                         <div class="row mb-3">
                             <div class="d-flex">
-                                <a href="{{ route('admin.category.create') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('admin.post-category.create') }}" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-plus me-1"></i>Thêm chuyên mục mới
                                 </a>
                             </div>
@@ -42,12 +42,12 @@
                                         <tr class="text-center">
                                             <td><img src="{{ asset('uploads/images/post_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
-                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->created_at->format('d-m-Y')}}</td> 
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
                                                 onchange="updateCategoryStatus({{ $item->id }}, this.checked)">
-                                            </td>                                            
+                                            </td>                                         
                                             <td><a href="{{ route('admin.post-category.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
                                             <td>
                                                 <form action="{{ route('admin.post-category.destroy', $item) }}" method="post">
@@ -67,8 +67,11 @@
         </div>
     </div>
 @endsection
-@section('js')
-    <script>
+@section('js') 
+<script>
+
+</script>  
+<script>
     function confirmDelete(itemName, form) {
         Swal.fire({
             title: 'Xóa chyên mục',
@@ -85,58 +88,59 @@
             }
         });
     }
-    </script>    
-    <script>
-        new DataTable('#myTable', {
-            processing: true,
-            lengthMenu: [5, 10, 20],
-            searching: true,
-            info: false,
-            ordering: true,
-            paging: true,
-            responsive: true,
-            order: [
-                [1, 'asc']
-            ],
-            columnDefs: [{
-                    targets: [1,2], // Các cột có thể sắp xếp
-                    orderable: true
-                },
-                {
-                    targets: [0,3,4,5], // Cột "Tên mô hình" không thể sắp xếp
-                    orderable: false
-                },
-            ],
-            language: {
-                "processing": "Đang tải dữ liệu",
-                "lengthMenu": "Hiển thị _MENU_ danh mục",
-                "zeroRecords": "Không tìm thấy danh mục nào",
-                "info": "Trang _PAGE_ của _PAGES_",
-                "infoEmpty": "Không có dữ liệu",
-                "infoFiltered": "(lọc từ _MAX_ danh mục)",
-                "search": "Tìm kiếm:",
-                "paginate": {
-                    "previous": "Trước",
-                    "next": "Sau"
-                },
-                "aria": {
-                    "sortAscending": ": Đợi xíu",
-                    "sortDescending": ": Đợi xíu",
-                }
+</script>  
+<script>
+    new DataTable('#myTable', {
+        processing: true,
+        lengthMenu: [10, 15, 20],
+        searching: true,
+        info: false,
+        ordering: true,
+        paging: true,
+        responsive: true,
+        order: [
+            [1, 'asc']
+        ],
+        columnDefs: [{
+                targets: [1,2], // Các cột có thể sắp xếp
+                orderable: true
+            },
+            {
+                targets: [0,3,4,5], // Cột "Tên mô hình" không thể sắp xếp
+                orderable: false
+            },
+        ],
+        language: {
+            "emptyTable": "Không có dữ liệu",
+            "processing": "Đang tải dữ liệu",
+            "lengthMenu": "Hiển thị _MENU_ chuyên mục",
+            "zeroRecords": "Không tìm thấy chuyên mục nào",
+            "info": "Trang _PAGE_ của _PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(lọc từ _MAX_ chuyên mục)",
+            "search": "Tìm kiếm:",
+            "paginate": {
+                "previous": "Trước",
+                "next": "Sau"
+            },
+            "aria": {
+                "sortAscending": ": Đợi xíu",
+                "sortDescending": ": Đợi xíu",
+            }
+        }
+    });
+</script>   
+<script>
+    function updateCategoryStatus(id, isChecked) {
+        $.ajax({
+            url: '{{ route("admin.post-category.updateStatus") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                status: isChecked ? 1 : 0
             }
         });
-    </script>
-    <script>
-        function updateCategoryStatus(id, isChecked) {
-            $.ajax({
-                url: '{{ route("admin.post-category.updateStatus") }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    id: id,
-                    status: isChecked ? 1 : 0
-                }
-            });
-        }
-    </script>    
+    }
+</script>
 @endsection

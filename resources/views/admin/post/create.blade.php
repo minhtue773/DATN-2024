@@ -13,7 +13,8 @@
                 </ol>
             </nav>
             <a href="{{ route('admin.post.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="">
+            <form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
                     <div class="col-8">
                         <div class="card border-top-primary shadow">
@@ -24,38 +25,60 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="sform-label">Tiêu đề:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề...">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tiêu đề..." name="title" value="{{ old('title') }}"> 
+                                        @error('title')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                                                                                                                                
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Chuyên mục:</label>
-                                        <select class="form-select form-select-sm">
-                                            <option value="0">----Chọn chuyên mục---</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="form-select form-select-sm" name="category_id">
+                                            <option>----Chọn chuyên mục---</option>
+                                            @foreach ($categories as $item)
+                                            <option value="{{ $item->id }}" {{ $item->id == old('category_id') ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
+                                        @error('category_id')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
                                     </div>    
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tình trạng:</label>
-                                        <div class="d-flex align-items-center py-1">
+                                        <label class="form-label">Trạng thái:</label>
+                                        <select class="form-select form-select-sm" name="status">
+                                            <option value="0">Công khai</option>
+                                            <option value="1">Riêng tư</option>
+                                        </select>
+                                        @error('status')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div>    
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Nổi bật trên trang chủ:</label>
+                                        <div class="d-flex align-items-center">
                                             <div class="form-check form-switch me-5">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="is_featured">
                                                 <label class="form-check-label" for="flexSwitchCheckDefault">Nổi bật</label>
-                                            </div>                                          
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="check-show" checked>
-                                                <label class="form-check-label" for="check-show">Hiển thị</label>
-                                            </div>      
-                                        </div>                                        
+                                            </div>                                               
+                                        </div>  
+                                        @error('is_featured')
+                                        <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror                                  
                                     </div>                                    
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
-                                        <textarea class="form-control" name=""></textarea>
+                                        <textarea class="form-control" name="description">{{ old('description') }}</textarea>    
+                                        @error('description')
+                                        <p class="text-danger">* {{ $message }}</p>
+                                        @enderror
                                     </div>                                      
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung chi tiết:</label>
-                                        <textarea class="form-control" name="" id="editor" style="height: 100px"></textarea>
-                                    </div>                                      
+                                        <textarea class="form-control" name="content" id="editor" style="height: 100px">{{ old('content') }}</textarea>
+                                        @error('content')
+                                        <p class="text-danger">* {{ $message }}</p>
+                                        @enderror
+                                    </div>         
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">                             
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -76,11 +99,14 @@
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
+                                                        @error('photo')
+                                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                                        @enderror
                                                     </label>
                                                 </div>
                                             </div>

@@ -33,9 +33,12 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
     Route::resource('order', OrderController::class)->only(['index', 'show']);
     
-    Route::get('post-category/updateStatus',[PostCategoryController::class])->name('post-category.updateStatus');
+    Route::post('post-category/update-status',[PostCategoryController::class,'updateStatus'])->name('post-category.updateStatus');
     Route::resource('post-category',PostCategoryController::class);
     
+    Route::post('post/update-featured',[PostController::class,'updateFeatured'])->name('post.updateFeatured');
+    Route::get('post/delete/{post}', [PostController::class,'delete'])->name('post.delete');
+    Route::post('post/destroyBox', [PostController::class,'destroyBox'])->name('post.destroyBox');
     Route::resource('post', PostController::class);
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);

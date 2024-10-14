@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('content');
-            $table->tinyInteger('status')->default(0)->comment('0:công khai, 1:riêng tư, 2:đã xóa');
+            $table->tinyInteger('status')->default(0)->comment('0:công khai, 1:riêng tư');
+            $table->boolean('is_featured')->default(0);
             $table->timestamps();
             $table->softDeletes('deleted_at');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
