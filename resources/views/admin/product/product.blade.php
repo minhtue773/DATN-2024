@@ -49,7 +49,6 @@
                                         Lọc</button>
                                 </div>
                             </form>
-
                         </div>
                         <div class="col-12">
                             <form action="{{ route('admin.product.destroyBox') }}" method="POST">
@@ -125,7 +124,7 @@
                                                         onclick="showProductDetail({{ $item->id }})"><i
                                                             class="fa-solid fa-eye text-success"></i></a></td>
                                                 <td><a href="{{ route('admin.product.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
-                                                <td><a href="{{ route('admin.product.delete', $item) }}"><i class="fa fa-trash text-danger"></i></a></td>
+                                                <td><a style="cursor: pointer" onclick="confirmDeletePath('{{ route('admin.product.delete', $item) }}')"><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -162,14 +161,14 @@
 @endsection
 @section('js')
 {{-- check-all --}}
-    <script>
-        document.getElementById('checkAll').addEventListener('change', function() {
-            let checkboxes = document.querySelectorAll('.product-checkbox');
-            checkboxes.forEach((checkbox) => {
-                checkbox.checked = this.checked;
-            });
+<script>
+    document.getElementById('checkAll').addEventListener('change', function() {
+        let checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = this.checked;
         });
-    </script>
+    });
+</script>
 {{-- Datatables --}}
 <script>
     new DataTable('#myTable', {
@@ -258,5 +257,23 @@ Swal.fire({
     }
 });
 }
+</script>
+<script>
+    function confirmDeletePath(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn muốn xóa sản phẩm này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
 </script>
 @endsection

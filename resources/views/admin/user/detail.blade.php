@@ -34,7 +34,7 @@
                                             <div class="d-flex flex-column align-items-center">
                                                 <i class="bi bi-cart-check fs-1 font-weight-bold"></i>
                                                 <h4>{{ $user->orders->where('status',3)->count() }}</h4>
-                                                <p>Đơn hàng dã mua</p>
+                                                <p>Đơn hàng đã mua</p>
                                             </div>
                                         </div>
                                     </div>
