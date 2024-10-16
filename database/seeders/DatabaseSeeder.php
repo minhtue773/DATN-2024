@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
             DB::table('post_categories')->insert([
                 'name' => $faker->words(2, true), 
                 'order_number' => $i + 1,
+                'image' => 'img/blog/1.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -76,6 +77,7 @@ class DatabaseSeeder extends Seeder
             DB::table('posts')->insert([
                 'user_id' => rand(1, 10),
                 'category_id' => rand(1, 10), 
+                'image' => 'img/blog/1.jpg',
                 'title' => $faker->sentence(6, true), 
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),

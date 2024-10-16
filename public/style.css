@@ -737,7 +737,7 @@ transform: scale(1);
   position: relative;
 }
 .overlay-bg::before {
-  background: #f6f6f6 none repeat scroll 0 0;
+  background: #00000069 none repeat scroll 0 0;
   content: "";
   height: 100%;
   left: 0;
@@ -752,8 +752,8 @@ transform: scale(1);
   z-index: 10;
 }
 .breadcrumbs-title {
-  color: #575757;
-  font-size: 30px;
+  color: #ffffff;
+  font-size: 32px;
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 0;
@@ -766,24 +766,24 @@ transform: scale(1);
   padding-bottom: 20px;
 }
 .breadcrumb-list > li {
-  color: #999999;
+  color: #0048ff;
   display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
   margin-right: 15px;
   text-transform: uppercase;
 }
 .breadcrumb-list > li::before {
   content: "_";
   left: 0;
-  color: #666666; 
+  color: #ffffff; 
   transition: all 0.3s ease 0s;
 }
 .breadcrumb-list > li:hover::before {
   color: #ff7f00; 
 }
 .breadcrumb-list > li > a {
-  color: #666666;
+  color: #00f7ff;
 }
 .breadcrumb-list > li:hover > a {
   color: #ff7f00;

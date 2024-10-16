@@ -12,5 +12,6 @@ class PostCategory extends Model
     protected $fillable = [
         'name',
         'order_number',
+        'image',
     ];
 }

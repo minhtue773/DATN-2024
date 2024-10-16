@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('name');
             $table->tinyInteger('order_number')->default(0);
             $table->timestamps();

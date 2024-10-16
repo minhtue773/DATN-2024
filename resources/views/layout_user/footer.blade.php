@@ -132,7 +132,38 @@
         const categoryId = '{{ request('category_id') }}';
         window.location.href = '{{ url('/products') }}' + '?category_id=' + categoryId + '&sort_by=' + sortValue;
     }
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+        if (index >= slides.length) {
+            currentSlide = 0;
+        } else if (index < 0) {
+            currentSlide = slides.length - 1;
+        } else {
+            currentSlide = index;
+        }
+
+        // Di chuyển các slide
+        const offset = -currentSlide * 100;
+        document.querySelector('.slides').style.transform = `translateX(${offset}%)`;
+
+        // Cập nhật lớp "active" cho slide hiện tại
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentSlide);
+        });
+    }
+
+    function moveSlide(n) {
+        showSlide(currentSlide + n);
+    }
+
+    // Tự động chuyển slide mỗi 5 giây
+    setInterval(() => {
+        moveSlide(1);
+    }, 5000);
 </script>
+
 
 </body>
 

@@ -128,8 +128,8 @@
                                                     </ul>
                                                 </div>
                                                 <div class="mega-menu-photo f-left">
-                                                    <a href="#">
-                                                        <img src="img/mega-menu/1.jpg" alt="hình ảnh mega menu">
+                                                    <a href="/">
+                                                        <img src="img/icon/favicon.png" alt="hình ảnh mega menu">
                                                     </a>
                                                 </div>
                                             </div>

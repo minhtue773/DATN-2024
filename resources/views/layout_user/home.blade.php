@@ -1,35 +1,45 @@
 @include('layout_user.menu')
+<!-- Slider Container -->
 <div class="slider-area bg-3 bg-opacity-black-60 ptb-150 mb-80">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="slider-desc-3 slider-desc-4 text-center">
-                    <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-                        <h1 class="slider2-title-2 cd-headline clip is-full-width">
-
-                            <span class="cd-words-wrapper">
-                                <b class="is-visible">Mô hình xe hơi</b>
-                                <b>Mô hình máy bay</b>
-                                <b>Mô hình tàu thủy</b>
-                                <b>Mô hình nhân vật</b>
-                                <b>Mô hình kiến trúc</b>
-                            </span>
-                        </h1>
-                    </div>
-                    <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">
-                        <h2 class="slider2-title-3">Mô hình xe hơi thể thao</h2>
-                    </div>
-                    <div class="slider-button wow fadeInUp" data-wow-duration="1s" data-wow-delay="2.5s">
-                        <a href="#" class="button extra-small button-white">
-                            <span class="text-uppercase">Xem thêm</span>
-                        </a>
-                    </div>
+        <div class="slides">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('image1.jpg');">
+                <div class="slider-content text-center">
+                    <h1 class="slider2-title-2">Mô hình xe hơi</h1>
+                    <h2 class="slider2-title-3">Mô hình xe hơi thể thao</h2>
+                    <a href="#" class="button extra-small button-white">
+                        <span class="text-uppercase">Xem thêm</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('image2.jpg');">
+                <div class="slider-content text-center">
+                    <h1 class="slider2-title-2">Mô hình máy bay</h1>
+                    <h2 class="slider2-title-3">Mô hình máy bay chiến đấu</h2>
+                    <a href="#" class="button extra-small button-white">
+                        <span class="text-uppercase">Xem thêm</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('image3.jpg');">
+                <div class="slider-content text-center">
+                    <h1 class="slider2-title-2">Mô hình tàu thủy</h1>
+                    <h2 class="slider2-title-3">Mô hình tàu thủy mini</h2>
+                    <a href="#" class="button extra-small button-white">
+                        <span class="text-uppercase">Xem thêm</span>
+                    </a>
                 </div>
             </div>
         </div>
+        <!-- Navigation arrows -->
+        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+        <a class="next" onclick="moveSlide(1)">&#10095;</a>
     </div>
 </div>
-<!-- END SLIDER AREA -->
+
 
 <!-- Start page content -->
 <section id="page-content" class="page-wrapper">

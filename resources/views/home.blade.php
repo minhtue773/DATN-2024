@@ -68,10 +68,10 @@
 @foreach ($categories as $category)
     <div class="col-xs-12">
         <div class="single-brand-product">
-            <a href="{{ url('category/' . $category->id) }}"><img src="{{ asset('img/product/' . $category->image) }}"
+            <a href="{{ route('products.index', ['category_id' => $category->id, 'sort_by' => request('sort_by')]) }}"><img src="{{ asset('img/product/' . $category->image) }}"
                     alt="{{ $category->name }}"></a>
             <h3 class="brand-title text-gray">
-                <a href="{{ url('category/' . $category->id) }}">{{ $category->name }}</a>
+                <a href="{{ route('products.index', ['category_id' => $category->id, 'sort_by' => request('sort_by')]) }}">{{ $category->name }}</a>
             </h3>
         </div>
     </div>
@@ -159,7 +159,7 @@
                                 <div class="quick-add-to-cart">
                                     <form method="post" class="cart">
                                         <div class="numbers-row">
-                                            <input type="number" id="french-hens" value="1">
+                                            <input type="number" id="french-hens" min="1" value="1">
                                         </div>
                                         <button class="single_add_to_cart_button" type="submit">Thêm vào giỏ hàng</button>
                                     </form>
@@ -215,7 +215,7 @@
     
     <div class="col-xs-12">
         <div class="blog-item">
-            <img src="img/blog/1.jpg" alt="">
+            <img src="{{$post->image}}" alt="">
             <div class="blog-desc">
                 <h5 class="blog-title"><a href="single-model.html">{{$post->title}}</a></h5>
                 <p>{{ \Illuminate\Support\Str::limit($post->description, 50) }}</p>
