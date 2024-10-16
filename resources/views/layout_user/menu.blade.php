@@ -14,7 +14,7 @@
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
+
     <!-- Nivo-slider css -->
     <link rel="stylesheet" href="lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
@@ -57,10 +57,11 @@
                         <div class="col-sm-6 col-xs-12">
                             <div class="top-link clearfix">
                                 <ul class="link f-right">
+                                    @if(Auth::check())
                                     <li>
                                         <a href="my-account.html">
                                             <i class="zmdi zmdi-account"></i>
-                                            Tài khoản của tôi
+                                            {{Auth::user()->name}}
                                         </a>
                                     </li>
                                     <li>
@@ -70,11 +71,31 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="login.html">
+                                        <a href="/logout">
+                                            <i class="bi bi-box-arrow-right"></i>
+                                            Đăng xuất
+                                        </a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="wishlist.html">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                            Danh sách yêu thích (0)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('login') }}">
                                             <i class="zmdi zmdi-lock"></i>
                                             Đăng nhập
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('register') }}">
+                                            <i class="zmdi zmdi-account-add"></i>
+                                            Đăng ký
+                                        </a>
+                                    </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -134,7 +155,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                                        <li><a href="#"><i class="fas fa-blog"></i> Blog</a>
                                             <ul class="dropdwn">
                                                 <li><a href="blog-left-sidebar.html">Tin tức mô hình</a></li>
                                                 <li><a href="blog-right-sidebar.html">Hướng dẫn lắp ráp</a></li>
@@ -315,5 +336,3 @@
                 </div>
             </div>
         </div>
-        
-       

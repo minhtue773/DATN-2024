@@ -16,8 +16,12 @@ use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
-
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserAuthController;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
@@ -43,6 +47,13 @@ Route::get('/products', [ProductUserController::class, 'index'])->name('products
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');// Route cho danh sách bài viết
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/login', [UserAuthController::class, 'login'])->name('login');
+Route::post('/login', [UserAuthController::class, 'loginUser']);
+Route::get('/register',[UserAuthController::class,'register'])->name('register');
+Route::post('/register',[UserAuthController::class,'registerUser']);
+
+Route::get('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
+
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
