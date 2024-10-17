@@ -144,15 +144,15 @@
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
                                 <div class="blog-image">
-                                    <a href="{{ url('/blogs', [$p->id]) }}"><img src="img/blog/4.jpg" alt=""></a>
+                                    <a href="{{ url('/blog', [$p->id]) }}"><img src="img/blog/4.jpg" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="{{ url('/blogs', [$p->id]) }}">{{ $p->title }}</a></h5>
+                                    <h5 class="blog-title-2"><a href="{{ url('/blog', [$p->id]) }}">{{ $p->title }}</a></h5>
                                     <p class="blog-description">{{ $p->description }}</p>
                                     <div class="read-more">
-                                        <a href="{{ url('/blogs', [$p->id]) }}">Đọc thêm</a>
+                                        <a href="{{ url('/blog', [$p->id]) }}">Đọc thêm</a>
                                     </div>
                                 </div>
                             </div>

@@ -43,7 +43,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/blogs/{idCataPost?}', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 
 Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
     $arr = request()->post();

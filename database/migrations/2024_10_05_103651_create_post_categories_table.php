@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->tinyInteger('order_number')->default(0);
+            $table->boolean('status')->default(1)->comment('0:Ẩn, 1:Hiển thị');
             $table->timestamps();
         });
     }

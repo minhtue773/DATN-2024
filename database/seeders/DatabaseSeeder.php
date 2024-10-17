@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
             DB::table('post_categories')->insert([
                 'name' => $faker->words(2, true), 
                 'order_number' => $i + 1,
+                'status' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

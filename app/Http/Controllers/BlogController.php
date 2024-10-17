@@ -16,17 +16,17 @@ class BlogController extends Controller
 {
     public function __construct()
     {
-        $post_cate_arr = PostCategory::get();
+        $post_cate_arr = PostCategory::where('status', 1)->get();
         \View::share('post_cate_arr', $post_cate_arr);
     }
 
     public function index($idCataPost = 0)
     {
         $per_page = env('PER_PAGE');
-        $posts = Post::query();
+        $posts = Post::query()->where('status', '1');
 
         if ($idCataPost) {
-            $posts = $posts->where('idCategory', $idCataPost);
+            $posts = $posts->where('category_id', $idCataPost);
             $categoryPostName = PostCategory::where('id', $idCataPost)->value('name');
         } else {
             $categoryPostName = "Tất cả sản phẩm";
