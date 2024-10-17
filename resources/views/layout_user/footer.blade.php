@@ -6,7 +6,7 @@
                     <div class="col-lg-4 col-md-5 col-sm-4">
                         <div class="single-footer footer-about">
                             <div style="text-align: center;" class="footer-logo">
-                                <img style="height: 44px;" src="img/logo/logo.png" alt="">
+                                <img style="height: 44px;" src="{{ asset('img/logo/logo.png') }}" alt="Logo Hobby Zone">
                             </div>
                             <div class="footer-brief">
                                 <p>Hobby Zone là nơi cung cấp các mô hình chất lượng cao phục vụ đam mê của bạn.
@@ -18,17 +18,17 @@
                             </div>
                             <ul class="footer-social">
                                 <li>
-                                    <a class="facebook" href="" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
+                                    <a class="facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
                                 </li>
                                 <li>
-                                    <a class="google-plus" href="" title="Google Plus"><i
+                                    <a class="google-plus" href="#" title="Google Plus"><i
                                             class="zmdi zmdi-google-plus"></i></a>
                                 </li>
                                 <li>
-                                    <a class="twitter" href="" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
+                                    <a class="twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
                                 </li>
                                 <li>
-                                    <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                    <a class="rss" href="#" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -93,12 +93,12 @@
                         <div class="single-footer">
                             <h4 class="footer-title border-left">Liên hệ với chúng tôi</h4>
                             <div class="footer-message">
-                                <form method="post" action="/guilienhe">
-                                    <input type="text" name="ht" placeholder="Your name here...">
-                                    <input type="text" name="em" placeholder="Your email here...">
-                                    <textarea class="height-80" name="nd" placeholder="Your messege here..."></textarea>
-                                    @csrf<button class="submit-btn-1 mt-20 btn-hover-1" type="submit">submit
-                                        message</button>
+                                <form method="post" action="{{ url('/guilienhe') }}">
+                                    <input type="text" name="ht" placeholder="Tên của bạn...">
+                                    <input type="text" name="em" placeholder="Email của bạn...">
+                                    <textarea class="height-80" name="nd" placeholder="Nội dung liên hệ..."></textarea>
+                                    @csrf
+                                    <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi liên hệ</button>
                                 </form>
                             </div>
                         </div>
@@ -109,23 +109,12 @@
     </div>
 </footer>
 
-</div>
-<!-- Body main wrapper end -->
-
-
-<!-- Placed JS at the end of the document so the pages load faster -->
-
-<!-- jquery latest version -->
-<script src="js/vendor/jquery-3.1.1.min.js"></script>
-<!-- Bootstrap framework js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- jquery.nivo.slider js -->
-<script src="lib/js/jquery.nivo.slider.js"></script>
-<!-- All js plugins included in this file. -->
-<script src="js/plugins.js"></script>
-<!-- Main js file that contents all jQuery plugins activation. -->
-<script src="js/main.js"></script>
-
+<!-- Các thư viện JS -->
+<script src="{{ asset('js/vendor/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('lib/js/jquery.nivo.slider.js') }}"></script>
+<script src="{{ asset('js/plugins.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 <script>
     function changeSort() {
         const sortValue = document.getElementById('sort-select').value;
@@ -164,7 +153,68 @@
     }, 5000);
 </script>
 
+<script>
+    var app = angular.module('myApp', []);
+    app.config(['$interpolateProvider', function ($interpolateProvider) {
+        $interpolateProvider.startSymbol('%%');
+        $interpolateProvider.endSymbol('%%');
+    }]);
 
+    app.filter('customNumber', function ($filter) {
+        return function (input, fractionSize) {
+            var formattedNumber = $filter('number')(input, fractionSize);
+            return formattedNumber ? formattedNumber.replace(/,/g, '.') : '';
+        };
+    });
+
+
+    app.controller('mainController', function ($scope, $http) {
+
+        $scope.cart = {!! json_encode(session('cart')) !!} || [];
+
+        $scope.addToCart = function (product_id, quantity) {
+            $http.post('/api/cart', {
+                product_id: product_id,
+                quantity: quantity,
+            }).then(function (res) {
+                $scope.cart = res.data.data;
+            });
+        };
+
+        $scope.totalCartMoney = function () {
+            var total = 0;
+            $scope.cart.forEach(sp => {
+                total += (sp.soluong * ((sp.sale_price != null) ? sp.sale_price : sp.price));
+            });
+            return total;
+        }
+
+        $scope.removeFromCart = function (index) {
+            $http.delete('/api/cart/' + index).then(function (res) {
+                $scope.cart = res.data.data;
+            });
+        }
+
+        $scope.countTotalProducts = function () {
+            var totalProducts = 0;
+            $scope.cart.forEach(sp => {
+                totalProducts += sp.soluong;
+            });
+            return totalProducts;
+        };
+    });
+
+    var viewFunction = function ($scope) {
+        // Any additional view-related functions
+    };
+</script>
+
+@yield('viewFunction')
+
+
+<script>
+    app.controller('siteController', viewFunction)
+</script>
 </body>
 
 </html>

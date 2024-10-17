@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
+
 class OrderController extends Controller
 {
     public function index()
@@ -16,6 +17,7 @@ class OrderController extends Controller
 
     public function create()
     {
+        return view('admin.order.detail', compact('order'));
     }
 
     public function store(StoreOrderRequest $request)
@@ -26,7 +28,7 @@ class OrderController extends Controller
     public function show()
     {
         return view('admin.order.detail');
-    }
+            }
 
     public function edit(Order $order)
     {

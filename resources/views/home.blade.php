@@ -36,7 +36,7 @@
                     <!-- Giá sau giảm giá -->
                 </div>
                 <div class="banner-img">
-                    <a href="#"><img src="img/banner/1.jpg" alt=""></a> <!-- Bạn có thể thay đổi hình ảnh banner -->
+                    <a href="#"><img src="{{ $topDiscountedProduct->image }}" alt=""></a> <!-- Bạn có thể thay đổi hình ảnh banner -->
                 </div>
                 <div class="banner-info">
                     <h3><a href="#">{{ $topDiscountedProduct->name }}</a></h3>

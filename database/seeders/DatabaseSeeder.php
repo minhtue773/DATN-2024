@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->words(2, true), // Tạo tên ngẫu nhiên với 2 từ
                 'order_number' => $i + 1, // Thứ tự từ 1 đến 10
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên với 10 từ
-                'image' => rand(1, 12) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
+                'image' => rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
             ]);
         }
          // Tạo dữ liệu tiếng Việt
@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
                 'product_category_id' => rand(1, 4), // Danh mục ngẫu nhiên từ 1 đến 4
                 'name' => $faker->words(3, true), // Tên ngẫu nhiên với 3 từ
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên
-                'image' => 'img/product/' . rand(1, 12) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
+                'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
                 'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên
                 'discount' => $faker->numberBetween(0, 50), // Giảm giá ngẫu nhiên
                 'stock' => $faker->numberBetween(0, 100), // Số lượng tồn kho ngẫu nhiên
