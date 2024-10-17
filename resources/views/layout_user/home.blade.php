@@ -1,43 +1,12 @@
 @include('layout_user.menu')
 <!-- Slider Container -->
-<div class="slider-area bg-3 bg-opacity-black-60 ptb-150 mb-80">
-    <div class="container">
-        <div class="slides">
-            <!-- Slide 1 -->
-            <div class="slide active" style="background-image: url('image1.jpg');">
-                <div class="slider-content text-center">
-                    <h1 class="slider2-title-2">Mô hình xe hơi</h1>
-                    <h2 class="slider2-title-3">Mô hình xe hơi thể thao</h2>
-                    <a href="#" class="button extra-small button-white">
-                        <span class="text-uppercase">Xem thêm</span>
-                    </a>
-                </div>
-            </div>
-            <!-- Slide 2 -->
-            <div class="slide" style="background-image: url('image2.jpg');">
-                <div class="slider-content text-center">
-                    <h1 class="slider2-title-2">Mô hình máy bay</h1>
-                    <h2 class="slider2-title-3">Mô hình máy bay chiến đấu</h2>
-                    <a href="#" class="button extra-small button-white">
-                        <span class="text-uppercase">Xem thêm</span>
-                    </a>
-                </div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide" style="background-image: url('image3.jpg');">
-                <div class="slider-content text-center">
-                    <h1 class="slider2-title-2">Mô hình tàu thủy</h1>
-                    <h2 class="slider2-title-3">Mô hình tàu thủy mini</h2>
-                    <a href="#" class="button extra-small button-white">
-                        <span class="text-uppercase">Xem thêm</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Navigation arrows -->
-        <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
-        <a class="next" onclick="moveSlide(1)">&#10095;</a>
+<div class="banner">
+    <div class="slides">
+        @yield('banner')
     </div>
+    <!-- Navigation arrows -->
+    <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+    <a class="next" onclick="moveSlide(1)">&#10095;</a>
 </div>
 
 

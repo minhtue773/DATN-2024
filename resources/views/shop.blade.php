@@ -11,14 +11,15 @@
     @foreach ($products as $product)
         <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="product-item">
+                
                 <div class="product-img">
-                    <a href="single-product.html">
+                    <a href="{{ url('product/' . $product->id) }}">
                         <img style="width:270px; height:270px" src="{{$product->image}}" alt="" />
                     </a>
                 </div>
                 <div class="product-info">
                     <h6 class="product-title">
-                        <a href="single-product.html">{{$product->name}} </a>
+                        <a href="{{ url('product/' . $product->id) }}">{{$product->name}} </a>
                     </h6>
                     <div class="pro-rating">
                         <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -151,14 +152,14 @@
         <div class="col-md-12">
             <div class="shop-list product-item">
                 <div class="product-img">
-                    <a href="single-product.html">
+                    <a href="{{ url('product/' . $product->id) }}">
                         <img src="{{$product->image}}" alt="" />
                     </a>
                 </div>
                 <div class="product-info">
                     <div class="clearfix">
                         <h6 class="product-title f-left">
-                            <a href="single-product.html">{{$product->name}}</a>
+                            <a href="{{ url('product/' . $product->id) }}">{{$product->name}}</a>
                         </h6>
                         <div class="pro-rating f-right">
                             <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -201,13 +202,13 @@
     <!-- product-item start -->
     <div class="product-item">
         <div class="product-img">
-            <a href="single-product.html">
+            <a href="{{ url('product/' . $product->id) }}">
                 <img src="{{$product->image}}" alt="" />
             </a>
         </div>
         <div class="product-info">
             <h6 class="product-title">
-                <a href="single-product.html">{{$product->name}}</a>
+                <a href="{{ url('product/' . $product->id) }}">{{$product->name}}</a>
             </h6>
             <h3 class="pro-price">
                 {{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }} VND

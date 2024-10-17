@@ -19,24 +19,30 @@
                                 <div class="col-md-5 col-sm-5 col-xs-12">
                                     <div class="imgs-zoom-area">
                                         @if($sp->discount > 0)
-                                            <div class="sale-notice" style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 3px;">
+                                            <div class="sale-notice"
+                                                style="position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 5px; border-radius: 3px;">
                                                 Sale {{ $sp->discount }}%
                                             </div>
                                         @endif
-                                        <img id="zoom_03" src="{{ asset("img/product/{$sp->image}") }}"
-                                             data-zoom-image="{{ asset("img/product/{$sp->image}") }}" alt="">
-                                    
+                                        <img id="zoom_03" src="{{ asset("{$sp->image}") }}"
+                                            data-zoom-image="{{ asset("{$sp->image}") }}" alt="">
+
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div id="gallery_01" class="carousel-btn slick-arrow-3 mt-30">
+                                                    <div class="p-c">
+                                                        <a href="#" data-image="{{ asset($sp->image) }}"
+                                                            data-zoom-image="{{ asset($sp->image) }}">
+                                                            <img class="zoom_03" src="{{ asset($sp->image) }}"
+                                                                alt="Product Image">
+                                                        </a>
+                                                    </div>
                                                     @foreach ($images as $hinh)
                                                         <div class="p-c">
-                                                            <a href="#"
-                                                               data-image="{{ asset('img/product/' . $hinh->image) }}"
-                                                               data-zoom-image="{{ asset('img/product/' . $hinh->image) }}">
-                                                                <img class="zoom_03"
-                                                                     src="{{ asset('img/product/' . $hinh->image) }}"
-                                                                     alt="Product Image">
+                                                            <a href="#" data-image="{{ asset($hinh->image) }}"
+                                                                data-zoom-image="{{ asset($hinh->image) }}">
+                                                                <img class="zoom_03" src="{{ asset($hinh->image) }}"
+                                                                    alt="Product Image">
                                                             </a>
                                                         </div>
                                                     @endforeach
@@ -44,7 +50,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <!-- imgs-zoom-area end -->
                                 <!-- single-product-info start -->
@@ -72,8 +78,7 @@
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#" tabindex="0"><i
-                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
                                                 <span class="text-black-5">(27 Đánh giá)</span>
                                             </div>
                                         </div>
@@ -84,10 +89,11 @@
                                             <div class="sin-plus-minus f-left clearfix">
                                                 <p class="color-title f-left">Số lượng</p>
                                                 <div class="cart-plus-minus f-left">
-                                                    <input type="number" name="qtybutton" class="cart-plus-minus-box"
-                                                        min="1" max="{{ $sp->stock }}" ng-model="quantity"
-                                                        ng-init="quantity = 1">
+                                                    <input type="number" value="1" name="qtybutton"
+                                                        class="cart-plus-minus-box" min="1" max="{{ $sp->stock }}"
+                                                        ng-model="quantity" ng-init="quantity = 1">
                                                 </div>
+
                                             </div>
                                             <div class="sin-pro-action f-right">
                                                 <ul class="action-button">
@@ -96,9 +102,9 @@
                                                                 class="zmdi zmdi-favorite"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" data-toggle="modal"
-                                                            data-target="#productModal" title="Xem nhanh"
-                                                            tabindex="0"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#productModal"
+                                                            title="Xem nhanh" tabindex="0"><i
+                                                                class="zmdi zmdi-zoom-in"></i></a>
                                                     </li>
                                                     <li>
                                                         <a href="#" title="So sánh" tabindex="0"><i
@@ -115,17 +121,17 @@
                                         <!-- hr -->
                                         <hr>
                                         @if($sp->discount > 0)
-                                        <h3 class="pro-price" style="text-decoration: line-through;">
-                                            {{ number_format($sp->price, 0, ',', '.') }} đ
-                                        </h3>
-                                        <h3 class="pro-price">
-                                            {{ number_format($salePrice, 0, ',', '.') }} đ
-                                        </h3>
-                                    @else
-                                        <h3 class="pro-price">
-                                            {{ number_format($sp->price, 0, ',', '.') }} đ
-                                        </h3>
-                                    @endif
+                                            <h3 class="pro-price" style="text-decoration: line-through;">
+                                                {{ number_format($sp->price, 0, ',', '.') }} đ
+                                            </h3>
+                                            <h3 class="pro-price">
+                                                {{ number_format($salePrice, 0, ',', '.') }} đ
+                                            </h3>
+                                        @else
+                                            <h3 class="pro-price">
+                                                {{ number_format($sp->price, 0, ',', '.') }} đ
+                                            </h3>
+                                        @endif
                                         <hr>
 
                                         @if ($sp->stock > 0)
@@ -137,8 +143,7 @@
                                             </div>
                                         @else
                                             <div>
-                                                <a href="#" class="button extra-small button-black"
-                                                    tabindex="-1">
+                                                <a href="#" class="button extra-small button-black" tabindex="-1">
                                                     <span class="text-uppercase">Hết Hàng</span>
                                                 </a>
                                             </div>
@@ -177,8 +182,8 @@
                                                     <!-- bình luận đơn -->
                                                     <div class="media mt-30">
                                                         <div class="media-left">
-                                                            <a href="#"><img class="media-object"
-                                                                    src="img/author/1.jpg" alt="#"></a>
+                                                            <a href="#"><img class="media-object" src="img/author/1.jpg"
+                                                                    alt="#"></a>
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="clearfix">
@@ -203,8 +208,8 @@
                                                     <!-- bình luận đơn -->
                                                     <div class="media mt-30">
                                                         <div class="media-left">
-                                                            <a href="#"><img class="media-object"
-                                                                    src="img/author/2.jpg" alt="#"></a>
+                                                            <a href="#"><img class="media-object" src="img/author/2.jpg"
+                                                                    alt="#"></a>
                                                         </div>
                                                         <div class="media-body">
                                                             <div class="clearfix">
@@ -255,8 +260,7 @@
                                             <div class="product-img">
                                                 <a href="{{ route('product.detail', ['id' => $product->id]) }}">
 
-                                                    <img src="{{ asset('img/product/' . $product->image) }}"
-                                                        alt="{{ $product->name }}" />
+                                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" />
 
                                                 </a>
                                             </div>
@@ -273,20 +277,19 @@
                                                     <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                 </div>
                                                 <h3 class="pro-price">
-                                                    {{ number_format($product->price, 0, ',', '.') }} đ</h3>
+                                                    {{ number_format($product->price, 0, ',', '.') }} đ
+                                                </h3>
                                                 <ul class="action-button">
                                                     <li>
                                                         <a href="#" title="Danh sách yêu thích"><i
                                                                 class="zmdi zmdi-favorite"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" data-toggle="modal"
-                                                            data-target="#productModal" title="Xem nhanh"><i
-                                                                class="zmdi zmdi-zoom-in"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#product-{{$product->id}}"
+                                                            title="Xem nhanh"><i class="zmdi zmdi-zoom-in"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" title="So sánh"><i
-                                                                class="zmdi zmdi-refresh"></i></a>
+                                                        <a href="#" title="So sánh"><i class="zmdi zmdi-refresh"></i></a>
                                                     </li>
                                                     <li>
                                                         <a href="#" title="Thêm vào giỏ hàng"><i
@@ -299,16 +302,104 @@
                                 @endforeach
 
 
-
                             </div>
+
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-        <!-- SHOP SECTION END -->
+        <div id="quickview-wrapper">
+            <!-- SHOP SECTION END -->
+            @foreach ($relatedProducts as $product)
+                <div id="productModal">
+                    <div class="modal fade" id="product-{{$product->id}}" tabindex="0" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div style="top:100px;" class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-product clearfix">
+                                        <div class="product-images">
+                                            <div class="main-image images">
+                                                <img style="width:270px; height:270px" alt="{{$product->name}}"
+                                                    src="{{ asset($product->image) }}">
+                                            </div>
+                                        </div><!-- .product-images -->
 
+                                        <div class="product-info">
+                                            <h1>{{$product->name}}</h1>
+                                            <div class="price-box-3">
+                                                <div class="s-price-box">
+                                                    <span
+                                                        class="new-price">{{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }}
+                                                        VND</span>
+                                                    <span class="old-price">{{ number_format($product->price, 0, ',', '.') }}
+                                                        VND</span>
+                                                </div>
+                                            </div>
+                                            <a href="single-product-left-sidebar.html"
+                                                style="text-decoration: none; color: black;" class="see-all"
+                                                onmouseover="this.style.color='blue'" onmouseout="this.style.color='black'">
+                                                xem thêm sản phẩm
+                                            </a>
+                                            <div class="quick-add-to-cart">
+                                                <form method="post" class="cart">
+                                                    <div class="numbers-row">
+                                                        <input type="number" id="french-hens" min="1" value="1">
+                                                    </div>
+                                                    <button class="single_add_to_cart_button" type="submit">Thêm vào giỏ
+                                                        hàng</button>
+                                                </form>
+                                            </div>
+                                            <div class="quick-desc">
+                                                {{ $product->description }}
+                                            </div>
+                                            <div class="social-sharing">
+                                                <div class="widget widget_socialsharing_widget">
+                                                    <h3 class="widget-title-modal">Share this product</h3>
+                                                    <ul class="social-icons clearfix">
+                                                        <li>
+                                                            <a class="facebook" href="#" target="_blank" title="Facebook">
+                                                                <i class="zmdi zmdi-facebook"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="google-plus" href="#" target="_blank" title="Google +">
+                                                                <i class="zmdi zmdi-google-plus"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="twitter" href="#" target="_blank" title="Twitter">
+                                                                <i class="zmdi zmdi-twitter"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="pinterest" href="#" target="_blank" title="Pinterest">
+                                                                <i class="zmdi zmdi-pinterest"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="rss" href="#" target="_blank" title="RSS">
+                                                                <i class="zmdi zmdi-rss"></i>
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </section>
     <!-- End page content -->
 @endif
