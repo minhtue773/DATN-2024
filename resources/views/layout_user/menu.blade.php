@@ -9,29 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+    <link rel="shortcut icon" type="/image/x-icon" href="/img/icon/favicon.png">
 
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Nivo-slider css -->
-    <link rel="stylesheet" href="lib/css/nivo-slider.css">
+    <link rel="stylesheet" href="/lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="/css/core.css">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="/css/shortcode/shortcodes.css">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="/css/responsive.css">
     <!-- Template color css -->
-    <link href="css/color/color-core.css" data-style="styles" rel="stylesheet">
+    <link href="/css/color/color-core.css" data-style="styles" rel="stylesheet">
     <!-- User style -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="/css/custom.css">
 
     <!-- Modernizr JS -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -90,7 +90,7 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png"
+                                        <img style="height: 32px; width: 191px;" src="/img/logo/logo.png"
                                             alt="logo chính">
                                     </a>
                                 </div>
@@ -129,19 +129,19 @@
                                                 </div>
                                                 <div class="mega-menu-photo f-left">
                                                     <a href="#">
-                                                        <img src="img/mega-menu/1.jpg" alt="hình ảnh mega menu">
+                                                        <img src="/img/mega-menu/1.jpg" alt="hình ảnh mega menu">
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                                        <li><a href="/blogs"><i class="fas fa-blog"></i> Bài viết</a>
                                             <ul class="dropdwn">
                                                 <li><a href="blog-left-sidebar.html">Tin tức mô hình</a></li>
                                                 <li><a href="blog-right-sidebar.html">Hướng dẫn lắp ráp</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
-                                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Liên hệ</a></li>
+                                        <li><a href="/about"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+                                        <li><a href="/contact"><i class="fas fa-envelope"></i> Liên hệ</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -188,7 +188,7 @@
                                                         <div class="single-cart clearfix">
                                                             <div class="cart-img f-left">
                                                                 <a href="#">
-                                                                    <img src="img/cart/1.jpg"
+                                                                    <img src="/img/cart/1.jpg"
                                                                         alt="Mô hình xe cộ trong giỏ">
                                                                 </a>
                                                                 <div class="del-icon">
@@ -210,7 +210,7 @@
                                                         <div class="single-cart clearfix">
                                                             <div class="cart-img f-left">
                                                                 <a href="#">
-                                                                    <img src="img/cart/2.jpg"
+                                                                    <img src="/img/cart/2.jpg"
                                                                         alt="Mô hình Gundam trong giỏ">
                                                                 </a>
                                                                 <div class="del-icon">

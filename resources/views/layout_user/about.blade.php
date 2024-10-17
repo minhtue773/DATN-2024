@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="breadcrumbs-inner">
-                        <h1 class="breadcrumbs-title">About</h1>
+                        <h1 class="breadcrumbs-title">Giới thiệu</h1>
                         <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>About</li>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li>Giới thiệu</li>
                         </ul>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-title text-left">
-                        <h2 class="uppercase">giới thiệu về subas</h2>
+                        <h2 class="uppercase">giới thiệu về Hobby Zone</h2>
                         <h6 class="mb-40">Có nhiều biến thể của các đoạn văn của các thương hiệu có sẵn,</h6>
                     </div>
                 </div>

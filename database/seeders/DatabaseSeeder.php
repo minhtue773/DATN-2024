@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
                 'category_id' => rand(1, 10), 
                 'title' => $faker->sentence(6, true), 
                 'description' => $faker->sentence(100),
-                'content' => $faker->paragraph(5),
+                'content' => $faker->paragraph(50),
                 'status' => 1,
                 'post_date' => Carbon::now(),
                 'created_at' => Carbon::now(),

@@ -343,6 +343,15 @@
 .blog-desc p {
   margin-bottom: 25px;
 }
+.blog-desc .blog-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Số dòng hiển thị */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Dấu ba chấm */
+  text-align: start;
+}
+
 .blog-item .read-more {
   margin-bottom: 45px;
 }

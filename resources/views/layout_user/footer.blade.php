@@ -6,7 +6,7 @@
                     <div class="col-lg-4 col-md-5 col-sm-4">
                         <div class="single-footer footer-about">
                             <div style="text-align: center;" class="footer-logo">
-                                <img style="height: 44px;" src="img/logo/logo.png" alt="">
+                                <img style="height: 44px;" src="/img/logo/logo.png" alt="">
                             </div>
                             <div class="footer-brief">
                                 <p>Hobby Zone là nơi cung cấp các mô hình chất lượng cao phục vụ đam mê của bạn.
@@ -116,15 +116,15 @@
 <!-- Placed JS at the end of the document so the pages load faster -->
 
 <!-- jquery latest version -->
-<script src="js/vendor/jquery-3.1.1.min.js"></script>
+<script src="/js/vendor/jquery-3.1.1.min.js"></script>
 <!-- Bootstrap framework js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- jquery.nivo.slider js -->
 <script src="lib/js/jquery.nivo.slider.js"></script>
 <!-- All js plugins included in this file. -->
-<script src="js/plugins.js"></script>
+<script src="/js/plugins.js"></script>
 <!-- Main js file that contents all jQuery plugins activation. -->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 
 <script>
     function changeSort() {

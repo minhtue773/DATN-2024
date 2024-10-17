@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="breadcrumbs-inner">
-                        <h1 class="breadcrumbs-title">Single Blog</h1>
+                        <h1 class="breadcrumbs-title">Chi tiết bài viết</h1>
                         <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Single Blog</li>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li>Chi tiết bài viết</li>
                         </ul>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <div class="blog-details-area">
                         <!-- ảnh chi tiết blog -->
                         <div class="blog-details-photo bg-img-1 p-20 mb-30">
-                            <img src="img/blog/10.jpg" alt="">
+                            <img src="/img/blog/10.jpg" alt="">
                             <div class="today-date bg-img-1">
                                 <span class="meta-date">30</span>
                                 <span class="meta-month">Tháng Sáu</span>
@@ -49,39 +49,10 @@
                             </li>
                         </ul>
                         <!-- tiêu đề chi tiết blog -->
-                        <h3 class="blog-details-title mb-30">Tên blog giả định</h3>
+                        <h3 class="blog-details-title mb-30">{{ $post->title }}</h3>
                         <!-- mô tả blog -->
                         <div class="blog-description mb-60">
-                            <p>Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và không thích những người đàn ông bị
-                                mê hoặc và suy thoái bởi những sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi
-                                ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và
-                                trách nhiệm bình đẳng thuộc về những người không hoàn thành nhiệm vụ của họ do yếu đuối
-                                về ý chí, mà cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này
-                                thật sự rất đơn giản và dễ phân biệt. Trong một giờ tự do.</p>
-
-                            <div class="quote-author pl-30">
-                                <p class="quote-border pl-30">Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và
-                                    không thích những người đàn ông bị mê hoặc và suy thoái bởi sức hấp dẫn của niềm vui
-                                    của khoảnh khắc, bị mù quáng bởi ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và
-                                    rắc rối mà chắc chắn sẽ xảy ra; và trách nhiệm bình đẳng thuộc về những người không
-                                    hoàn thành nhiệm vụ của họ do yếu đuối về ý chí.</p>
-                            </div>
-
-                            <p>Điều này cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này thật
-                                sự rất đơn giản và dễ phân biệt. Trong một giờ tự do. Mặt khác, chúng ta lên án với sự
-                                phẫn nộ chính đáng và không thích những người đàn ông bị mê hoặc và suy thoái bởi những
-                                sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi ham muốn, đến nỗi họ không thể
-                                nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và trách nhiệm bình đẳng thuộc về
-                                những người không hoàn thành nhiệm vụ của họ do yếu đuối về ý chí, mà cũng có thể nói là
-                                do tránh né công việc và nỗi đau. Những trường hợp này thật sự rất đơn giản và dễ phân
-                                biệt.</p>
-
-                            <p>Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và không thích những người đàn ông bị
-                                mê hoặc và suy thoái bởi những sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi
-                                ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và
-                                trách nhiệm bình đẳng thuộc về những người không hoàn thành nhiệm vụ của họ do yếu đuối
-                                về ý chí, mà cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này
-                                thật sự rất đơn giản và dễ phân biệt. Trong một giờ tự do.</p>
+                            <p>{{ $post->content }}</p>
                         </div>
                         <!-- chia sẻ và thẻ blog -->
                         <div class="blog-share-tags box-shadow clearfix mb-60">
@@ -118,7 +89,7 @@
                         <div class="media author-post box-shadow mb-60">
                             <div class="media-left pr-20">
                                 <a href="#">
-                                    <img class="media-object" src="img/author/1.jpg" alt="#">
+                                    <img class="media-object" src="/img/author/1.jpg" alt="#">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -136,7 +107,7 @@
                             <!-- bình luận đơn -->
                             <div class="media mt-30">
                                 <div class="media-left pr-30">
-                                    <a href="#"><img class="media-object" src="img/author/2.jpg" alt="#"></a>
+                                    <a href="#"><img class="media-object" src="/img/author/2.jpg" alt="#"></a>
                                 </div>
                                 <div class="media-body">
                                     <div class="clearfix">
@@ -158,7 +129,7 @@
                             <!-- bình luận đơn -->
                             <div class="media mt-30">
                                 <div class="media-left pr-30">
-                                    <a href="#"><img class="media-object" src="img/author/3.jpg" alt="#"></a>
+                                    <a href="#"><img class="media-object" src="/img/author/3.jpg" alt="#"></a>
                                 </div>
                                 <div class="media-body">
                                     <div class="clearfix">
@@ -233,7 +204,7 @@
                             <div class="media mb-30">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object" src="img/blog/1.jpg" alt=""
+                                        <img class="media-object" src="/img/blog/1.jpg" alt=""
                                             style="width:120px; height:auto;">
                                     </a>
                                 </div>
@@ -245,7 +216,7 @@
                             <div class="media mb-30">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object" src="img/blog/2.jpg" alt=""
+                                        <img class="media-object" src="/img/blog/2.jpg" alt=""
                                             style="width:120px; height:auto;">
                                     </a>
                                 </div>
@@ -257,7 +228,7 @@
                             <div class="media mb-30">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img class="media-object" src="img/blog/3.jpg" alt=""
+                                        <img class="media-object" src="/img/blog/3.jpg" alt=""
                                             style="width:120px; height:auto;">
                                     </a>
                                 </div>
