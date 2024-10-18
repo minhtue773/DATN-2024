@@ -1,4 +1,5 @@
 @include('layout_user.menu')
+
 <!-- BREADCRUMBS SETCTION START -->
 <div class="breadcrumbs-section plr-200 mb-80">
     <div class="breadcrumbs overlay-bg">
@@ -6,10 +7,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="breadcrumbs-inner">
-                        <h1 class="breadcrumbs-title">Single Blog</h1>
+                        <h1 class="breadcrumbs-title">Chi tiết bài viết</h1>
                         <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Single Blog</li>
+                            <li><a href="/">Trang chủ</a></li>
+                            <li>Chi tiết bài viết</li>
                         </ul>
                     </div>
                 </div>
@@ -30,10 +31,12 @@
                     <div class="blog-details-area">
                         <!-- ảnh chi tiết blog -->
                         <div class="blog-details-photo bg-img-1 p-20 mb-30">
-                            <img src="img/blog/10.jpg" alt="">
+                            <img src="{{ asset($post->image_big) }}" alt="">
                             <div class="today-date bg-img-1">
-                                <span class="meta-date">30</span>
-                                <span class="meta-month">Tháng Sáu</span>
+                                <span
+                                    class="meta-date">{{ \Carbon\Carbon::parse($post->post_date)->format('d') }}</span>
+                                <span
+                                    class="meta-month">{{ \Carbon\Carbon::parse($post->post_date)->translatedFormat('F') }}</span>
                             </div>
                         </div>
                         <!-- thích và chia sẻ blog -->
@@ -49,39 +52,10 @@
                             </li>
                         </ul>
                         <!-- tiêu đề chi tiết blog -->
-                        <h3 class="blog-details-title mb-30">Tên blog giả định</h3>
+                        <h3 class="blog-details-title mb-30">{{ $post->title }}</h3>
                         <!-- mô tả blog -->
                         <div class="blog-description mb-60">
-                            <p>Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và không thích những người đàn ông bị
-                                mê hoặc và suy thoái bởi những sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi
-                                ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và
-                                trách nhiệm bình đẳng thuộc về những người không hoàn thành nhiệm vụ của họ do yếu đuối
-                                về ý chí, mà cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này
-                                thật sự rất đơn giản và dễ phân biệt. Trong một giờ tự do.</p>
-
-                            <div class="quote-author pl-30">
-                                <p class="quote-border pl-30">Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và
-                                    không thích những người đàn ông bị mê hoặc và suy thoái bởi sức hấp dẫn của niềm vui
-                                    của khoảnh khắc, bị mù quáng bởi ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và
-                                    rắc rối mà chắc chắn sẽ xảy ra; và trách nhiệm bình đẳng thuộc về những người không
-                                    hoàn thành nhiệm vụ của họ do yếu đuối về ý chí.</p>
-                            </div>
-
-                            <p>Điều này cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này thật
-                                sự rất đơn giản và dễ phân biệt. Trong một giờ tự do. Mặt khác, chúng ta lên án với sự
-                                phẫn nộ chính đáng và không thích những người đàn ông bị mê hoặc và suy thoái bởi những
-                                sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi ham muốn, đến nỗi họ không thể
-                                nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và trách nhiệm bình đẳng thuộc về
-                                những người không hoàn thành nhiệm vụ của họ do yếu đuối về ý chí, mà cũng có thể nói là
-                                do tránh né công việc và nỗi đau. Những trường hợp này thật sự rất đơn giản và dễ phân
-                                biệt.</p>
-
-                            <p>Mặt khác, chúng ta lên án với sự phẫn nộ chính đáng và không thích những người đàn ông bị
-                                mê hoặc và suy thoái bởi những sức hấp dẫn của niềm vui của khoảnh khắc, bị mù quáng bởi
-                                ham muốn, đến nỗi họ không thể nhìn thấy nỗi đau và rắc rối mà chắc chắn sẽ xảy ra; và
-                                trách nhiệm bình đẳng thuộc về những người không hoàn thành nhiệm vụ của họ do yếu đuối
-                                về ý chí, mà cũng có thể nói là do tránh né công việc và nỗi đau. Những trường hợp này
-                                thật sự rất đơn giản và dễ phân biệt. Trong một giờ tự do.</p>
+                            <p>{{ $post->content }}</p>
                         </div>
                         <!-- chia sẻ và thẻ blog -->
                         <div class="blog-share-tags box-shadow clearfix mb-60">
@@ -118,7 +92,7 @@
                         <div class="media author-post box-shadow mb-60">
                             <div class="media-left pr-20">
                                 <a href="#">
-                                    <img class="media-object" src="img/author/1.jpg" alt="#">
+                                    <img class="media-object" src="/img/author/1.jpg" alt="#">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -136,7 +110,7 @@
                             <!-- bình luận đơn -->
                             <div class="media mt-30">
                                 <div class="media-left pr-30">
-                                    <a href="#"><img class="media-object" src="img/author/2.jpg" alt="#"></a>
+                                    <a href="#"><img class="media-object" src="/img/author/2.jpg" alt="#"></a>
                                 </div>
                                 <div class="media-body">
                                     <div class="clearfix">
@@ -158,7 +132,7 @@
                             <!-- bình luận đơn -->
                             <div class="media mt-30">
                                 <div class="media-left pr-30">
-                                    <a href="#"><img class="media-object" src="img/author/3.jpg" alt="#"></a>
+                                    <a href="#"><img class="media-object" src="/img/author/3.jpg" alt="#"></a>
                                 </div>
                                 <div class="media-body">
                                     <div class="clearfix">
@@ -230,90 +204,55 @@
                         <!-- bài viết nổi bật -->
                         <div class="widget-popular-post mb-50">
                             <h5 class="widget-title mb-30">Bài viết nổi bật</h5>
-                            <div class="media mb-30">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="img/blog/1.jpg" alt=""
-                                            style="width:120px; height:auto;">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">Bài viết nổi bật 1</a></h6>
-                                    <span class="met-date">30 Tháng Sáu</span>
-                                </div>
+                            @yield('blog_lien_quan')
+                            <!-- thư mục lưu trữ -->
+                            <div class="widget-archive mb-50">
+                                <h5 class="widget-title mb-30">Lưu trữ</h5>
+                                <ul>
+                                    <li><a href="#">Tháng Sáu 2022</a></li>
+                                    <li><a href="#">Tháng Năm 2022</a></li>
+                                    <li><a href="#">Tháng Tư 2022</a></li>
+                                    <li><a href="#">Tháng Ba 2022</a></li>
+                                    <li><a href="#">Tháng Hai 2022</a></li>
+                                    <li><a href="#">Tháng Giêng 2022</a></li>
+                                </ul>
                             </div>
-                            <div class="media mb-30">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="img/blog/2.jpg" alt=""
-                                            style="width:120px; height:auto;">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">Bài viết nổi bật 2</a></h6>
-                                    <span class="met-date">30 Tháng Sáu</span>
-                                </div>
+                            <!-- thẻ blog -->
+                            <div class="widget-tags mb-50">
+                                <h5 class="widget-title mb-30">Thẻ</h5>
+                                <ul class="tag-list">
+                                    <li><a href="#">Công nghệ</a></li>
+                                    <li><a href="#">Thiết bị</a></li>
+                                    <li><a href="#">Mẹo</a></li>
+                                    <li><a href="#">Hướng dẫn</a></li>
+                                </ul>
                             </div>
-                            <div class="media mb-30">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="img/blog/3.jpg" alt=""
-                                            style="width:120px; height:auto;">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="media-heading"><a href="#">Bài viết nổi bật 3</a></h6>
-                                    <span class="met-date">30 Tháng Sáu</span>
-                                </div>
+                            <!-- xã hội -->
+                            <div class="widget-social mb-50">
+                                <h5 class="widget-title mb-30">Kết nối với chúng tôi</h5>
+                                <ul class="footer-social">
+                                    <li>
+                                        <a class="facebook" href="" title="Facebook"><i
+                                                class="zmdi zmdi-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="google-plus" href="" title="Google Plus"><i
+                                                class="zmdi zmdi-google-plus"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="twitter" href="" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                        <!-- thư mục lưu trữ -->
-                        <div class="widget-archive mb-50">
-                            <h5 class="widget-title mb-30">Lưu trữ</h5>
-                            <ul>
-                                <li><a href="#">Tháng Sáu 2022</a></li>
-                                <li><a href="#">Tháng Năm 2022</a></li>
-                                <li><a href="#">Tháng Tư 2022</a></li>
-                                <li><a href="#">Tháng Ba 2022</a></li>
-                                <li><a href="#">Tháng Hai 2022</a></li>
-                                <li><a href="#">Tháng Giêng 2022</a></li>
-                            </ul>
-                        </div>
-                        <!-- thẻ blog -->
-                        <div class="widget-tags mb-50">
-                            <h5 class="widget-title mb-30">Thẻ</h5>
-                            <ul class="tag-list">
-                                <li><a href="#">Công nghệ</a></li>
-                                <li><a href="#">Thiết bị</a></li>
-                                <li><a href="#">Mẹo</a></li>
-                                <li><a href="#">Hướng dẫn</a></li>
-                            </ul>
-                        </div>
-                        <!-- xã hội -->
-                        <div class="widget-social mb-50">
-                            <h5 class="widget-title mb-30">Kết nối với chúng tôi</h5>
-                            <ul class="footer-social">
-                                <li>
-                                    <a class="facebook" href="" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a class="google-plus" href="" title="Google Plus"><i
-                                            class="zmdi zmdi-google-plus"></i></a>
-                                </li>
-                                <li>
-                                    <a class="twitter" href="" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- PHẦN BLOG KẾT THÚC -->
+        <!-- PHẦN BLOG KẾT THÚC -->
 </section>
 <!-- End page content -->
 @include('layout_user.footer')

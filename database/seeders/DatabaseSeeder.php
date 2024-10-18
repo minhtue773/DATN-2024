@@ -88,6 +88,7 @@ class DatabaseSeeder extends Seeder
                 'user_id' => rand(1, 10),
                 'category_id' => rand(1, 10),
                 'image' => 'img/blog/1.jpg',
+                'image_big' => 'img/blog/10.jpg',
                 'title' => $faker->sentence(6, true),
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),

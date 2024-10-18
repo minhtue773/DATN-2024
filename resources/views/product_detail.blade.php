@@ -1,4 +1,4 @@
-@@extends('layout_user.product_detail_a');
+@extends('layout_user.product_detail_a');
 @section('san_pham_lien_quan')
 @foreach ($relatedProducts as $product)
     <div class="col-md-3">

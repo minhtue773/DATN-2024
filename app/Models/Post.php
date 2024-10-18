@@ -18,6 +18,7 @@ class Post extends Model
         'status',
         'post_date',
         'image',
+        'image_big',
     ];
 
     public function user()

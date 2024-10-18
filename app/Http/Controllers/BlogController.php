@@ -43,8 +43,13 @@ class BlogController extends Controller
     {
         // Tìm bài viết theo ID
         $post = Post::findOrFail($id);
+        $relatedPosts = Post::where('category_id', $post->category_id)
+            ->where('id', '!=', $post->id) // Loại trừ bài viết hiện tại
+            ->where('status', 1) // Đảm bảo bài viết có trạng thái 'active'
+            ->take(3) // Lấy 3 bài viết
+            ->get();
 
-        // Trả về view hiển thị bài viết với dữ liệu bài viết được truyền vào
-        return view('layout_user.single_blog', compact('post'));
+        // Trả về view hiển thị bài viết với dữ liệu bài viết và các bài viết cùng loại
+        return view('single_blog', compact('post', 'relatedPosts'));
     }
 }
