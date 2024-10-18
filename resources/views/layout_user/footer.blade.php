@@ -18,14 +18,16 @@
                             </div>
                             <ul class="footer-social">
                                 <li>
-                                    <a class="facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
+                                    <a class="facebook" href="#" title="Facebook"><i
+                                            class="zmdi zmdi-facebook"></i></a>
                                 </li>
                                 <li>
                                     <a class="google-plus" href="#" title="Google Plus"><i
                                             class="zmdi zmdi-google-plus"></i></a>
                                 </li>
                                 <li>
-                                    <a class="twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
+                                    <a class="twitter" href="#" title="Twitter"><i
+                                            class="zmdi zmdi-twitter"></i></a>
                                 </li>
                                 <li>
                                     <a class="rss" href="#" title="RSS"><i class="zmdi zmdi-rss"></i></a>
@@ -69,7 +71,8 @@
                                     <a href="#"><i class="zmdi zmdi-circle"></i><span>Tài khoản của tôi</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="zmdi zmdi-circle"></i><span>Danh sách yêu thích</span></a>
+                                    <a href="#"><i class="zmdi zmdi-circle"></i><span>Danh sách yêu
+                                            thích</span></a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="zmdi zmdi-circle"></i><span>Giỏ hàng của tôi</span></a>
@@ -155,33 +158,35 @@
 
 <script>
     var app = angular.module('myApp', []);
-    app.config(['$interpolateProvider', function ($interpolateProvider) {
+    app.config(['$interpolateProvider', function($interpolateProvider) {
         $interpolateProvider.startSymbol('%%');
         $interpolateProvider.endSymbol('%%');
     }]);
 
-    app.filter('customNumber', function ($filter) {
-        return function (input, fractionSize) {
+    app.filter('customNumber', function($filter) {
+        return function(input, fractionSize) {
             var formattedNumber = $filter('number')(input, fractionSize);
             return formattedNumber ? formattedNumber.replace(/,/g, '.') : '';
         };
     });
 
-
-    app.controller('mainController', function ($scope, $http) {
+   
+    app.controller('mainController', function($scope, $http) {
 
         $scope.cart = {!! json_encode(session('cart')) !!} || [];
 
-        $scope.addToCart = function (product_id, quantity) {
+        
+
+        $scope.addToCart = function(product_id, quantity) {
             $http.post('/api/cart', {
                 product_id: product_id,
                 quantity: quantity,
-            }).then(function (res) {
+            }).then(function(res) {
                 $scope.cart = res.data.data;
             });
         };
 
-        $scope.totalCartMoney = function () {
+        $scope.totalCartMoney = function() {
             var total = 0;
             $scope.cart.forEach(sp => {
                 total += (sp.soluong * ((sp.sale_price != null) ? sp.sale_price : sp.price));
@@ -189,13 +194,13 @@
             return total;
         }
 
-        $scope.removeFromCart = function (index) {
-            $http.delete('/api/cart/' + index).then(function (res) {
+        $scope.removeFromCart = function(index) {
+            $http.delete('/api/cart/' + index).then(function(res) {
                 $scope.cart = res.data.data;
             });
         }
 
-        $scope.countTotalProducts = function () {
+        $scope.countTotalProducts = function() {
             var totalProducts = 0;
             $scope.cart.forEach(sp => {
                 totalProducts += sp.soluong;
@@ -204,7 +209,7 @@
         };
     });
 
-    var viewFunction = function ($scope) {
+    var viewFunction = function($scope) {
         // Any additional view-related functions
     };
 </script>

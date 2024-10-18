@@ -19,7 +19,7 @@ class CartController extends Controller
     public function cart()
     {
        
-        return view('layout_user.cart');
+        return view('cart');
     }
 
     public function checkout(Request $request)

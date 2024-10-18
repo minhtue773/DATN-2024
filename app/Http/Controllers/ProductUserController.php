@@ -80,6 +80,7 @@ class ProductUserController extends Controller
         if (!is_numeric($id) || $id <= 0) {
             return redirect("/thongbao")->with("thongbao", "ID sản phẩm không hợp lệ: " . $id);
         }
+        $categories = ProductCategory::all();
 
         // Truy vấn sản phẩm từ cơ sở dữ liệu
         $sp = Product::find($id);
@@ -100,11 +101,11 @@ class ProductUserController extends Controller
 
         // Lấy tên thương hiệu từ ProductCategory
         $categoryName = ProductCategory::where('id', $sp->product_category_id)->value('name');
-
+        $newProducts = Product::orderBy('created_at', 'desc')->take(6)->get();
         // Truy vấn các sản phẩm liên quan và lấy hình ảnh đầu tiên của mỗi sản phẩm
         $relatedProducts = Product::where('product_category_id', $sp->product_category_id)
             ->where('id', '!=', $id)
-            ->take(4) // Số lượng sản phẩm liên quan bạn muốn hiển thị
+            ->take(8) // Số lượng sản phẩm liên quan bạn muốn hiển thị
             ->get()
             ->map(function ($product) {
                 // Lấy hình ảnh đầu tiên của sản phẩm
@@ -113,6 +114,6 @@ class ProductUserController extends Controller
             });
 
         // Chuyển hướng đến view và truyền dữ liệu sản phẩm, hình ảnh, sản phẩm liên quan, tên thương hiệu và giá sale
-        return view('product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice'));
+        return view('product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice', 'categories', 'newProducts'));
     }
 }

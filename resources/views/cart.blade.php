@@ -3,13 +3,29 @@
 @section('tieude')
     Cart
 @endsection
-
+<div class="breadcrumbs-section plr-200 mb-80">
+    <div class="breadcrumbs overlay-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="breadcrumbs-inner">
+                        <h1 class="breadcrumbs-title">Giỏ Hàng</h1>
+                        <ul class="breadcrumb-list">
+                            <li><a href="index.html">Home</a></li>
+                            <li>Login / Register</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section id="page-content" class="page-wrapper">
 
     <!-- SHOP SECTION START -->
     <div class="shop-section mb-80" ng-controller="siteController">
-        <div class="container" ng-if="cart.length>0">
-            <div class="row">
+        <div class="container" >
+            <div class="row" ng-if="cart.length>0">
 
                 <div class="col-md-12">
                     <!-- Tab panes -->
@@ -34,7 +50,7 @@
                                                     <td class="product-thumbnail">
                                                         <div class="pro-thumbnail-img">
                                                             <a href="/product/%% sp.id %%">
-                                                                <img ng-src="{{ asset('img/product/%% sp.hinh %%') }}"
+                                                                <img ng-src="{{ asset('%% sp.hinh %%') }}"
                                                                     alt="">
 
                                                             </a>
@@ -70,7 +86,7 @@
                                                     <td class="product-quantity">
                                                         <div class="cart-plus-minus f-left" style="margin-left: 23%">
                                                             <input type="number" name="quantity" ng-model="sp.soluong"
-                                                                min="1" max="%% sp.token %%"
+                                                                min="1" max="%% sp.stock %%"
                                                                 ng-change="updateQuantity(sp.id, sp.soluong)"
                                                                 class="cart-plus-minus-box">
                                                         </div>
@@ -94,14 +110,14 @@
                                     
                                     <div class="row">
                                         <div class="col-md-6">
-                                            {{-- <div class="coupon-discount box-shadow p-30 mb-50">
+                                            <div class="coupon-discount box-shadow p-30 mb-50">
                                                 <h6 class="widget-title border-left mb-20">mã giảm giá</h6>
                                                 <p>Nhập mã giảm giá của bạn nếu có!</p>
                                                 <input type="text" name="name"
                                                     placeholder="Nhập mã của bạn ở đây.">
                                                 <button class="submit-btn-1 black-bg btn-hover-2" type="submit">áp dụng
                                                     mã giảm giá</button>
-                                            </div> --}}
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="payment-details box-shadow p-30 mb-50">
@@ -124,16 +140,13 @@
                     </div>
                 </div>
             </div>
+
+            <div ng-if="cart.length==0">
+                  huuthien
+            </div>
         </div>
-
-        <div ng-if="cart.length==0">
-            <h3 style="text-align: center">Giỏ Hàng Đang Trống</h3>
-
-            <a href="{{ route('products.index') }}">
-                <h4 style="text-align: center;">Tiếp Tục Mua Sắm </h4>
-            </a>
-
-        </div>
+        
+        
     </div>
     <!-- SHOP SECTION END -->
 
@@ -145,6 +158,7 @@
 @section('viewFunction')
     <script>
         viewFunction = function($scope, $http) {
+           
             $scope.updateQuantity = function(id, soluong) {
                 $http.patch('/api/cart/' + id, {
                     soluong: soluong

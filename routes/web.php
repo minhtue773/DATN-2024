@@ -26,7 +26,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 
-
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
 /*---------------------- Admin ----------------------*/
@@ -47,8 +47,8 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/blogs/{idCataPost?}', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');// Route cho danh sách bài viết
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
     $arr = request()->post();
     $ht = trim(strip_tags($arr['ht']));
@@ -60,7 +60,8 @@ Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
     $request->session()->flash('thongbao', "Đã gửi mail");
     return redirect("thongbao");
 });
-
+Route::get('/blogs/{idCataPost?}', [BlogController::class, 'index'])->name('blogs');
+Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'loginUser']);
 Route::get('/register',[UserAuthController::class,'register'])->name('register');
@@ -69,7 +70,7 @@ Route::get('/logout', [UserAuthController::class, 'logout'])->name('user.logout'
 
 Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 Route::prefix('api')->group(function () {
     Route::get('/comments/product/{product_id}', [CommentController::class, 'product']);
     Route::resource('/comments', CommentController::class);
