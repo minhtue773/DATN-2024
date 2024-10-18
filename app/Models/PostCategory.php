@@ -13,5 +13,6 @@ class PostCategory extends Model
         'name',
         'order_number',
         'image',
+        'status',
     ];
 }

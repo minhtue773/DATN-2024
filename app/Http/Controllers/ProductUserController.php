@@ -113,6 +113,6 @@ class ProductUserController extends Controller
             });
 
         // Chuyển hướng đến view và truyền dữ liệu sản phẩm, hình ảnh, sản phẩm liên quan, tên thương hiệu và giá sale
-        return view('layout_user.product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice'));
+        return view('product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice'));
     }
 }

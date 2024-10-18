@@ -1,0 +1,1 @@
+@extends('layout_user.about')

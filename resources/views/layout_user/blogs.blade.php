@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="breadcrumbs-inner">
-                        <h1 class="breadcrumbs-title">Blog style 2</h1>
+                        <h1 class="breadcrumbs-title">Bài viết</h1>
                         <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Blog Style - 2</li>
+                            <li><a href="/">Trang Chủ</a></li>
+                            <li>Bài viết</li>
                         </ul>
                     </div>
                 </div>
@@ -37,45 +37,22 @@
                             </button>
                             <div class="dropdown-menu dropdown-width mt-30">
                                 <aside class="widget widget-categories box-shadow">
-                                    <h6 class="widget-title border-left mb-20">Danh mục</h6>
                                     <div id="cat-treeview" class="product-cat">
                                         <ul>
-                                            <li class="closed"><a href="#">Mô hình xe hơi</a>
-                                                <ul>
-                                                    <li><a href="#">Mô hình ô tô đua</a></li>
-                                                    <li><a href="#">Mô hình xe SUV</a></li>
-                                                    <li><a href="#">Mô hình xe tải</a></li>
-                                                    <li><a href="#">Mô hình xe cổ</a></li>
-                                                </ul>
+                                            <li class="closed"><a href="/blogs">Tất cả</a>
                                             </li>
-                                            <li class="open"><a href="#">Mô hình máy bay</a>
+                                            @foreach ($post_cate_arr as $post_cate)
+                                                <li class="closed"><a
+                                                        href="{{ route('blogs', ['idCataPost' => $post_cate->id]) }}">{{$post_cate->name}}</a>
+                                                </li>
+                                            @endforeach
+                                            <!-- <li class="open"><a href="#">Mô hình máy bay</a>
                                                 <ul>
                                                     <li><a href="#">Mô hình máy bay thương mại</a></li>
                                                     <li><a href="#">Mô hình máy bay quân sự</a></li>
                                                     <li><a href="#">Mô hình trực thăng</a></li>
                                                 </ul>
-                                            </li>
-                                            <li class="closed"><a href="#">Mô hình tàu thủy</a>
-                                                <ul>
-                                                    <li><a href="#">Mô hình tàu chiến</a></li>
-                                                    <li><a href="#">Mô hình thuyền buồm</a></li>
-                                                    <li><a href="#">Mô hình tàu thương mại</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="closed"><a href="#">Mô hình đồ chơi</a>
-                                                <ul>
-                                                    <li><a href="#">Mô hình robot</a></li>
-                                                    <li><a href="#">Mô hình động vật</a></li>
-                                                    <li><a href="#">Mô hình nhân vật hoạt hình</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="closed"><a href="#">Mô hình xây dựng</a>
-                                                <ul>
-                                                    <li><a href="#">Mô hình nhà ở</a></li>
-                                                    <li><a href="#">Mô hình cầu đường</a></li>
-                                                    <li><a href="#">Mô hình thành phố</a></li>
-                                                </ul>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </aside>
@@ -162,144 +139,15 @@
             </div>
             <div class="row">
                 <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/4.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @yield('blogs')
                 <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/5.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/4.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/4.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/5.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-sm-6 col-xs-12">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-image">
-                                    <a href="single-blog.html"><img src="img/blog/4.jpg" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">Tên shop mô hình giả lập</a></h5>
-                                    <p>Có nhiều biến thể của các đoạn văn trong psum có sẵn, nhưng phần lớn đã
-                                        bị ảnh hưởng dưới dạng nào đó...</p>
-                                    <div class="read-more">
-                                        <a href="#">Đọc thêm</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
+                <!-- shop-pagination start -->
+
+                <!-- shop-pagination end -->
             </div>
+            <ul class="shop-pagination box-shadow text-center ptblr-10-30">
+                {{ $posts->links('vendor.pagination.custom-pagination') }}
+            </ul>
         </div>
     </div>
     <!-- BLOG SECTION END -->

@@ -144,14 +144,14 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                                        <li><a href="/blogs"><i class="fas fa-blog"></i> Bài viết</a>
                                             <ul class="dropdwn">
                                                 <li><a href="blog-left-sidebar.html">Tin tức mô hình</a></li>
                                                 <li><a href="blog-right-sidebar.html">Hướng dẫn lắp ráp</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
-                                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Liên hệ</a></li>
+                                        <li><a href="/about"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+                                        <li><a href="/contact"><i class="fas fa-envelope"></i> Liên hệ</a></li>
                                     </ul>
                                 </nav>
                             </div>
