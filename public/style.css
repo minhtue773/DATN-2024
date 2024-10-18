@@ -78,7 +78,9 @@
 ----------------------------------------*/
 @import 'https://fonts.googleapis.com/css?family=Raleway:400,500,600,700|Roboto:400,500,700';
 
-
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
 
 
 /*************************************
