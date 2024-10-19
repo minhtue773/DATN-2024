@@ -9,26 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/icon/favicon.png')}}">
 
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
     <!-- Nivo-slider css -->
-    <link rel="stylesheet" href="lib/css/nivo-slider.css">
+    <link rel="stylesheet" href="{{ asset('lib/css/nivo-slider.css') }}">
     <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="{{ asset('css/core.css') }}">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="{{ asset('css/shortcode/shortcodes.css') }}">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <!-- Template color css -->
-    <link href="css/color/color-core.css" data-style="styles" rel="stylesheet">
+    <link href="{{ asset('style.css') }}css/color/color-core.css" data-style="styles" rel="stylesheet">
     <!-- User style -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="{{ asset('style.css') }}css/custom.css">
 
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -59,7 +59,7 @@
                                 <ul class="link f-right">
                                     @if(Auth::check())
                                     <li>
-                                        <a href="my-account.html">
+                                        <a href="/my_account">
                                             <i class="zmdi zmdi-account"></i>
                                             {{Auth::user()->name}}
                                         </a>
@@ -72,7 +72,7 @@
                                     </li>
                                     <li>
                                         <a href="/logout">
-                                            <i class="bi bi-box-arrow-right"></i>
+                                            <i class="zmdi zmdi-lock-open"></i>
                                             Đăng xuất
                                         </a>
                                     </li>
@@ -111,7 +111,7 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png"
+                                        <img style="height: 32px; width: 191px;" src="{{asset('img/logo/logo.png')}}"
                                             alt="logo chính">
                                     </a>
                                 </div>
