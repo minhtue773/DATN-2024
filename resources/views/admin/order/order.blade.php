@@ -180,128 +180,127 @@
                         </div>
                     </div>
                 </div>
-            </div>
-                
+            </div>      
         </div>
     </div>
     <!-- /.container-fluid -->
 @endsection
 @section('js')
-<script>
-    new DataTable('#myTable', {
-        processing: true,
-        lengthMenu: [10, 15, 20],
-        searching: true,
-        info: false,
-        ordering: true,
-        paging: true,
-        responsive: true,
-        order: [
-            [2, 'desc']
-        ],
-        columnDefs: [{
-                targets: [1,2,3,5],
-                orderable: true
-            },
-            {
-                targets: [0,4,5,6,7,8,9],
-                orderable: false
-            },
-        ],
-        language: {
-            "emptyTable": "Không có dữ liệu",
-            "processing": "Đang tải dữ liệu",
-            "lengthMenu": "Hiển thị _MENU_ đơn hàng",
-            "zeroRecords": "Không tìm thấy đơn hàng nào",
-            "info": "Trang _PAGE_ của _PAGES_",
-            "infoEmpty": "Không có dữ liệu",
-            "infoFiltered": "(lọc từ _MAX_ đơn hàng)",
-            "search": "Tìm kiếm:",
-            "paginate": {
-                "previous": "Trước",
-                "next": "Sau"
-            },
-            "aria": {
-                "sortAscending": ": Đợi xíu",
-                "sortDescending": ": Đợi xíu",
+    <script>
+        new DataTable('#myTable', {
+            processing: true,
+            lengthMenu: [10, 15, 20],
+            searching: true,
+            info: false,
+            ordering: true,
+            paging: true,
+            responsive: true,
+            order: [
+                [2, 'desc']
+            ],
+            columnDefs: [{
+                    targets: [1,2,3,5],
+                    orderable: true
+                },
+                {
+                    targets: [0,4,5,6,7,8,9],
+                    orderable: false
+                },
+            ],
+            language: {
+                "emptyTable": "Không có dữ liệu",
+                "processing": "Đang tải dữ liệu",
+                "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+                "zeroRecords": "Không tìm thấy đơn hàng nào",
+                "info": "Trang _PAGE_ của _PAGES_",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ đơn hàng)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "previous": "Trước",
+                    "next": "Sau"
+                },
+                "aria": {
+                    "sortAscending": ": Đợi xíu",
+                    "sortDescending": ": Đợi xíu",
+                }
             }
-        }
-    });
-</script>
-<script>
-function confirmStatus(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn có muốn xác nhận đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xác nhận',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-function confirmStatusCancel(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Đơn hàng này yêu cầu hủy vì lý do khách hàng muốn đổi địa chỉ. Bạn có muốn hủy đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xác nhận hủy',
-        cancelButtonText: 'Hủy!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-function confirmStatusDel(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn muốn xóa đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa đơn',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-function confirmDelete(form) {
-    Swal.fire({
-        title: 'Xóa đơn hàng',
-        text: 'Tất cả đơn hàng bạn chọn đều sẽ bị xóa!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Vẫn xóa!',
-        cancelButtonText: 'Không'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.submit();
-        }
-    });
-}
-</script>
-<script>
-    document.getElementById('select-all').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]:not([disabled])');
-        const isChecked = this.checked;
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = isChecked;
         });
-    });
+    </script>
+    <script>
+    function confirmStatus(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn có muốn xác nhận đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    function confirmStatusCancel(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Đơn hàng này yêu cầu hủy vì lý do khách hàng muốn đổi địa chỉ. Bạn có muốn hủy đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận hủy',
+            cancelButtonText: 'Hủy!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    function confirmStatusDel(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn muốn xóa đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa đơn',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    function confirmDelete(form) {
+        Swal.fire({
+            title: 'Xóa đơn hàng',
+            text: 'Tất cả đơn hàng bạn chọn đều sẽ bị xóa!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Vẫn xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+    </script>
+    <script>
+        document.getElementById('select-all').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]:not([disabled])');
+            const isChecked = this.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        });
 
-</script>
+    </script>
 @endsection

@@ -74,14 +74,14 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('admin.order.index')}}">Đơn hàng</a>
-                <a class="collapse-item" href="#">Lịch sữ xóa <span class="badge badge-danger ms-1">3</span></a>
+                <a class="collapse-item" href="#">Quản lý giao dịch</a>
             </div>
         </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.trash') }}">
             <i class="bi bi-trash"></i>
-            <span>Thùng rác <span class="badge text-bg-danger p-0 px-2 ms-2">2</span></span>
+            <span>Thùng rác</span>
         </a>
     </li>
     <hr class="sidebar-divider">

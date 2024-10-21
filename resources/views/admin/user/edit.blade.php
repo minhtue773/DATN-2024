@@ -26,7 +26,7 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Email:</label>
-                                        <input type="email" class="form-control form-control-sm" placeholder="Nhập email..." name="email" value="{{ $user->email ?? old('email') }}">
+                                        <input type="email" class="form-control form-control-sm" placeholder="Nhập email..." name="email" value="{{ old('email') ?? $user->email }}">
                                         @error('email')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tên người dùng:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ $user->name ?? old('name') }}">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ old('name') ?? $user->name }}">
                                         @error('name')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
@@ -48,14 +48,14 @@
                                     
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Số điện thoại:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập số điện thoại..." name="phone_number" value="{{ $user->phone_number ?? old('phone_number') }}">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập số điện thoại..." name="phone_number" value="{{ old('phone_number') ?? $user->phone_number }}">
                                         @error('phone_number')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Địa chỉ:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập địa chỉ..." name="address" value="{{ $user->address ?? old('address') }}">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập địa chỉ..." name="address" value="{{ old('address') ?? $user->address }}">
                                         @error('address')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
@@ -73,7 +73,7 @@
                                     </div> 
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Ngày sinh:</label>
-                                        <input type="date" class="form-control form-control-sm" name="birthday" value="{{ $user->birthday ?? old('birthday') }}">
+                                        <input type="date" class="form-control form-control-sm" name="birthday" value="{{ old('birthday') ?? $user->birthday }}">
                                         @error('birthday')
                                             <p class="text-danger m-0 mt-1">* {{ $message }}</p>
                                         @enderror

@@ -99,6 +99,9 @@ class PostController extends Controller
     }
     public function delete(Post $post){
         try {
+            // if ($post->image && file_exists(public_path('uploads/images/post/' . $post->image))) {
+            //     unlink(public_path('uploads/images/post/' . $post->image));
+            // }
             $post->delete();
             return redirect()->back()->with('success', 'Xóa bài viết thành công');
         } catch (\Throwable $th) {
@@ -109,6 +112,12 @@ class PostController extends Controller
     public function destroyBox(Request $request) {
         try {
             if(is_array($request->post_ids)){
+                // $posts = Post::whereIn('id', $request->post_ids)->get();
+                // foreach ($posts as $post) {
+                //     if ($post->image && file_exists(public_path('uploads/images/post/' . $post->image))) {
+                //         unlink(public_path('uploads/images/post/' . $post->image));
+                //     }
+                // }
                 Post::destroy($request->post_ids);
                 return redirect()->back()->with('ok', 'Xóa bài viết thành công');
             }

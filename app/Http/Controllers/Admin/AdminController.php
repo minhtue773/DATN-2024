@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Post;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +42,26 @@ class AdminController extends Controller
     }
 
     public function trash() {
-        return view('admin.product.trash');
-    }
+        $products = Product::onlyTrashed()->get(); 
+        $posts = Post::onlyTrashed()->get(); 
+        $orders = Order::onlyTrashed()->get();
+    
+        $data = [
+            "product" => [
+                "data" => $products,
+                "quantity" => $products->count()
+            ],
+            "post" => [
+                "data" => $posts,
+                "quantity" => $posts->count()
+            ],
+            "order" => [
+                "data" => $orders,
+                "quantity" => $orders->count()
+            ]
+        ];
+        
+        return view('admin.trash.trash', compact('data'));
+    }    
+    
 }

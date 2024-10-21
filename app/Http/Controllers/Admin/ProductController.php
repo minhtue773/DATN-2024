@@ -16,12 +16,10 @@ class ProductController extends Controller
     {
         $categories = ProductCategory::all();
         $query = Product::query();
-        if ($request->category > 0 && $request->status > 0){
-            $query->where('product_category_id',$request->category)
-                ->where('status', $request->status);
-        }elseif ($request->category > 0){
+        if ($request->category > 0) {
             $query->where('product_category_id', $request->category);
-        }elseif ($request->status > 0){
+        }
+        if ($request->status > 0) {
             $query->where('status', $request->status);
         }
         $products = $query->get();
@@ -113,29 +111,46 @@ class ProductController extends Controller
         }
     }
 
+    public function delete(Product $product) {
+        try {
+            // if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
+            //     unlink(public_path('uploads/images/product/' . $product->image));
+            // }
+            // $oldImages = ProductImage::where('product_id', $product->id)->get();
+            // foreach ($oldImages as $oldImage) {
+            //     if (file_exists(public_path('uploads/images/product/' . $oldImage->image))) {
+            //         unlink(public_path('uploads/images/product/' . $oldImage->image));
+            //     }
+            // }
+            $product->delete();
+            return redirect()->back()->with("success","Xóa $product->name thành công!");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with("error","Xóa $product->name thất bại!");
+        }
+    }
+
     public function destroyBox(Request $request)
     {
-        if ($request->has('product_ids') && count($request->product_ids) > 0) {
+        if (is_array($request->product_ids)) {
+            // $products = Product::whereIn('id', $request->product_ids)->get();
+            // foreach ($products as $product) {
+            //     if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
+            //         unlink(public_path('uploads/images/product/' . $product->image));
+            //     }
+            //     $oldImages = ProductImage::where('product_id', $product->id)->get();
+            //     foreach ($oldImages as $oldImage) {
+            //         if (file_exists(public_path('uploads/images/product/' . $oldImage->image))) {
+            //             unlink(public_path('uploads/images/product/' . $oldImage->image));
+            //         }
+            //     }
+            // }
             Product::destroy($request->product_ids);
             $count = count($request->product_ids);
-            flash()->success("Xóa $count sản phẩm thành công!");
-            return redirect()->back();
+            return redirect()->back()->with('ok', "Xóa $count sản phẩm thành công!");
         } else {
             return redirect()->back()->with('no', 'Bạn chưa chọn sản phẩm nào!');
         }
     }
-
-    public function delete(Product $product) {
-        try {
-            $product->delete();
-            flash()->success("Xóa $product->name thành công!");
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            flash()->error("Xóa $product->name thất bại!");
-            return redirect()->back();
-        }
-    }
-
 
     public function updateHidden(Request $request) {
         $product = Product::find($request->id);

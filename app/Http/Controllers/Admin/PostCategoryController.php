@@ -96,6 +96,9 @@ class PostCategoryController extends Controller
     public function destroy(PostCategory $postCategory)
     {
         try {
+            if ($postCategory->image && file_exists(public_path('uploads/images/post_category/' . $postCategory->image))) {
+                unlink(public_path('uploads/images/post_category/' . $postCategory->image));
+            }
             $postCategory->delete();
             return redirect()->back()->with('success', 'Xóa chuyên mục thành công');
         } catch (\Throwable $th) {

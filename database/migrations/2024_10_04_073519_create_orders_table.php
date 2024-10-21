@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->decimal('total');
             $table->enum('payment_method', ['cash','vnpay','momo'])->default('cash');
+            $table->string('recipient_name');
             $table->string('recipient_phone', 15);
             $table->string('recipient_address');
             $table->string('applied_discount_code')->nullable();
@@ -25,7 +26,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes('deleted_at');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
         });
     }
 

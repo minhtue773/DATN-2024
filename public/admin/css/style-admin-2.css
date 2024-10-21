@@ -12670,3 +12670,9 @@ body.sidebar-toggled footer.sticky-footer {
 #myTable thead th{
   text-align: center !important;
 }
+#productTable thead th{
+  text-align: center !important;
+}
+#myTable thead th{
+  text-align: center !important;
+}
