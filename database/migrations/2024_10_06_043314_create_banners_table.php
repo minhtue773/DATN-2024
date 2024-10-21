@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 

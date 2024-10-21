@@ -33,7 +33,7 @@
                                             <span class="lead fw-normal">(*) Đơn hàng chưa được xác nhận!</span>
                                         @break
                                         @case(1)
-                                            <span class="lead fw-normal">(*) Đơn hàng đang trong quá trình xử lý!</span>
+                                            <span class="lead fw-normal">(*) Đơn hàng đang được chuẩn bị!</span>
                                         @break
                                         @case(2)
                                             <span class="lead fw-normal">(*) Đơn hàng đang trên đường vận chuyển!</span>
@@ -137,7 +137,7 @@
                             </div>
                             <div class="d-flex flex-row justify-content-between align-items-center">
                                 <span>Chờ xác nhận</span>
-                                <span>Đang xử lý</span>
+                                <span>Đang gói hàng</span>
                                 @if ($order->status >= 4)
                                     <span>Yêu cầu hủy</span>
                                     <span>Đã hủy</span>
@@ -224,8 +224,7 @@
                                     <h4 class="header-title mb-3">Thông tin giao hàng</h4>
                                     <ul class="list-unstyled mb-0">
                                         <li>
-                                            <p class="mb-2"><span class="fw-bold me-2">Tên người
-                                                    nhận:</span>{{ $order->user->name }}</p>
+                                            <p class="mb-2"><span class="fw-bold me-2">Tên người nhận:</span>{{ $order->recipient_name ?? $order->user->name }}</p>
                                             <p class="mb-2"><i
                                                     class="fa-solid fa-house-user me-2"></i>{{ $order->recipient_address }}
                                             </p>
@@ -238,9 +237,24 @@
                                     <h4 class="header-title mb-3">Thông tin thanh toán</h4>
                                     <ul class="list-unstyled mb-0">
                                         <li>
-                                            <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Ví VNPay
-                                                (Thành công)</p>
-                                            <p class="mb-2"><span class="fw-bold me-2">Mã hóa đơn:</span>#923173617</p>
+                                            @switch($order->payment_method)
+                                                @case('cash')
+                                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Thanh toán khi nhận hàng</p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Trạng thái:</span><span class="badge bg-secondary">Chưa thanh toán</span></p>
+                                                    @break
+                                                @case('vnpay')
+                                                    <p class="mb-2"><span class="fw-bold me-2">Mã hóa đơn:</span><a href="#">#923173617</a></p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Vnpay</p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Trạng thái:</span><span class="badge bg-success">Đã thanh toán</span></p>
+                                                    @break
+                                                @case('momo')
+                                                    <p class="mb-2"><span class="fw-bold me-2">Mã hóa đơn:</span><a href="#">#923173617</a></p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Momo</p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Trạng thái:</span><span class="badge bg-success">Đã thanh toán</span></p>
+                                                    @break
+                                                @default
+                                                    <p class="mb-2">Không có thông tin thanh toán khả dụng.</p>
+                                            @endswitch
                                         </li>
                                     </ul>
                                 </div>
@@ -249,8 +263,11 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="h-100">
-                        <iframe src="https://giphy.com/embed/5Ogi2l7LNzIRy" style="height:100%; width:100%" frameBorder="0" class="giphy-embed bg-white rounded-2 border" allowFullScreen></iframe>
+                    <div class="card h-100 border-left-primary">
+                        <div class="card-body">
+                            <h4 class="header-title mb-3">Ghi chú từ khách hàng</h4>
+                            <p class="mb-2">- {{ $order->note ?? 'Không có!!!' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,54 +275,54 @@
     </div>
 @endsection
 @section('js')
-<script>
-function confirmStatus(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn có muốn xác nhận đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xác nhận',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-function confirmStatusCancel(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn muốn hủy đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xác nhận hủy',
-        cancelButtonText: 'Hủy!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-function confirmStatusDel(urlPath) {
-    Swal.fire({
-        title: 'Thông báo',
-        text: 'Bạn muốn xóa đơn hàng này?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Xóa đơn',
-        cancelButtonText: 'Hủy'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = urlPath;
-        }
-    });
-}
-</script>
+    <script>
+    function confirmStatus(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn có muốn xác nhận đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    function confirmStatusCancel(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn muốn hủy đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận hủy',
+            cancelButtonText: 'Hủy!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    function confirmStatusDel(urlPath) {
+        Swal.fire({
+            title: 'Thông báo',
+            text: 'Bạn muốn xóa đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa đơn',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = urlPath;
+            }
+        });
+    }
+    </script>
 @endsection

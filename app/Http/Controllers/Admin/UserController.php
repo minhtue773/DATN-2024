@@ -59,6 +59,7 @@ class UserController extends Controller
             'password.min' => 'Mật khẩu phải có ít nhất :min ký tự.',
             'name.required' => 'Tên người dùng là bắt buộc.',
             'phone_number.regex' => 'Số điện thoại không hợp lệ.',
+            'phone_number.min' => 'Số điện thoại phải có ít nhất 10 chữ số.',
             'photo.image' => 'Ảnh đại diện phải là file hình ảnh.',
             'photo.mimes' => 'Ảnh đại diện chỉ chấp nhận định dạng: jpeg, png, jpg, gif, webp.',
             'photo.max' => 'Ảnh đại diện không được lớn hơn 2MB.',
@@ -89,8 +90,14 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
-            $user->delete();
-            return redirect()->back()->with('success', "Xóa người dùng {$user->name} thành công");
+            try {
+                if ($user->image && file_exists(public_path('uploads/images/user/' . $user->image))) {
+                    unlink(public_path('uploads/images/user/' . $user->image));
+                }
+                $user->delete();
+                return redirect()->back()->with('success', "Xóa người dùng {$user->name} thành công");
+            } catch (\Throwable $th) {
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Xóa người dùng {$user->name} thất bại");
         }

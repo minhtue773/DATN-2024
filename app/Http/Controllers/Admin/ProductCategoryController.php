@@ -98,9 +98,11 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $category)
     {
         try {
+            if ($category->image && file_exists(public_path('uploads/images/product_category/' . $category->image))) {
+                unlink(public_path('uploads/images/product_category/' . $category->image));
+            }
             $category->delete();
-            flash()->success("Xóa $category->name thành công!");
-            return redirect()->back();
+            return redirect()->back()->with('success',"Xóa $category->name thành công!");
         } catch (\Throwable $th) {
             flash()->error("Xóa $category->name thất bại!");
             return redirect()->back();

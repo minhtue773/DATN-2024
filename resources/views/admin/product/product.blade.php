@@ -160,120 +160,120 @@
     </div>    
 @endsection
 @section('js')
-{{-- check-all --}}
-<script>
-    document.getElementById('checkAll').addEventListener('change', function() {
-        let checkboxes = document.querySelectorAll('.product-checkbox');
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = this.checked;
+    {{-- check-all --}}
+    <script>
+        document.getElementById('checkAll').addEventListener('change', function() {
+            let checkboxes = document.querySelectorAll('.product-checkbox');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = this.checked;
+            });
         });
-    });
-</script>
-{{-- Datatables --}}
-<script>
-    new DataTable('#myTable', {
-        processing: true,
-        lengthMenu: [5, 10, 20],
-        searching: true,
-        info: false,
-        ordering: true,
-        paging: true,
-        responsive: true,
-        order: [
-            [7, 'desc']
-        ],
-        columnDefs: [{
-                targets: [2, 3, 4, 5, 7], // Các cột có thể sắp xếp
-                orderable: true
-            },
-            {
-                targets: [0, 1, 6, 8, 9, 10, 11], // Cột "Tên mô hình" không thể sắp xếp
-                orderable: false
-            },
-        ],
-        language: {
-            "emptyTable": "Không có dữ liệu",
-            "processing": "Đang tải dữ liệu",
-            "lengthMenu": "Hiển thị _MENU_ trên _TOTAL_ mô hình ",
-            "zeroRecords": "Không tìm thấy mô hình nào",
-            "info": "Trang _PAGE_ của _PAGES_ trong tổng số _TOTAL_ mô hình",
-            "infoEmpty": "Không có dữ liệu",
-            "infoFiltered": "(lọc từ _MAX_ mô hình)",
-            "search": "Tìm kiếm:",
-            "paginate": {
-                "previous": "Trước",
-                "next": "Sau"
-            },
-            "aria": {
-                "sortAscending": ": Đợi xíu",
-                "sortDescending": ": Đợi xíu",
+    </script>
+    {{-- Datatables --}}
+    <script>
+        new DataTable('#myTable', {
+            processing: true,
+            lengthMenu: [5, 10, 20],
+            searching: true,
+            info: false,
+            ordering: true,
+            paging: true,
+            responsive: true,
+            order: [
+                [7, 'desc']
+            ],
+            columnDefs: [{
+                    targets: [2, 3, 4, 5, 7], // Các cột có thể sắp xếp
+                    orderable: true
+                },
+                {
+                    targets: [0, 1, 6, 8, 9, 10, 11], // Cột "Tên mô hình" không thể sắp xếp
+                    orderable: false
+                },
+            ],
+            language: {
+                "emptyTable": "Không có dữ liệu",
+                "processing": "Đang tải dữ liệu",
+                "lengthMenu": "Hiển thị _MENU_ trên _TOTAL_ mô hình ",
+                "zeroRecords": "Không tìm thấy mô hình nào",
+                "info": "Trang _PAGE_ của _PAGES_ trong tổng số _TOTAL_ mô hình",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ mô hình)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "previous": "Trước",
+                    "next": "Sau"
+                },
+                "aria": {
+                    "sortAscending": ": Đợi xíu",
+                    "sortDescending": ": Đợi xíu",
+                }
             }
+        });
+    </script>
+    {{-- update hidden --}}
+    <script>
+        function updateHidden(id, isChecked) {
+            $.ajax({
+                url: ' {{ route('admin.product.updateHidden') }} ',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    is_hidden: isChecked ? 0 : 1
+                }
+            });
+        }
+    </script>
+    {{-- Show detail modal --}}
+    <script>
+        function showProductDetail(productId) {
+            fetch('/admin/product/' + productId)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('modalContent').innerHTML = data;
+                    var myModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+                    myModal.show();
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải chi tiết sản phẩm:', error);
+                });
+        }
+    </script>
+    <script>
+    function confirmDelete(form) {
+    Swal.fire({
+        title: 'Xóa sản phẩm',
+        text: 'Tất cả sản phẩm bạn chọn đều sẽ bị xóa!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vẫn xóa!',
+        cancelButtonText: 'Không'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
         }
     });
-</script>
-{{-- update hidden --}}
-<script>
-    function updateHidden(id, isChecked) {
-        $.ajax({
-            url: ' {{ route('admin.product.updateHidden') }} ',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                id: id,
-                is_hidden: isChecked ? 0 : 1
-            }
-        });
     }
-</script>
-{{-- Show detail modal --}}
-<script>
-    function showProductDetail(productId) {
-        fetch('/admin/product/' + productId)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('modalContent').innerHTML = data;
-                var myModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
-                myModal.show();
-            })
-            .catch(error => {
-                console.error('Lỗi khi tải chi tiết sản phẩm:', error);
+    </script>
+    <script>
+        function confirmDeletePath(urlPath) {
+            Swal.fire({
+                title: 'Thông báo',
+                text: 'Bạn muốn xóa sản phẩm này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = urlPath;
+                }
             });
-    }
-</script>
-<script>
-function confirmDelete(form) {
-Swal.fire({
-    title: 'Xóa sản phẩm',
-    text: 'Tất cả sản phẩm bạn chọn đều sẽ bị xóa!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Vẫn xóa!',
-    cancelButtonText: 'Không'
-}).then((result) => {
-    if (result.isConfirmed) {
-        form.submit();
-    }
-});
-}
-</script>
-<script>
-    function confirmDeletePath(urlPath) {
-        Swal.fire({
-            title: 'Thông báo',
-            text: 'Bạn muốn xóa sản phẩm này?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Xóa',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = urlPath;
-            }
-        });
-    }
-</script>
+        }
+    </script>
 @endsection

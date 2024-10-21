@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('rating_stars')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
+            $table->softDeletes('deleted_at');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');;
