@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
+
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
@@ -25,6 +26,9 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FavoriteProductController;
+use App\Http\Controllers\CommentControllers;
+use App\Http\Controllers\PasswordResetController;
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
@@ -67,15 +71,24 @@ Route::post('/login', [UserAuthController::class, 'loginUser']);
 Route::get('/register',[UserAuthController::class,'register'])->name('register');
 Route::post('/register',[UserAuthController::class,'registerUser']);
 Route::get('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
-
+Route::get('/my_account',[UserAuthController::class,'showAccount'])->name('my_account');
+Route::post('/my_account', [UserAuthController::class, 'updateAccount'])->name('account.update');
+Route::get('/forgot-password', [PasswordResetController::class, 'showLinkRequestForm'])->name('forgot-password');
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}',[PasswordResetController::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset-password',[PasswordResetController::class, 'resetPasswordPost'])->name('reset.password.post');
 Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
 Route::prefix('api')->group(function () {
     Route::get('/comments/product/{product_id}', [CommentController::class, 'product']);
     Route::resource('/comments', CommentController::class);
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::resource('/cart', CartController::class);
 });
+
+
+Route::post('/favorite/toggle/{productId}', [FavoriteProductController::class, 'toggleFavorite'])->name('favorite.toggle');
 Route::get("/thongbao", function (Illuminate\Http\Request $request) {
     $tb = $request->session()->get('thongbao');
     return view('thongbao', ['thongbao' => $tb]);

@@ -41,4 +41,38 @@ class UserAuthController extends Controller
         Auth::logout();
         return redirect('/');
     }
+    public function showAccount(){
+        $user = Auth::user();
+        return view('layout_user.my_account', compact('user'));
+    }
+    public function updateAccount(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'password' => 'nullable|confirmed|min:6',
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->email = $request->email;
+
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user = Auth::user();
+        if ($user) {
+            // Kiểm tra dữ liệu trước khi lưu
+            dd($user);
+            $user->name = $request->name;
+            $user->save();
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+        return redirect()->back()->with('success', 'Thông tin đã được cập nhật!');
+    }
 }

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Hobby Zone</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,13 +29,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
-<body ng-app="myApp" ng-controller="mainController">
+<body ng-app="myApp">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Body main wrapper start -->
-    <div class="wrapper">
+    <div class="wrapper" ng-controller="mainController">
 
         <!-- START HEADER AREA -->
         <header class="header-area header-wrapper">
@@ -50,44 +51,44 @@
                         <div class="col-sm-6 col-xs-12">
                             <div class="top-link clearfix">
                                 <ul class="link f-right">
-                                    @if(Auth::check())
-                                        <li>
-                                            <a href="my-account.html">
-                                                <i class="zmdi zmdi-account"></i>
-                                                {{ Auth::user()->name }}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html">
-                                                <i class="zmdi zmdi-favorite"></i>
-                                                Danh sách yêu thích (0)
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/logout">
-                                                <i class="bi bi-box-arrow-right"></i>
-                                                Đăng xuất
-                                            </a>
-                                        </li>
+                                @if(Auth::check())
+                                    <li>
+                                        <a href="/my_account">
+                                            <i class="zmdi zmdi-account"></i>
+                                            {{Auth::user()->name}}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="wishlist.html">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                            Danh sách yêu thích (0)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout">
+                                            <i class="zmdi zmdi-lock-open"></i>
+                                            Đăng xuất
+                                        </a>
+                                    </li>
                                     @else
-                                        <li>
-                                            <a href="wishlist.html">
-                                                <i class="zmdi zmdi-favorite"></i>
-                                                Danh sách yêu thích (0)
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('login') }}">
-                                                <i class="zmdi zmdi-lock"></i>
-                                                Đăng nhập
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('register') }}">
-                                                <i class="zmdi zmdi-account-add"></i>
-                                                Đăng ký
-                                            </a>
-                                        </li>
+                                    <li>
+                                        <a href="wishlist.html">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                            Danh sách yêu thích (0)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('login') }}">
+                                            <i class="zmdi zmdi-lock"></i>
+                                            Đăng nhập
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('register') }}">
+                                            <i class="zmdi zmdi-account-add"></i>
+                                            Đăng ký
+                                        </a>
+                                    </li>
                                     @endif
                                 </ul>
                             </div>
@@ -119,40 +120,29 @@
                                             <a href="/products"><i class="fas fa-box"></i> Mô hình</a>
                                             <div class="mega-menu-area clearfix">
                                                 <div class="mega-menu-link f-left">
+                                                    @foreach($categories as $category)
                                                     <ul class="single-mega-item">
-                                                        <li class="menu-title">Mô hình tĩnh</li>
-                                                        <li><a href="#">Mô hình xe cộ</a></li>
-                                                        <li><a href="#">Mô hình quân sự</a></li>
-                                                        <li><a href="#">Mô hình máy bay</a></li>
-                                                        <li><a href="#">Mô hình tàu thuyền</a></li>
-                                                        <li><a href="#">Mô hình nhân vật</a></li>
+                                                        <li><a href="#">{{ $category->name }}</a></li>
+
+
                                                     </ul>
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Mô hình lắp ráp</li>
-                                                        <li><a href="#">Gundam</a></li>
-                                                        <li><a href="#">Mô hình máy bay lắp ráp</a></li>
-                                                        <li><a href="#">Mô hình xe lắp ráp</a></li>
-                                                        <li><a href="#">Phụ kiện mô hình</a></li>
-                                                    </ul>
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Dụng cụ và vật liệu</li>
-                                                        <li><a href="#">Keo dán</a></li>
-                                                        <li><a href="#">Màu sơn</a></li>
-                                                        <li><a href="#">Dụng cụ cắt gọt</a></li>
-                                                        <li><a href="#">Bàn làm mô hình</a></li>
-                                                    </ul>
+                                                    @endforeach
                                                 </div>
                                                 <div class="mega-menu-photo f-left">
-                                                    <a href="#">
-                                                        <img src="img/mega-menu/1.jpg" alt="hình ảnh mega menu">
+                                                    <a href="/">
+                                                        <img src="{{ asset('img/icon/favicon.png') }}" alt="hình ảnh mega menu">
                                                     </a>
                                                 </div>
                                             </div>
                                         </li>
+
                                         <li><a href="/blogs"><i class="fas fa-blog"></i> Bài viết</a>
                                             <ul class="dropdwn">
-                                                <li><a href="blog-left-sidebar.html">Tin tức mô hình</a></li>
-                                                <li><a href="blog-right-sidebar.html">Hướng dẫn lắp ráp</a></li>
+                                                @foreach($categoriespost as $postCategory)
+                                                <li>
+                                                    <a href="{{ route('blogs', ['idCataPost' =>  $postCategory->id]) }}">{{ $postCategory->name }}</a>
+                                                </li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                         <li><a href="/about"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
@@ -201,29 +191,29 @@
                                                 <li>
                                                     <div class="total-cart-pro">
                                                         <!-- Sản phẩm trong giỏ -->
-                                                        <div class="single-cart clearfix">
-                                                            <div class="cart-img f-left">
-                                                                <a href="#">
-                                                                    <img src="img/cart/1.jpg"
-                                                                        alt="Mô hình xe cộ trong giỏ">
+                                                        <div class="single-cart clearfix" ng-repeat="sp in cart">
+                                                            <div class="cart-img f-left" style="width: 30%;">
+                                                                <a href="/product/%% sp.id %%">
+                                                                    <img ng-src="{{ asset('%% sp.hinh %%') }}"
+                                                                        alt="Mô hình đồ chơi trong giỏ" style="width: 100%;">
                                                                 </a>
                                                                 <div class="del-icon">
-                                                                    <a href="#">
+                                                                    <a href="javascript:void(0)" ng-click="removeFromCart($index)">
                                                                         <i class="zmdi zmdi-close"></i>
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                             <div class="cart-info f-left">
                                                                 <h6 class="text-capitalize">
-                                                                    <a href="#">Mô hình xe Ferrari</a>
+                                                                    <a href="/product/%% sp.id %%"> %% sp.name %%</a>
                                                                 </h6>
-                                                                <p><span>Thương hiệu <strong>:</strong></span> Tamiya
+                                                                <p><span>Thương hiệu <strong>:</strong></span>%% sp.category_name %%
                                                                 </p>
-                                                                <p><span>Tỉ lệ <strong>:</strong></span> 1:24</p>
+
                                                             </div>
                                                         </div>
                                                         <!-- Sản phẩm trong giỏ -->
-                                                        <div class="single-cart clearfix">
+                                                        {{-- <div class="single-cart clearfix">
                                                             <div class="cart-img f-left">
                                                                 <a href="#">
                                                                     <img src="img/cart/2.jpg"
@@ -244,19 +234,19 @@
                                                                 <p><span>Loại <strong>:</strong></span> High Grade 1:144
                                                                 </p>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="top-cart-inner subtotal">
                                                         <h4 class="text-uppercase gill">Tổng phụ :</h4>
-                                                        <h4 class="text-uppercase gill">Tổng cộng :</h4>
+                                                        <h4 class="text-uppercase gill">Tổng cộng : %% totalCartMoney()|customNumber:0 %% đ</h4>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="top-cart-inner view-cart">
                                                         <h6>
-                                                            <a href="#">Xem giỏ hàng</a>
+                                                            <a href="/cart">Xem giỏ hàng</a>
                                                         </h6>
                                                     </div>
                                                 </li>

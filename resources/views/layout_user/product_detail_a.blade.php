@@ -1,4 +1,16 @@
 @if (isset($sp))
+    <style>
+        .fade {
+            transition: opacity 1s ease-out;
+            /* Thời gian mờ dần */
+            opacity: 1;
+        }
+
+        .fade-out {
+            opacity: 0;
+            /* Khi thêm lớp này, phần tử sẽ mờ dần */
+        }
+    </style>
     <div class="breadcrumbs-section plr-200 mb-80">
         <div class="breadcrumbs overlay-bg">
             <div class="container">
@@ -16,13 +28,12 @@
             </div>
         </div>
     </div>
-    <!-- BREADCRUMBS SETCTION END -->
 
-    <!-- Start page content -->
-    <section id="page-content" class="page-wrapper">
+    <section id="page-content" class="page-wrapper" ng-controller="siteController">
+
 
         <!-- SHOP SECTION START -->
-        <div class="shop-section mb-80">
+        <div class="shop-section mb-80" ng-init="currentUserId={{ Auth::id() }}">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9 col-xs-12">
@@ -102,8 +113,9 @@
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                                                <span class="text-black-5">(27 Đánh giá)</span>
+                                                <a href="#" tabindex="0"><i
+                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                <span class="text-black-5">(%% totalComments %% Đánh giá)</span>
                                             </div>
                                         </div>
                                         <!-- hr -->
@@ -115,8 +127,7 @@
                                                 <div class="f-left">
                                                     <button class="dec qtybutton" ng-click="decreaseQty()">-</button>
                                                     <input type="number" name="qtybutton" class="cart-plus-minus-box"
-                                                        min="1" max="{{ $sp->stock }}" ng-model="quantity"
-                                                        ng-init="quantity = 1">
+                                                        min="1" max="{{ $sp->stock }}" ng-model="quantity">
                                                     <button class="inc qtybutton" ng-click="increaseQty()">+</button>
                                                 </div>
                                             </div>
@@ -127,7 +138,8 @@
                                                                 class="zmdi zmdi-favorite"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" data-toggle="modal" data-target="#product-{{$sp->id}}"
+                                                        <a href="#" data-toggle="modal"
+                                                            data-target="#product-{{ $sp->id }}"
                                                             title="Xem nhanh" tabindex="0"><i
                                                                 class="zmdi zmdi-zoom-in"></i></a>
                                                     </li>
@@ -136,11 +148,14 @@
                                                                 class="zmdi zmdi-refresh"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" title="Thêm vào giỏ hàng" tabindex="0"><i
+                                                        <a href="javascript:void(0);" title="Thêm vào giỏ hàng"
+                                                            tabindex="0"
+                                                            ng-click="addToCart({{ $sp->id }}, quantity)"><i
                                                                 class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
+
                                         </div>
                                         <!-- plus-minus-pro-action end -->
                                         <!-- hr -->
@@ -163,19 +178,25 @@
                                         <div>
                                             @if ($sp->stock > 0)
                                                 <div>
-                                                    <a href="#" class="button extra-small button-black" tabindex="-1"
-                                                        ng-click="addToCart({{ $sp->id }}, quantity)">
+                                                    <a href="javascript:void(0);"
+                                                        class="button extra-small button-black" tabindex="-1"
+                                                        ng-click="addToCart2({{ $sp->id }}, quantity)">
                                                         <span class="text-uppercase">Mua ngay</span>
                                                     </a>
                                                 </div>
                                             @else
                                                 <div>
-                                                    <a href="#" class="button extra-small button-black" tabindex="-1">
+                                                    <a href="#" class="button extra-small button-black"
+                                                        tabindex="-1">
                                                         <span class="text-uppercase">Hết Hàng</span>
                                                     </a>
                                                 </div>
                                             @endif
                                         </div>
+                                        <!-- Phần thông báo -->
+
+
+
                                     </div>
                                 </div>
                                 <!-- single-product-info end -->
@@ -211,60 +232,76 @@
                                                     sự thực hành nào.</p>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="reviews">
-                                                <!-- reviews-tab-desc -->
+
                                                 <div class="reviews-tab-desc">
-                                                    <!-- bình luận đơn -->
-                                                    <div class="media mt-30">
-                                                        <div class="media-left">
-                                                            <a href="#"><img class="media-object" src="img/author/1.jpg"
-                                                                    alt="#"></a>
-                                                        </div>
+
+                                                    <div class="media mt-30" ng-repeat="bl in dsBL">
+
                                                         <div class="media-body">
-                                                            <div class="clearfix">
-                                                                <div class="name-commenter pull-left">
-                                                                    <h6 class="media-heading"><a href="#">Gerald
-                                                                            Barnes</a></h6>
-                                                                    <p class="mb-10">27 Tháng 6, 2016 lúc 2:30 chiều
+                                                            {{-- <div class="clearfix">
+                                                                <div class="name-commenter pull-left" >
+
+                                                                    <h6 class="media-heading"><a href="javascript:void(0);">%%
+                                                                            bl.user_fullname %%</a></h6>
+                                                                    <p class="mb-10">%% bl.created_at | date:
+                                                                        'dd/MM/yyyy HH:mm:ss' %%
                                                                     </p>
                                                                 </div>
-                                                                <div class="pull-right">
-                                                                    <ul class="reply-delate">
-                                                                        <li><a href="#">Phản hồi</a></li>
-                                                                        <li>/</li>
-                                                                        <li><a href="#">Xóa</a></li>
-                                                                    </ul>
-                                                                </div>
+
+                                                            </div> --}}
+
+                                                            <div class="pull-right" style="margin-top: 10px">
+                                                                <ul class="reply-delate">
+                                                                    <li>
+                                                                        <h6><a href="javascript:void(0);">%%
+                                                                                bl.user_fullname %%</a></h6>
+                                                                    </li>
+                                                                    <li>/</li>
+                                                                    <li>
+                                                                        <p>%% bl.created_at | date:
+                                                                            'dd/MM/yyyy HH:mm:ss' %%
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>/</li>
+                                                                    <li ng-if="bl.user_id == currentUserId">
+    <a href="javascript:void(0);" ng-click="deleteComment(bl.id)">Xóa</a>
+</li>
+                                                                </ul>
+
+
                                                             </div>
-                                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                                adipiscing elit. Integer accumsan egestas.</p>
+
+
+                                                            <div class="pro-rating sin-pro-rating f-right">
+                                                                <a tabindex="0" ng-show="bl.rating_stars >= 1"><i
+                                                                        class="zmdi zmdi-star"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars >= 2"><i
+                                                                        class="zmdi zmdi-star"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars >= 3"><i
+                                                                        class="zmdi zmdi-star"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars >= 4"><i
+                                                                        class="zmdi zmdi-star"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars >= 5"><i
+                                                                        class="zmdi zmdi-star"></i></a>
+                                                                {{-- <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a> --}}
+                                                                <a tabindex="0" ng-show="bl.rating_stars < 5"><i
+                                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars < 4"><i
+                                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars < 3"><i
+                                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars < 2"><i
+                                                                        class="zmdi zmdi-star-outline"></i></a>
+                                                                <a tabindex="0" ng-show="bl.rating_stars < 1"><i
+                                                                        class="zmdi zmdi-star-outline"></i></a>
+
+                                                            </div>
+                                                            <p class="mb-0"><b>%% bl.content %%</b></p>
+
+
                                                         </div>
                                                     </div>
-                                                    <!-- bình luận đơn -->
-                                                    <div class="media mt-30">
-                                                        <div class="media-left">
-                                                            <a href="#"><img class="media-object" src="img/author/2.jpg"
-                                                                    alt="#"></a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="clearfix">
-                                                                <div class="name-commenter pull-left">
-                                                                    <h6 class="media-heading"><a href="#">Gerald
-                                                                            Barnes</a></h6>
-                                                                    <p class="mb-10">27 Tháng 6, 2016 lúc 2:30 chiều
-                                                                    </p>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <ul class="reply-delate">
-                                                                        <li><a href="#">Phản hồi</a></li>
-                                                                        <li>/</li>
-                                                                        <li><a href="#">Xóa</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                                adipiscing elit. Integer accumsan egestas.</p>
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +311,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- single-product-area end -->
+
                         <div class="related-product-area">
                             <div class="row">
                                 <div class="col-md-12">
@@ -286,7 +323,7 @@
                             </div>
                             <div class="row">
                                 <div class="active-related-product">
-                                    <!-- sản phẩm bắt đầu -->
+
 
                                     @foreach ($relatedProducts as $product)
                                         <div class="col-xs-12">
@@ -294,7 +331,8 @@
                                                 <div class="product-img">
                                                     <a href="{{ route('product.detail', ['id' => $product->id]) }}">
 
-                                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" />
+                                                        <img src="{{ asset($product->image) }}"
+                                                            alt="{{ $product->name }}" />
 
                                                     </a>
                                                 </div>
@@ -310,7 +348,8 @@
                                                         <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
-                                                    <h3 class="pro-price">{{ number_format($product->price, 0, ',', '.') }} đ
+                                                    <h3 class="pro-price">
+                                                        {{ number_format($product->price, 0, ',', '.') }} đ
                                                     </h3>
                                                     <ul class="action-button">
                                                         <li>
@@ -319,14 +358,16 @@
                                                         </li>
                                                         <li>
                                                             <a href="#" data-toggle="modal"
-                                                                data-target="#product-{{$product->id}}" title="Xem nhanh"><i
+                                                                data-target="#product-{{ $product->id }}"
+                                                                title="Xem nhanh"><i
                                                                     class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" title="So sánh"><i class="zmdi zmdi-refresh"></i></a>
+                                                            <a href="#" title="So sánh"><i
+                                                                    class="zmdi zmdi-refresh"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" title="Thêm vào giỏ hàng"><i
+                                                            <a href="javascript:void(0)" title="Thêm vào giỏ hàng" ng-click="addToCart({{ $product->id }}, 1)"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                         </li>
                                                     </ul>
@@ -334,7 +375,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <!-- sản phẩm kết thúc -->
 
                                 </div>
                             </div>
@@ -342,28 +382,28 @@
                     </div>
                     <div id="quickview-wrapper">
                         <div id="productModal">
-                            <div class="modal fade" id="product-{{$sp->id}}" tabindex="0" role="dialog">
+                            <div class="modal fade" id="product-{{ $sp->id }}" tabindex="0" role="dialog">
                                 <div class="modal-dialog" role="document">
                                     <div style="top:100px;" class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                aria-label="Close" name="btn-close"><span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="modal-product clearfix">
                                                 <div class="product-images">
                                                     <div class="main-image images">
-                                                        <img style="width:270px; height:270px" alt="{{$sp->name}}"
-                                                            src="{{ asset($sp->image) }}">
+                                                        <img style="width:270px; height:270px"
+                                                            alt="{{ $sp->name }}" src="{{ asset($sp->image) }}">
                                                     </div>
                                                 </div><!-- .product-images -->
 
                                                 <div class="product-info">
-                                                    <h1>{{$sp->name}}</h1>
+                                                    <h1>{{ $sp->name }}</h1>
                                                     <div class="price-box-3">
                                                         <div class="s-price-box">
                                                             <span
-                                                                class="new-price">{{ number_format($sp->price - $sp->price * $sp->discount / 100, 0, ',', '.') }}
+                                                                class="new-price">{{ number_format($sp->price - ($sp->price * $sp->discount) / 100, 0, ',', '.') }}
                                                                 VND</span>
                                                             <span
                                                                 class="old-price">{{ number_format($sp->price, 0, ',', '.') }}
@@ -379,9 +419,13 @@
                                                     <div class="quick-add-to-cart">
                                                         <form method="post" class="cart">
                                                             <div class="numbers-row">
-                                                                <input type="number" id="french-hens" min="1" value="1">
+                                                                {{-- <button class="dec qtybutton" ng-click="decreaseQty()">-</button> --}}
+                                                                <input type="number" name="qtybutton" class="cart-plus-minus-box"
+                                                                    min="1" max="{{ $sp->stock }}" ng-model="quantity">
+                                                                {{-- <button class="inc qtybutton" ng-click="increaseQty()">+</button> --}}
                                                             </div>
-                                                            <button class="single_add_to_cart_button" type="submit">Thêm vào
+                                                            <button class="single_add_to_cart_button"
+                                                                type="submit"  ng-click="addToCart2({{ $sp->id }}, quantity)">Thêm vào
                                                                 giỏ
                                                                 hàng</button>
                                                         </form>
@@ -394,14 +438,14 @@
                                                             <h3 class="widget-title-modal">Share this product</h3>
                                                             <ul class="social-icons clearfix">
                                                                 <li>
-                                                                    <a class="facebook" href="#" target="_blank"
-                                                                        title="Facebook">
+                                                                    <a class="facebook" href="#"
+                                                                        target="_blank" title="Facebook">
                                                                         <i class="zmdi zmdi-facebook"></i>
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="google-plus" href="#" target="_blank"
-                                                                        title="Google +">
+                                                                    <a class="google-plus" href="#"
+                                                                        target="_blank" title="Google +">
                                                                         <i class="zmdi zmdi-google-plus"></i>
                                                                     </a>
                                                                 </li>
@@ -412,13 +456,14 @@
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="pinterest" href="#" target="_blank"
-                                                                        title="Pinterest">
+                                                                    <a class="pinterest" href="#"
+                                                                        target="_blank" title="Pinterest">
                                                                         <i class="zmdi zmdi-pinterest"></i>
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="rss" href="#" target="_blank" title="RSS">
+                                                                    <a class="rss" href="#" target="_blank"
+                                                                        title="RSS">
                                                                         <i class="zmdi zmdi-rss"></i>
                                                                     </a>
                                                                 </li>
@@ -436,28 +481,31 @@
                         <!-- SHOP SECTION END -->
                         @foreach ($relatedProducts as $product)
                             <div id="productModal">
-                                <div class="modal fade" id="product-{{$product->id}}" tabindex="0" role="dialog">
+                                <div class="modal fade" id="product-{{ $product->id }}" tabindex="0"
+                                    role="dialog">
                                     <div class="modal-dialog" role="document">
                                         <div style="top:100px;" class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    aria-label="Close"><span
+                                                        aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="modal-product clearfix">
                                                     <div class="product-images">
                                                         <div class="main-image images">
-                                                            <img style="width:270px; height:270px" alt="{{$product->name}}"
+                                                            <img style="width:270px; height:270px"
+                                                                alt="{{ $product->name }}"
                                                                 src="{{ asset($product->image) }}">
                                                         </div>
                                                     </div><!-- .product-images -->
 
                                                     <div class="product-info">
-                                                        <h1>{{$product->name}}</h1>
+                                                        <h1>{{ $product->name }}</h1>
                                                         <div class="price-box-3">
                                                             <div class="s-price-box">
                                                                 <span
-                                                                    class="new-price">{{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }}
+                                                                    class="new-price">{{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}
                                                                     VND</span>
                                                                 <span
                                                                     class="old-price">{{ number_format($product->price, 0, ',', '.') }}
@@ -465,21 +513,27 @@
                                                             </div>
                                                         </div>
                                                         <a href="single-product-left-sidebar.html"
-                                                            style="text-decoration: none; color: black;" class="see-all"
-                                                            onmouseover="this.style.color='blue'"
+                                                            style="text-decoration: none; color: black;"
+                                                            class="see-all" onmouseover="this.style.color='blue'"
                                                             onmouseout="this.style.color='black'">
                                                             xem thêm sản phẩm
                                                         </a>
                                                         <div class="quick-add-to-cart">
                                                             <form method="post" class="cart">
                                                                 <div class="numbers-row">
-                                                                    <input type="number" id="french-hens" min="1" value="1">
+                                                                    {{-- <button class="dec qtybutton" ng-click="decreaseQty()">-</button> --}}
+                                                                    <input type="number" name="qtybutton" class="cart-plus-minus-box"
+                                                                        min="1" max="{{ $product->stock }}" ng-model="quantity">
+                                                                    {{-- <button class="inc qtybutton" ng-click="increaseQty()">+</button> --}}
                                                                 </div>
-                                                                <button class="single_add_to_cart_button" type="submit">Thêm vào
+                                                                <button class="single_add_to_cart_button"
+                                                                    type="submit"  ng-click="addToCart2({{ $product->id }}, quantity)">Thêm vào
                                                                     giỏ
                                                                     hàng</button>
                                                             </form>
                                                         </div>
+                                                      
+
                                                         <div class="quick-desc">
                                                             {{ $product->description }}
                                                         </div>
@@ -488,31 +542,32 @@
                                                                 <h3 class="widget-title-modal">Share this product</h3>
                                                                 <ul class="social-icons clearfix">
                                                                     <li>
-                                                                        <a class="facebook" href="#" target="_blank"
-                                                                            title="Facebook">
+                                                                        <a class="facebook" href="#"
+                                                                            target="_blank" title="Facebook">
                                                                             <i class="zmdi zmdi-facebook"></i>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a class="google-plus" href="#" target="_blank"
-                                                                            title="Google +">
+                                                                        <a class="google-plus" href="#"
+                                                                            target="_blank" title="Google +">
                                                                             <i class="zmdi zmdi-google-plus"></i>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a class="twitter" href="#" target="_blank"
-                                                                            title="Twitter">
+                                                                        <a class="twitter" href="#"
+                                                                            target="_blank" title="Twitter">
                                                                             <i class="zmdi zmdi-twitter"></i>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a class="pinterest" href="#" target="_blank"
-                                                                            title="Pinterest">
+                                                                        <a class="pinterest" href="#"
+                                                                            target="_blank" title="Pinterest">
                                                                             <i class="zmdi zmdi-pinterest"></i>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a class="rss" href="#" target="_blank" title="RSS">
+                                                                        <a class="rss" href="#"
+                                                                            target="_blank" title="RSS">
                                                                             <i class="zmdi zmdi-rss"></i>
                                                                         </a>
                                                                     </li>
@@ -560,15 +615,15 @@
                                 <div class="product-item">
                                     <div class="product-img">
                                         <a href="{{ url('product/' . $product->id) }}">
-                                            <img src="{{asset($product->image)}}" alt="" />
+                                            <img src="{{ asset($product->image) }}" alt="" />
                                         </a>
                                     </div>
                                     <div class="product-info">
                                         <h6 class="product-title">
-                                            <a href="{{ url('product/' . $product->id) }}">{{$product->name}}</a>
+                                            <a href="{{ url('product/' . $product->id) }}">{{ $product->name }}</a>
                                         </h6>
                                         <h3 class="pro-price">
-                                            {{ number_format($product->price - $product->price * $product->discount / 100, 0, ',', '.') }}
+                                            {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}
                                             VND
                                         </h3>
                                     </div>
@@ -579,28 +634,60 @@
                     </div>
                 </div>
                 <div class="leave-comment">
-                    <h4 class="blog-section-title border-left mb-30">để lại bình luận của bạn</h4>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="name">Tên của bạn <span>*</span></label>
-                                <input type="text" class="form-control" id="name" placeholder="Nhập tên của bạn...">
+
+                    @auth
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="blog-section-title border-left mb-30">để lại bình luận của bạn</h4>
+                            </div>
+                            <!-- Thông báo thành công -->
+                            <!-- Thông báo thành công -->
+                            <div ng-if="successMessage" ng-class="{'fade': true, 'fade-out': fadeOutSuccess}"
+                                class="alert alert-success col-md-6">
+                                %% successMessage %%
+                            </div>
+
+                            <!-- Thông báo lỗi -->
+                            <div ng-if="errorMessage" ng-class="{'fade': true, 'fade-out': fadeOutError}"
+                                class="alert alert-danger col-md-6">
+                                %% errorMessage %%
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email">Địa chỉ email <span>*</span></label>
-                                <input type="email" class="form-control" id="email"
-                                    placeholder="Nhập địa chỉ email của bạn...">
+
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Tên của bạn <span>*</span></label>
+                                    <input type="text" class="form-control" id="name"
+                                        placeholder="Nhập tên của bạn..." value="{{ Auth::user()->name }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="userRating">Sao đánh giá</label>
+                                    <select ng-model="rating" class="form-control" id="rating">
+                                        <option value="5">5 sao</option>
+                                        <option value="4">4 sao</option>
+                                        <option value="3">3 sao</option>
+                                        <option value="2">2 sao</option>
+                                        <option value="1">1 sao</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Tin nhắn <span>*</span></label>
-                        <textarea class="form-control" id="message" rows="5"
-                            placeholder="Nhập tin nhắn của bạn..."></textarea>
-                    </div>
-                    <button class="btn btn-primary">Gửi bình luận</button>
+                        <div class="form-group">
+                            <label for="userComment">Nội dung</label>
+                            <textarea ng-model="content" class="form-control" id="content" rows="3"
+                                placeholder="Nhập nội dung bình luận" required></textarea>
+                        </div>
+                        <button class="btn btn-primary" ng-click="sendComment()">Gửi bình luận</button>
+                    @endauth
+                    @guest
+                        <h3 class="blog-section-title border-left mb-30"><a href="/login">Đăng Nhập</a> Để Bình Luận</h3>
+                    @endguest
+
                 </div>
             </div>
 
@@ -610,30 +697,138 @@
 
     </section>
 
-    <!-- Start page content -->
 
-    <!-- End page content -->
+
+
     @section('viewFunction')
-    <script>
-        viewFunction = function ($scope, $http) {
-            $scope.quantity = 1; // Giá trị mặc định ban đầu
+        <script>
+            viewFunction = function($scope, $http) {
+                $scope.quantity = 1; // Giá trị mặc định ban đầu
+                $scope.successMessage = ''; // Biến để lưu thông báo
+                $scope.errorMessage = ''; // Biến để lưu thông báo lỗi
 
-            // Hàm tăng số lượng
-            $scope.increaseQty = function () {
-                if ($scope.quantity < {{ $sp->stock }}) {
-                    $scope.quantity++;
-                }
+                // Hàm tăng số lượng
+                $scope.increaseQty = function() {
+                    if ($scope.quantity < {{ $sp->stock }}) {
+                        $scope.quantity++;
+                    }
+                };
+
+                // Hàm giảm số lượng
+                $scope.decreaseQty = function() {
+                    if ($scope.quantity > 1) {
+                        $scope.quantity--;
+                    }
+                };
+
+                $scope.dsBL = [];
+                $scope.getComment = function() {
+                    $http.get('/api/comments/product/{{ $sp->id }}').then(
+                        function(res) { // Thành công
+                            $scope.dsBL = res.data.data; // Danh sách bình luận
+                            $scope.totalComments = res.data.total_comments; // Số lượng bình luận
+                            console.log($scope.dsBL);
+                            console.log("Tổng số bình luận: ", $scope.totalComments); // In ra số lượng bình luận
+                        },
+                        function(res) { // Thất bại
+                            console.error('Lỗi khi lấy dữ liệu từ API', res);
+                        }
+                    );
+                };
+
+
+                $scope.getComment();
+
+                $scope.sendComment = function() {
+                    $http.post('/api/comments', {
+                        'product_id': {{ $sp->id }},
+                        'content': $scope.content,
+                        'rating': $scope.rating,
+                    }).then(
+                        function(res) {
+                            if (res.data.status) {
+                                $scope.successMessage = res.data.message; // Gán thông báo thành công
+                                $scope.content = '';
+                                $scope.rating = 5;
+                                $scope.getComment();
+                                $scope.fadeOutSuccess = false; // Đặt thành false trước khi mờ dần
+
+                                // Đặt timeout để thông báo tự động mờ dần và biến mất sau 3 giây
+                                setTimeout(function() {
+                                    $scope.$apply(function() {
+                                        $scope.fadeOutSuccess = true; // Bắt đầu hiệu ứng mờ dần
+                                    });
+
+                                    // Thực hiện thêm một timeout nữa để xóa thông báo sau khi mờ dần
+                                    setTimeout(function() {
+                                        $scope.$apply(function() {
+                                            $scope.successMessage = '';
+                                            $scope.fadeOutSuccess =
+                                                false; // Đặt lại để có thể sử dụng lại
+                                        });
+                                    }, 500); // Thời gian mờ dần (0.5 giây)
+                                }, 2500); // Thời gian hiển thị thông báo trước khi bắt đầu mờ dần
+                            }
+                        },
+                        function(error) {
+                            console.error('Error posting comment:', error);
+                            $scope.errorMessage = 'Có lỗi xảy ra khi gửi bình luận!'; // Thông báo lỗi
+                            $scope.fadeOutError = false; // Đặt thành false trước khi mờ dần
+
+                            // Đặt timeout để thông báo lỗi tự động mờ dần và biến mất sau 3 giây
+                            setTimeout(function() {
+                                $scope.$apply(function() {
+                                    $scope.fadeOutError = true; // Bắt đầu hiệu ứng mờ dần
+                                });
+
+                                // Thực hiện thêm một timeout nữa để xóa thông báo sau khi mờ dần
+                                setTimeout(function() {
+                                    $scope.$apply(function() {
+                                        $scope.errorMessage = '';
+                                        $scope.fadeOutError =
+                                            false; // Đặt lại để có thể sử dụng lại
+                                    });
+                                }, 500); // Thời gian mờ dần (0.5 giây)
+                            }, 2500); // Thời gian hiển thị thông báo trước khi bắt đầu mờ dần
+                        }
+                    );
+                };
+
+                $scope.deleteComment = function(commentId) {
+
+                    if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) { // Xác nhận trước khi xóa
+                        $http.delete('/api/comments/' + commentId).then(
+                            function(res) {
+                                if (res.data.status) {
+                                    $scope.successMessage = res.data.message; // Hiển thị thông báo thành công
+                                    $scope.getComment(); // Lấy lại danh sách bình luận sau khi xóa
+
+                                    // Thêm timeout để thông báo biến mất
+                                    setTimeout(function() {
+                                        $scope.$apply(function() {
+                                            $scope.successMessage = '';
+                                        });
+                                    }, 3000);
+                                }
+                            },
+                            function(error) {
+                                console.error('Error deleting comment:', error);
+                                $scope.errorMessage = 'Có lỗi xảy ra khi xóa bình luận!'; // Hiển thị thông báo lỗi
+
+                                // Thêm timeout để thông báo lỗi biến mất
+                                setTimeout(function() {
+                                    $scope.$apply(function() {
+                                        $scope.errorMessage = '';
+                                    });
+                                }, 3000);
+                            }
+                        );
+                    }
+                };
+
+
+
             };
-
-            // Hàm giảm số lượng
-            $scope.decreaseQty = function () {
-                if ($scope.quantity > 1) {
-                    $scope.quantity--;
-                }
-            };
-
-
-        }
-    </script>
+        </script>
     @endsection
 @endif

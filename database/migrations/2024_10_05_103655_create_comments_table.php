@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('post_id');
             $table->string('content');
             $table->tinyInteger('rating_stars')->nullable();
             $table->tinyInteger('status')->default(0);
@@ -23,7 +22,7 @@ return new class extends Migration
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('post_id')->references('id')->on('posts');
+          
         });
     }
 

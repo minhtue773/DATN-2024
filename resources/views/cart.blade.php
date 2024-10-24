@@ -20,11 +20,23 @@
         </div>
     </div>
 </div>
+
 <section id="page-content" class="page-wrapper">
 
     <!-- SHOP SECTION START -->
-    <div class="shop-section mb-80" ng-controller="siteController">
-        <div class="container" >
+    <div class="shop-section mb-80">
+        <div class="container" ng-controller="siteController">
+
+            <div class="row" ng-if="cart.length==0">
+
+                <h3 style="text-align: center">Giỏ Hàng Đang Trống</h3>
+
+                <a href="{{ route('products.index') }}">
+                    <h4 style="text-align: center;">Tiếp Tục Mua Sắm </h4>
+                </a>
+
+            </div>
+
             <div class="row" ng-if="cart.length>0">
 
                 <div class="col-md-12">
@@ -62,40 +74,48 @@
                                                                 </a>
                                                             </h6>
                                                             <p>Thương hiệu: %% sp.category_name %%</p>
-                                                           
+
                                                         </div>
                                                     </td>
                                                     <td class="product-price">
-                                                      <!-- Nếu sale lớn hơn 0, hiển thị cả giá gốc và giá đã giảm -->
-                                                      <span ng-if="sp.sale > 0">
-                                                          <!-- Giá cũ có gạch ngang -->
-                                                          <del>%% sp.original_price | customNumber:0 %% đ</del> 
-                                                          <br> 
-                                                          <!-- Giá sau khi giảm -->
-                                                          <span>%% sp.price | customNumber:0 %% đ</span>
-                                                      </span>
-                                                  
-                                                      <!-- Nếu sale bằng 0 hoặc null, chỉ hiển thị giá gốc (giá hiện tại) -->
-                                                      <span ng-if="!sp.sale || sp.sale == 0">
-                                                          %% sp.original_price | customNumber:0 %% đ
-                                                      </span>
-                                                  </td>
-                                                  
-                                                  
+                                                        <!-- Nếu sale lớn hơn 0, hiển thị cả giá gốc và giá đã giảm -->
+                                                        <span ng-if="sp.sale > 0">
+                                                            <!-- Giá cũ có gạch ngang -->
+                                                            <del>%% sp.original_price | customNumber:0 %% đ</del>
+                                                            <br>
+                                                            <!-- Giá sau khi giảm -->
+                                                            <span>%% sp.price | customNumber:0 %% đ</span>
+                                                        </span>
+
+                                                        <!-- Nếu sale bằng 0 hoặc null, chỉ hiển thị giá gốc (giá hiện tại) -->
+                                                        <span ng-if="!sp.sale || sp.sale == 0">
+                                                            %% sp.original_price | customNumber:0 %% đ
+                                                        </span>
+                                                    </td>
+
+
 
                                                     <td class="product-quantity">
-                                                        <div class="cart-plus-minus f-left" style="margin-left: 23%">
-                                                            <input type="number" name="quantity" ng-model="sp.soluong"
-                                                                min="1" max="%% sp.stock %%"
-                                                                ng-change="updateQuantity(sp.id, sp.soluong)"
-                                                                class="cart-plus-minus-box">
+                                                        <div class="numbers-row">
+                                                            {{-- <button class="dec qtybutton" ng-click="decreaseQty()">-</button> --}}
+                                                            <input type="number" name="quantity" class="cart-plus-minus-box"
+                                                                min="1" max="%% sp.stock %%" ng-model="sp.soluong">
+                                                            {{-- <button class="inc qtybutton" ng-click="increaseQty()">+</button> --}}
                                                         </div>
+                                                        {{-- <div class="f-left" style="margin-left: 23%">
+                                                           
+                                                            <input type="number" name="quantity" ng-model="sp.soluong"
+                                                                   min="1" max="%% sp.stock %%"
+                                                                   class="cart-plus-minus-box" readonly>
+                                                           
+                                                        </div>
+                                                         --}}
                                                     </td>
                                                     <td class="product-subtotal">%% sp.soluong *
-                                                      ((sp.price!=null)?sp.price:sp.price)| customNumber:0 %% đ</td>
+                                                        ((sp.price!=null)?sp.price:sp.price)| customNumber:0 %% đ</td>
 
                                                     <td class="product-remove">
-                                                        <a href="#" style="margin-left: 30%"
+                                                        <a href="javascript:void(0)" style="margin-left: 30%"
                                                             ng-click="removeFromCart($index)"><i
                                                                 class="zmdi zmdi-close"></i></a>
                                                     </td>
@@ -103,11 +123,11 @@
 
 
                                             </tbody>
-                                            
+
                                         </table>
-                                     
+
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">
@@ -124,33 +144,42 @@
                                                 <h6 class="widget-title border-left mb-20">chi tiết thanh toán
                                                 </h6>
                                                 <table>
-                                                   
+
                                                     <tr>
                                                         <td class="order-total">Tổng giỏ hàng</td>
-                                                        <td class="order-total-price">%% totalCartMoney()|customNumber:0 %% đ</td>
-                                                       
+                                                        <td class="order-total-price">%% totalCartMoney()|customNumber:0
+                                                            %% đ</td>
+
                                                     </tr>
-                                                   
+
                                                 </table>
                                             </div>
-                                            <button class="submit-btn-1 black-bg btn-hover-2" type="submit">Checkout</button>
+                                            <button class="submit-btn-1 black-bg btn-hover-2"
+                                                type="submit">Checkout</button>
                                         </div>
                                     </div>
-                 
-                    </div>
-                </div>
-            </div>
 
-            <div ng-if="cart.length==0">
-                  huuthien
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+
             </div>
-        </div>
-        
-        
-    </div>
-    <!-- SHOP SECTION END -->
+            <!-- SHOP SECTION END -->
 
 </section>
+
+
 
 
 
@@ -158,7 +187,10 @@
 @section('viewFunction')
     <script>
         viewFunction = function($scope, $http) {
-           
+
+          
+
+
             $scope.updateQuantity = function(id, soluong) {
                 $http.patch('/api/cart/' + id, {
                     soluong: soluong

@@ -112,6 +112,7 @@
     </div>
 </footer>
 
+</div>
 <!-- Các thư viện JS -->
 <script src="{{ asset('js/vendor/jquery-3.1.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -170,21 +171,47 @@
         };
     });
 
-   
+
     app.controller('mainController', function($scope, $http) {
 
         $scope.cart = {!! json_encode(session('cart')) !!} || [];
 
-        
+
 
         $scope.addToCart = function(product_id, quantity) {
             $http.post('/api/cart', {
                 product_id: product_id,
                 quantity: quantity,
             }).then(function(res) {
+                if (res.data.status) {
+                   
+                    // Sử dụng alert để thông báo khi thêm sản phẩm thành công
+                    alert(res.data.message);
+                  
+                }
+
+                // Cập nhật giỏ hàng
                 $scope.cart = res.data.data;
+            }, function(error) {
+                console.error('Error:', error);
             });
         };
+
+        $scope.addToCart2 = function(product_id, quantity) {
+            $http.post('/api/cart', {
+                product_id: product_id,
+                quantity: quantity,
+            }).then(function(res) {
+                if (res.data.status) {
+                  
+                    window.location.href = '/cart'; 
+                }
+            }, function(error) {
+                console.error('Error:', error);
+            });
+        };
+
+
 
         $scope.totalCartMoney = function() {
             var total = 0;
@@ -219,6 +246,32 @@
 
 <script>
     app.controller('siteController', viewFunction)
+</script>
+<script>
+    $(document).on('click', '.wishlist-toggle', function (e) {
+    e.preventDefault();
+    var productId = $(this).data('product-id');
+    var $icon = $(this).find('i');
+
+    $.ajax({
+    url: '/favorite/toggle/' + productId,
+    method: 'POST',  // Phải là 'POST'
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')  // CSRF token để bảo mật
+    },
+    success: function (response) {
+        if (response.status === 'added') {
+            $icon.addClass('favorited');
+        } else if (response.status === 'removed') {
+            $icon.removeClass('favorited');
+        }
+    },
+    error: function () {
+        alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+    }
+});
+});
+
 </script>
 </body>
 

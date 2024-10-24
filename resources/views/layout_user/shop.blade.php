@@ -98,76 +98,40 @@
                     </aside>
 
                     <!-- widget-categories -->
-                    <aside class="widget widget-categories box-shadow mb-30">
-                        <h6 class="widget-title border-left mb-20">Danh mục</h6>
+                    <aside class="widget widget-categories box-shadow mb-30" style="padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+                        <h6 class="widget-title border-left mb-20" style="font-size: 1.5em; font-weight: bold; color: #000000;">Danh mục</h6>
                         <div id="cat-treeview" class="product-cat">
-                            <ul>
+                            <ul style="list-style-type: none; padding: 0;">
                                 @yield('danh_muc')
                             </ul>
                         </div>
                     </aside>
 
                     <!-- shop-filter -->
-                    <aside class="widget shop-filter box-shadow mb-30">
-                        <h6 class="widget-title border-left mb-20">Giá</h6>
+                    <aside class="widget shop-filter box-shadow mb-30" style="padding: 20px; background-color: #f9f9f9; border-radius: 5px;">
+                        <h6 class="widget-title border-left mb-20" style="font-size: 1.5em; font-weight: bold; color: #000000;">Giá</h6>
                         <div id="cat-treeview" class="product-cat">
-                            <ul>
+                            <ul style="list-style-type: none; padding: 0;">
                                 <li class="{{ request('price_range') == 'under_1m' ? 'open' : 'closed' }}">
-                                    <a
-                                        href="{{ route('products.index', ['price_range' => 'under_1m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
-                                        Dưới 1.000.000 VND
-                                    </a>
+                                    <a href="{{ route('products.index', ['price_range' => 'under_1m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}" style="font-size: 1.2em; color: #000000; text-decoration: none;">Dưới 1.000.000 VND</a>
                                 </li>
                                 <li class="{{ request('price_range') == '1m_to_2m' ? 'open' : 'closed' }}">
-                                    <a
-                                        href="{{ route('products.index', ['price_range' => '1m_to_2m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
-                                        Từ 1.000.000 đến 2.000.000 VND
-                                    </a>
+                                    <a href="{{ route('products.index', ['price_range' => '1m_to_2m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}" style="font-size: 1.2em; color: #000000; text-decoration: none;">Từ 1.000.000 đến 2.000.000 VND</a>
                                 </li>
                                 <li class="{{ request('price_range') == '2m_to_5m' ? 'open' : 'closed' }}">
-                                    <a
-                                        href="{{ route('products.index', ['price_range' => '2m_to_5m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
-                                        Từ 2.000.000 đến 5.000.000 VND
-                                    </a>
+                                    <a href="{{ route('products.index', ['price_range' => '2m_to_5m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}" style="font-size: 1.2em; color: #000000; text-decoration: none;">Từ 2.000.000 đến 5.000.000 VND</a>
                                 </li>
                                 <li class="{{ request('price_range') == '5m_to_10m' ? 'open' : 'closed' }}">
-                                    <a
-                                        href="{{ route('products.index', ['price_range' => '5m_to_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
-                                        Từ 5.000.000 đến 10.000.000 VND
-                                    </a>
+                                    <a href="{{ route('products.index', ['price_range' => '5m_to_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}" style="font-size: 1.2em; color: #000000; text-decoration: none;">Từ 5.000.000 đến 10.000.000 VND</a>
                                 </li>
                                 <li class="{{ request('price_range') == 'above_10m' ? 'open' : 'closed' }}">
-                                    <a
-                                        href="{{ route('products.index', ['price_range' => 'above_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}">
-                                        Trên 10.000.000 VND
-                                    </a>
+                                    <a href="{{ route('products.index', ['price_range' => 'above_10m', 'category_id' => request('category_id'), 'sort_by' => request('sort_by')]) }}" style="font-size: 1.2em; color: #000000; text-decoration: none;">Trên 10.000.000 VND</a>
                                 </li>
                             </ul>
                         </div>
                     </aside>
 
-                    <!-- widget-color -->
-                    <aside class="widget widget-color box-shadow mb-30">
-                        <h6 class="widget-title border-left mb-20">Màu sắc</h6>
-                        <ul>
-                            <li class="color-1"><a href="#">Đỏ</a></li>
-                            <li class="color-2"><a href="#">Xanh dương</a></li>
-                            <li class="color-3"><a href="#">Xanh lá</a></li>
-                            <li class="color-4"><a href="#">Vàng</a></li>
-                            <li class="color-5"><a href="#">Đen</a></li>
-                        </ul>
-                    </aside>
 
-                    <!-- widget-scale -->
-                    <aside class="widget widget-scale box-shadow mb-30">
-                        <h6 class="widget-title border-left mb-20">Tỷ lệ mô hình</h6>
-                        <form action="action_page.php">
-                            <label><input type="checkbox" name="scale" value="1-24">1:24</label><br>
-                            <label><input type="checkbox" name="scale" value="1-48">1:48</label><br>
-                            <label><input type="checkbox" name="scale" value="1-72">1:72</label><br>
-                            <label><input type="checkbox" name="scale" value="1-144">1:144</label><br>
-                        </form>
-                    </aside>
 
                     <!-- widget-product -->
                     <aside class="widget widget-product box-shadow">

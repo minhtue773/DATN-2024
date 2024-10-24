@@ -11,7 +11,7 @@ class ProductUserController extends Controller
     public function index(Request $request)
     {
         // Lấy danh sách danh mục
-        $categories = ProductCategory::all();
+        $categories = ProductCategory::with('products')->get();
 
         // Lấy tham số lọc và sắp xếp từ request
         $categoryId = $request->input('category_id');

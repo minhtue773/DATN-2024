@@ -78,11 +78,26 @@
 ----------------------------------------*/
 @import 'https://fonts.googleapis.com/css?family=Raleway:400,500,600,700|Roboto:400,500,700';
 
+
 body {
   font-family: 'Times New Roman', Times, serif;
 }
 
+.mega-menu-link a {
+  font-size: 32px; /* Kích thước chữ */
+  font-weight: bold; /* Độ dày chữ */
+  color: #333; /* Màu chữ */
+  text-decoration: none; /* Bỏ gạch chân */
+  letter-spacing: 0.5px; /* Khoảng cách giữa các ký tự */
+  line-height: 1.5; /* Độ cao dòng */
+  padding: 5px 0; /* Khoảng cách trên và dưới */
 
+}
+
+
+.favorited {
+  color: rgb(255, 0, 8); /* Viền sẽ đổi sang màu vàng khi yêu thích */
+}
 /*************************************
   6. Custom-content all   
  **************************************/

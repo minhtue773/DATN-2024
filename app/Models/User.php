@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -48,9 +49,19 @@ class User extends Authenticatable
     ];
 
     /**
-     * Nếu không sử dụng timestamps, có thể tắt bằng cách:
+     * Mặc định sử dụng timestamps (true).
      *
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * Quan hệ belongsToMany với bảng Product thông qua bảng trung gian favorite_products.
+     *
+     * @return BelongsToMany
+     */
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();
+    }
 }

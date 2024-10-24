@@ -25,7 +25,7 @@
     <!-- PHẦN ĐĂNG NHẬP BẮT ĐẦU -->
     <div class="login-section mb-80">
         <div class="container">
-            <div class="roư" style="display: flex; justify-content: center; align-items: center;">
+            <div class="row" style="display: flex; justify-content: center; align-items: center;">
                 <div class="col-md-6">
                     <div class="registered-customers">
                         <h6 class="widget-title border-left mb-50">ĐÃ ĐĂNG KÝ</h6>
@@ -45,8 +45,9 @@
                                 <p>Nếu bạn đã có tài khoản với chúng tôi, vui lòng đăng nhập.</p>
                                 <input type="text" name="email" placeholder="Địa chỉ Email" required>
                                 <input type="password" name="password" placeholder="Mật khẩu" required>
-                                <p><small><a href="#">Quên mật khẩu của bạn?</a></small></p>
+                                <p><small><a href="/forgot-password">Quên mật khẩu của bạn?</a></small></p>
                                 <p><small><a href="/register">Tạo tài khoản</a></small></p>
+                                <p><small><a href="/new-password">Tạo tài khoản</a></small></p>
                                 <button class="submit-btn-1 btn-hover-1" type="submit">Đăng nhập</button>
                             </div>
                         </form>
