@@ -14,5 +14,6 @@ class Banner extends Model
         'image',
         'link',
         'content',
+        'name',
     ];
 }

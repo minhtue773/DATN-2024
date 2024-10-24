@@ -6,29 +6,19 @@ use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+<<<<<<< HEAD
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+=======
+
+>>>>>>> PS34351
 
 class OrderController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Order::query();
-        if($request->has('status') && $request->status != null){
-            $query->where('status', $request->status);
-        }
-        $orders = $query->get();
-        $countStatus = [
-            '0' => Order::where('status',0)->count(),
-            '1' => Order::where('status',1)->count(),
-            '2' => Order::where('status',2)->count(),
-            '3' => Order::where('status',3)->count(),
-            '4' => Order::where('status',4)->count(),
-            '5' => Order::where('status',5)->count()
-        ];
-        
-        return view('admin.order.order', compact('orders', 'countStatus'));
+        return view('admin.order.order');
     }
 
     public function show(Order $order)
@@ -47,6 +37,7 @@ class OrderController extends Controller
 
     public function destroyBox(Request $request)
     {
+<<<<<<< HEAD
         if($request->has('order_ids') && is_array($request->order_ids)){
             $deletedOrders =  Order::destroy($request->order_ids);
             if($deletedOrders > 0) {
@@ -58,6 +49,10 @@ class OrderController extends Controller
             return redirect()->back()->with('no', 'Bạn chưa chọn đơn hàng nào. Hãy thử lại!');
         }
     }
+=======
+        return view('admin.order.detail');
+            }
+>>>>>>> PS34351
 
     protected function updateOrderStatus(Order $order, $newStatus) {
         $order->update([

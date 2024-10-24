@@ -23,8 +23,12 @@ class ProductCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:product_categories|max:255',
+<<<<<<< HEAD
             'order_number' => 'integer|min:0',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+=======
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+>>>>>>> PS34351
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục.',
             'name.unique' => 'Tên danh mục đã tồn tại trong hệ thống.',
@@ -32,12 +36,12 @@ class ProductCategoryController extends Controller
             'order_number.integer' => 'Thứ tự phải là một số nguyên.',
             'order_number.min' => 'Thứ tự phải lớn hơn hoặc bằng 0.',
             'photo.image' => 'File tải lên phải là ảnh.',
-            'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif hoặc webp.',
+            'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif.',
             'photo.max' => 'Ảnh không được lớn hơn 2MB.'
         ]);
         if ($request->hasFile('photo')) {
             $image = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('uploads/images/product_category'), $image);
+            $request->photo->move(public_path('uploads/ProductCategory'), $image);
             $request->merge(['image' => $image]);
         }
         try {
@@ -65,8 +69,12 @@ class ProductCategoryController extends Controller
         
         $request->validate([
             'name' => 'required|unique:product_categories,name,' . $category->id . '|max:255',
+<<<<<<< HEAD
             'order_number' => 'integer|min:0',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+=======
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+>>>>>>> PS34351
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục.',
             'name.unique' => 'Tên danh mục đã tồn tại trong hệ thống.',
@@ -74,15 +82,15 @@ class ProductCategoryController extends Controller
             'order_number.integer' => 'Thứ tự phải là một số nguyên.',
             'order_number.min' => 'Thứ tự phải lớn hơn hoặc bằng 0.',
             'photo.image' => 'File tải lên phải là ảnh.',
-            'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif hoặc webp.',
+            'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif.',
             'photo.max' => 'Ảnh không được lớn hơn 2MB.'
         ]);
         if ($request->hasFile('photo')) {
-            if ($category->image && file_exists(public_path('uploads/images/product_category/' . $category->image))) {
-                unlink(public_path('uploads/images/product_category/' . $category->image));
+            if ($category->image && file_exists(public_path('uploads/ProductCategory/' . $category->image))) {
+                unlink(public_path('uploads/ProductCategory/' . $category->image));
             }
             $image = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('uploads/images/product_category'), $image);
+            $request->photo->move(public_path('uploads/ProductCategory'), $image);
             $request->merge(['image' => $image]);
         }
         try {
@@ -102,9 +110,14 @@ class ProductCategoryController extends Controller
                 unlink(public_path('uploads/images/product_category/' . $category->image));
             }
             $category->delete();
+<<<<<<< HEAD
             return redirect()->back()->with('success',"Xóa $category->name thành công!");
+=======
+            flash()->success('Xóa danh mục thành công');
+            return redirect()->back();
+>>>>>>> PS34351
         } catch (\Throwable $th) {
-            flash()->error("Xóa $category->name thất bại!");
+            flash()->error('Xóa danh mục thất bại');
             return redirect()->back();
         }
     }

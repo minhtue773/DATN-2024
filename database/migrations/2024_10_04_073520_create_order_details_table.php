@@ -18,9 +18,15 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('price');
             $table->string('discount_code')->nullable();
+<<<<<<< HEAD
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->softDeletes('deleted_at');
+=======
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamps();
+>>>>>>> PS34351
         });
     }
 

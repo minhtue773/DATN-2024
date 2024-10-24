@@ -31,8 +31,12 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'phone_number' => fake()->phoneNumber(),
             'address' => fake()->streetAddress(),
+<<<<<<< HEAD
             'gender' => fake()->randomElement(['male', 'female','other']),
             'status' => fake()->numberBetween(0,2)
+=======
+            'gender' => fake()->randomElement(['nam', 'nữ']),
+>>>>>>> PS34351
         ];
     }
 

@@ -2,21 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable;
 
+    /**
+     * Các trường có thể gán hàng loạt.
+     *
+     * @var array
+     */
     protected $fillable = [
         'email',
         'password',
         'phone_number',
-        'name',      
-        'image',    
+        'name',
         'address',
         'role',
         'gender',
@@ -24,37 +27,30 @@ class User extends Authenticatable
         'birthday',
     ];
 
+    /**
+     * Các trường sẽ được ẩn trong array hoặc JSON.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Kiểu dữ liệu cần được chuyển đổi.
      *
-     * @return array<string, string>
+     * @var array
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'birthday' => 'date',
+    ];
 
-    public function favoriteProducts () {
-        return $this->hasMany(FavoriteProduct::class);
-    }
-    public function posts () {
-        return $this->hasMany(Post::class);
-    }
-    public function comments () {
-        return $this->hasMany(Comment::class);
-    }
-    public function orders () {
-        return $this->hasMany(Order::class);
-    }
-    public function discountCodeHistories () {
-        return $this->hasMany(DiscountCodeHistory::class);
-    }
+    /**
+     * Nếu không sử dụng timestamps, có thể tắt bằng cách:
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 }

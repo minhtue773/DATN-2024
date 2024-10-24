@@ -103,14 +103,15 @@ class ProductController extends Controller
                 }
             }
 
-            flash()->success("Cập nhật $product->name thành công");
+            flash()->success('Cập nhật sản phẩm thành công');
             return redirect()->route('admin.product.index');
         } catch (\Throwable $th) {
-            flash()->error("Cập nhật $product->name thất bại");
+            flash()->error('Cập nhật sản phẩm thất bại');
             return redirect()->back();
         }
     }
 
+<<<<<<< HEAD
     public function delete(Product $product) {
         try {
             // if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
@@ -150,6 +151,15 @@ class ProductController extends Controller
         } else {
             return redirect()->back()->with('no', 'Bạn chưa chọn sản phẩm nào!');
         }
+=======
+    public function destroy(Product $product)
+    {
+        //
+    }
+
+    public function trash() {
+        return view('admin.product.trash');
+>>>>>>> PS34351
     }
 
     public function updateHidden(Request $request) {

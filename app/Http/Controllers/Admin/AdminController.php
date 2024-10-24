@@ -35,6 +35,7 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('no', 'Hãy thử đăng nhập lại');
     }
+<<<<<<< HEAD
 
     public function logout() {
         Auth::logout();
@@ -64,4 +65,6 @@ class AdminController extends Controller
         return view('admin.trash.trash', compact('data'));
     }    
     
+=======
+>>>>>>> PS34351
 }

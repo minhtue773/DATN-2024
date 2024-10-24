@@ -41,6 +41,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.category.index') }}">Danh mục</a>
                 <a class="collapse-item" href="{{ route('admin.product.index') }}">Sản phẩm</a>
+                <a class="collapse-item" href="{{route('admin.product.trash')}}">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
     </li>
@@ -55,14 +56,24 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.post-category.index') }}">Chuyên mục</a>
                 <a class="collapse-item" href="{{route('admin.post.index')}}">Bài viết</a>
+                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('admin.comment.index')}}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseComment"
+            aria-expanded="true" aria-controls="collapseComment">
+            {{-- <i class="fa-regular fa-newspaper"></i> --}}
             <i class="bi bi-chat-quote-fill"></i>
             <span>Quản lý bình luận</span>
         </a>
+        <div id="collapseComment" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{route('admin.comment.index')}}">Bình luận</a>
+                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+            </div>
+        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOder"
@@ -74,6 +85,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('admin.order.index')}}">Đơn hàng</a>
+<<<<<<< HEAD
                 <a class="collapse-item" href="#">Quản lý giao dịch</a>
             </div>
         </div>
@@ -84,6 +96,12 @@
             <span>Thùng rác</span>
         </a>
     </li>
+=======
+                <a class="collapse-item" href="#">Thùng rác <span class="badge badge-danger ms-1">3</span></a>
+            </div>
+        </div>
+    </li>
+>>>>>>> PS34351
     <hr class="sidebar-divider">
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

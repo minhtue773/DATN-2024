@@ -9,32 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
+
 
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Nivo-slider css -->
-    <link rel="stylesheet" href="lib/css/nivo-slider.css">
-    <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="css/core.css">
-    <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
-    <!-- Theme main style -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Template color css -->
-    <link href="css/color/color-core.css" data-style="styles" rel="stylesheet">
-    <!-- User style -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/css/nivo-slider.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/core.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/shortcode/shortcodes.css') }}">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/color/color-core.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
 
-    <!-- Modernizr JS -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="mainController">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -56,24 +50,45 @@
                         <div class="col-sm-6 col-xs-12">
                             <div class="top-link clearfix">
                                 <ul class="link f-right">
-                                    <li>
-                                        <a href="my-account.html">
-                                            <i class="zmdi zmdi-account"></i>
-                                            Tài khoản của tôi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="wishlist.html">
-                                            <i class="zmdi zmdi-favorite"></i>
-                                            Danh sách yêu thích (0)
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="login.html">
-                                            <i class="zmdi zmdi-lock"></i>
-                                            Đăng nhập
-                                        </a>
-                                    </li>
+                                    @if(Auth::check())
+                                        <li>
+                                            <a href="my-account.html">
+                                                <i class="zmdi zmdi-account"></i>
+                                                {{ Auth::user()->name }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="wishlist.html">
+                                                <i class="zmdi zmdi-favorite"></i>
+                                                Danh sách yêu thích (0)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/logout">
+                                                <i class="bi bi-box-arrow-right"></i>
+                                                Đăng xuất
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="wishlist.html">
+                                                <i class="zmdi zmdi-favorite"></i>
+                                                Danh sách yêu thích (0)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('login') }}">
+                                                <i class="zmdi zmdi-lock"></i>
+                                                Đăng nhập
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('register') }}">
+                                                <i class="zmdi zmdi-account-add"></i>
+                                                Đăng ký
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -89,7 +104,9 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img style="height: 32px; width: 191px;" src="img/logo/logo.png" alt="logo chính">
+                                        <img style="height: 32px; width: 191px;" src="{{ asset('img/logo/logo.png') }}"
+                                            alt="logo chính">
+
                                     </a>
                                 </div>
                             </div>
@@ -97,9 +114,9 @@
                             <div class="col-md-8 hidden-sm hidden-xs">
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
-                                        <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                                        <li><a href="/"><i class="fas fa-home"></i> Trang chủ</a></li>
                                         <li class="mega-parent">
-                                            <a href="shop.html"><i class="fas fa-box"></i> Mô hình</a>
+                                            <a href="/products"><i class="fas fa-box"></i> Mô hình</a>
                                             <div class="mega-menu-area clearfix">
                                                 <div class="mega-menu-link f-left">
                                                     <ul class="single-mega-item">
@@ -132,14 +149,14 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+                                        <li><a href="/blogs"><i class="fas fa-blog"></i> Bài viết</a>
                                             <ul class="dropdwn">
                                                 <li><a href="blog-left-sidebar.html">Tin tức mô hình</a></li>
                                                 <li><a href="blog-right-sidebar.html">Hướng dẫn lắp ráp</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="about.html"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
-                                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Liên hệ</a></li>
+                                        <li><a href="/about"><i class="fas fa-info-circle"></i> Giới thiệu</a></li>
+                                        <li><a href="/contact"><i class="fas fa-envelope"></i> Liên hệ</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -152,9 +169,10 @@
                                             <button class="search-toggle">
                                                 <i class="zmdi zmdi-search"></i>
                                             </button>
-                                            <form action="#">
+                                            <form action="{{ route('products.index') }}" method="GET">
                                                 <div class="top-search-box">
-                                                    <input type="text" placeholder="Tìm kiếm mô hình...">
+                                                    <input type="text" name="search" placeholder="Tìm kiếm mô hình..."
+                                                        value="{{ request('search') }}">
                                                     <button type="submit">
                                                         <i class="zmdi zmdi-search"></i>
                                                     </button>
@@ -166,8 +184,9 @@
                                     <div class="total-cart f-left">
                                         <div class="total-cart-in">
                                             <div class="cart-toggler">
-                                                <a href="#">
-                                                    <span class="cart-quantity">02</span><br>
+                                                <a href="/cart">
+                                                    <span class="cart-quantity">[ %% countTotalProducts() %%
+                                                        ]</span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>
@@ -273,7 +292,7 @@
                                     <li><a href="index.html">Trang Chủ</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">Sản Phẩm</a>
+                                        <a href="/products">Sản Phẩm</a>
                                     </li>
                                     <li><a href="blog.html">Blog</a>
                                         <ul>

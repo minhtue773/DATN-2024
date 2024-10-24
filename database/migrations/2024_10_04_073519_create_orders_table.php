@@ -24,8 +24,12 @@ return new class extends Migration
             $table->string('invoice_code', 50)->unique();
             $table->text('note')->nullable();
             $table->timestamps();
+<<<<<<< HEAD
             $table->softDeletes('deleted_at');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+=======
+            $table->foreign('user_id')->references('id')->on('users');
+>>>>>>> PS34351
         });
     }
 

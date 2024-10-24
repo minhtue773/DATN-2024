@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('discount_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 50)->unique();
-            $table->integer('quantity')->default(0);
-            $table->tinyInteger('status')->default(0);
-            $table->decimal('discount_percentage');
-            $table->decimal('maximum_discount_amount')->nullable();
+            $table->string('code')->unique(); // Mã voucher
+            $table->enum('type', ['percentage', 'fixed', 'percentage_with_cap']); // Loại voucher
+            $table->decimal('discount', 8, 2); // Phần trăm giảm hoặc số tiền giảm
+            $table->decimal('max_discount', 8, 2)->nullable(); // Giới hạn giảm giá tối đa cho loại percentage_with_cap
+            $table->integer('quantity')->default(1); // Số lượng mã có thể sử dụng
+            $table->integer('used_count')->default(0); // Số lần mã đã được sử dụng
+            $table->date('expiry_date'); // Ngày hết hạn
+            $table->enum('status', ['active', 'expired', 'used'])->default('active'); // Trạng thái voucher
             $table->timestamps();
         });
     }

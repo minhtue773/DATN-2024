@@ -17,7 +17,9 @@ class Post extends Model
         'description',
         'content',
         'status',
-        'is_featured'
+        'post_date',
+        'image',
+        'image_big',
     ];
 
     public function user()

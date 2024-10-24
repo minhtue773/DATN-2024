@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = User::query();
-        if ($request->has('status') && $request->status !== null) {
-            $query->where('status', $request->status);
-        }    
-        $users = $query->get();
+        $users = User::all();
         return view('admin.user.user', compact('users'));
     }
 
     public function create()
     {
+        //
     }
 
     public function store(Request $request)
@@ -28,19 +24,19 @@ class UserController extends Controller
         //
     }
 
-    public function show($id)
+    public function show(string $id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.user.detail', compact('user'));
+        //
     }
 
-    public function edit(User $user)
+    public function edit(string $id)
     {
-        return view('admin.user.edit', compact('user'));
+        //
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, string $id)
     {
+<<<<<<< HEAD
         $request->validate([
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:3',
@@ -85,10 +81,14 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Cập nhật người dùng thất bại');
         }
 
+=======
+        //
+>>>>>>> PS34351
     }
 
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
+<<<<<<< HEAD
         try {
             try {
                 if ($user->image && file_exists(public_path('uploads/images/user/' . $user->image))) {
@@ -101,5 +101,8 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', "Xóa người dùng {$user->name} thất bại");
         }
+=======
+        //
+>>>>>>> PS34351
     }
 }

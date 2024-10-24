@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('post_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('image')->nullable();
+            $table->string('name');
+<<<<<<< HEAD
+            $table->string('image')->nullable();
+=======
+>>>>>>> PS34351
             $table->boolean('status')->default(1)->comment('0:Ẩn, 1:Hiển thị');
             $table->tinyInteger('order_number')->default(0);
             $table->timestamps();
