@@ -27,7 +27,6 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('trash/restore/{type}/{id}', [AdminController::class, 'restore'])->name('trash.restore');
     Route::get('trash/delete/{type}/{id}', [AdminController::class, 'delete'])->name('trash.delete');
     Route::post('trash', [AdminController::class, 'deleteBox'])->name('trash.deleteBox');
-
     Route::resource('user', UserController::class);
     // Product
     Route::post('category/update-status', [ProductCategoryController::class, 'updateStatus'])->name('category.updateStatus');
@@ -58,4 +57,6 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
 });
 
 
-Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
+Route::get('/', function(){
+    return view('clients.home');
+});
