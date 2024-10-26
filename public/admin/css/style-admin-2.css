@@ -12667,12 +12667,9 @@ body.sidebar-toggled footer.sticky-footer {
   color: #6520ff !important;
 }
 
-#myTable thead th{
-  text-align: center !important;
-}
-#productTable thead th{
-  text-align: center !important;
-}
-#myTable thead th{
+#myTable thead th,
+#productTable thead th,
+#postTable thead th,
+#orderTable thead th{
   text-align: center !important;
 }
