@@ -113,15 +113,6 @@ class ProductController extends Controller
 
     public function delete(Product $product) {
         try {
-            // if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
-            //     unlink(public_path('uploads/images/product/' . $product->image));
-            // }
-            // $oldImages = ProductImage::where('product_id', $product->id)->get();
-            // foreach ($oldImages as $oldImage) {
-            //     if (file_exists(public_path('uploads/images/product/' . $oldImage->image))) {
-            //         unlink(public_path('uploads/images/product/' . $oldImage->image));
-            //     }
-            // }
             $product->delete();
             return redirect()->back()->with("success","Xóa $product->name thành công!");
         } catch (\Throwable $th) {
@@ -132,18 +123,6 @@ class ProductController extends Controller
     public function destroyBox(Request $request)
     {
         if (is_array($request->product_ids)) {
-            // $products = Product::whereIn('id', $request->product_ids)->get();
-            // foreach ($products as $product) {
-            //     if ($product->image && file_exists(public_path('uploads/images/product/' . $product->image))) {
-            //         unlink(public_path('uploads/images/product/' . $product->image));
-            //     }
-            //     $oldImages = ProductImage::where('product_id', $product->id)->get();
-            //     foreach ($oldImages as $oldImage) {
-            //         if (file_exists(public_path('uploads/images/product/' . $oldImage->image))) {
-            //             unlink(public_path('uploads/images/product/' . $oldImage->image));
-            //         }
-            //     }
-            // }
             Product::destroy($request->product_ids);
             $count = count($request->product_ids);
             return redirect()->back()->with('ok', "Xóa $count sản phẩm thành công!");

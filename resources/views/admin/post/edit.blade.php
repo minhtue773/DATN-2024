@@ -74,7 +74,7 @@
                                     </div>                                      
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung chi tiết:</label>
-                                        <textarea class="form-control" name="content" id="editor" style="height: 100px">{{ $post->description }}</textarea>
+                                        <textarea class="form-control" name="content" id="editor" style="height: 100px">{{ $post->content }}</textarea>
                                         @error('content')
                                         <p class="text-danger">* {{ $message }}</p>
                                         @enderror

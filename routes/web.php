@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ConfigurationController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PromotionController;
@@ -23,6 +24,10 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('home', [AdminController::class, 'index'])->name('home');
     // Trash
     Route::get('trash', [AdminController::class, 'trash'])->name('trash');
+    Route::get('trash/restore/{type}/{id}', [AdminController::class, 'restore'])->name('trash.restore');
+    Route::get('trash/delete/{type}/{id}', [AdminController::class, 'delete'])->name('trash.delete');
+    Route::post('trash', [AdminController::class, 'deleteBox'])->name('trash.deleteBox');
+
     Route::resource('user', UserController::class);
     // Product
     Route::post('category/update-status', [ProductCategoryController::class, 'updateStatus'])->name('category.updateStatus');
@@ -44,6 +49,9 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
     Route::resource('order', OrderController::class)->only(['index', 'show']);
 
+    // MORE
+    Route::get('/configuration', [ConfigurationController::class,'index'])->name('configuration');
+    Route::get('/configuration/info', [ConfigurationController::class,'info'])->name('configuration.info');
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);
     Route::resource('banner', BannerController::class);
