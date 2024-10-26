@@ -96,15 +96,33 @@
                         </form>
                     </div>
                     <!-- Card Body -->
-                    <div class="card-body">
+                    <div class="card-body d-flex align-items-center">
                         <div class="container">
                             <div class="row">
-                                <div class="col-6 py-3 bg-gray-400">
-                                    <div>
-                                        <i class="bi bi-6-square-fill fs-1"></i>
-                                        <div>
-                                            <h5 class="m-0">Đã hủy</h5>
-                                            <p>08 đơn hàng đã hủy</p>
+                                <div class="col-12 mb-3">
+                                    <div class="d-flex flex-column align-items-center bg-primary-subtle p-3 rounded-3">
+                                        <i class="bi bi-box2-heart fs-1"></i>
+                                        <div class="text-center">
+                                            <h5 class="m-0">Tổng đơn hàng</h5>
+                                            <p>0 đơn hàng mới</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column align-items-center bg-success-subtle p-3 rounded-3">
+                                        <i class="bi bi-check-square fs-1"></i>
+                                        <div class="text-center">
+                                            <h5 class="m-0">Thành công</h5>
+                                            <p>0 đơn hàng giao thành công</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column align-items-center bg-danger-subtle p-3 rounded-3">
+                                        <i class="bi bi-x-square fs-1"></i>
+                                        <div class="text-center">
+                                            <h5 class="m-0">Đơn đã hủy</h5>
+                                            <p>0 đơn hàng đã hủy</p>
                                         </div>
                                     </div>
                                 </div>
@@ -119,20 +137,15 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Tổng quan doanh tháng 10</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Tổng doanh thu</h6>
                         <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
+                            <form action="">
+                                <select class="form-select form-select-sm" name="" id="">
+                                    <option value="">Ngày</option>
+                                    <option value="">Tháng</option>
+                                    <option value="">Năm</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
                     <!-- Card Body -->

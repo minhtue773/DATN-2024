@@ -48,7 +48,7 @@ class PostCategoryController extends Controller
             return redirect()->back()->with('error','Thêm danh mục mới thất bại');
         }
     }
-// Xóaaâ
+
     public function show(PostCategory $postCategory)
     {
         //
@@ -93,18 +93,25 @@ class PostCategoryController extends Controller
 
     }
 
-    public function destroy(PostCategory $postCategory)
-    {
-        try {
-            if ($postCategory->image && file_exists(public_path('uploads/images/post_category/' . $postCategory->image))) {
-                unlink(public_path('uploads/images/post_category/' . $postCategory->image));
-            }
-            $postCategory->delete();
-            return redirect()->back()->with('success', 'Xóa chuyên mục thành công');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Xóa chuyên mục thất bại');
+    public function destroy(PostCategory $postCategory){
+    try {
+        if ($postCategory->posts()->exists()) {
+            return redirect()->back()->with('no', 'Vẫn còn tồn tại bài viết thuộc chuyên mục này.');
         }
-    }
+        $trashedPosts = $postCategory->posts()->onlyTrashed()->get();
+        foreach ($trashedPosts as $post) {
+            $post->forceDelete(); 
+        }
+        if ($postCategory->image && file_exists(public_path('uploads/images/post_category/' . $postCategory->image))) {
+            unlink(public_path('uploads/images/post_category/' . $postCategory->image));
+        }
+        $postCategory->delete();
+        return redirect()->back()->with('success', 'Xóa chuyên mục thành công');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('no', 'Xóa chuyên mục thất bại do lỗi hệ thống.');
+        }
+}
+
 
     public function updateStatus(Request $request)
     {
