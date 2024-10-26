@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('is_hidden')->default(0)->comment('0:hiển thị, 1:ẩn');
             $table->timestamps();
             $table->softDeletes('deleted_at');
-            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->foreign('product_category_id')->references('id')->on('product_categories');
         });
     }
 

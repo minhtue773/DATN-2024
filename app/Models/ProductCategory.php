@@ -11,7 +11,7 @@ class ProductCategory extends Model
 
     protected $fillable = ['name', 'order_number', 'description', 'image', 'status'];
     
-    public function Product() {
+    public function products() {
         return $this->hasMany(Product::class);
     }
 }

@@ -34,7 +34,7 @@
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark mr-3" href=""><i class="fa fa-phone mr-2"></i>012893718923</a>
-                    <a class="text-dark" href=""><i class="fas fa-envelope mr-2"></i>hobbyzone@gmai.com</a>
+                    <a class="text-dark" href=""><i class="fas fa-envelope mr-2"></i>hobbyzone@gmail.com</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">

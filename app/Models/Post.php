@@ -17,6 +17,7 @@ class Post extends Model
         'description',
         'content',
         'status',
+        'image',
         'is_featured'
     ];
 

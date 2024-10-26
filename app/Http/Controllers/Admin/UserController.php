@@ -9,15 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
-    {
+    
+    public function index(Request $request){
         $query = User::query();
-        if ($request->has('status') && $request->status !== null) {
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
-        }    
+        }
         $users = $query->get();
         return view('admin.user.user', compact('users'));
     }
+
 
     public function create()
     {

@@ -26,8 +26,9 @@
                             <table class="table table-hover table-bordered" id="myTable">
                                 <thead>
                                     <tr class="text-center">
-                                        <th rowspan="2">Banner</th>
+                                        <th rowspan="2">Hình</th>
                                         <th rowspan="2">Tên chuyên mục</th>
+                                        <th rowspan="2">Số lượng bài viết</th>
                                         <th rowspan="2">Ngày tạo</th>
                                         <th rowspan="2">Hiển thị</th>
                                         <th colspan="2">Thao tác</th>
@@ -43,6 +44,7 @@
                                             <td><img src="{{ asset('uploads/images/post_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td>{{ $item->name }}</td>
+                                            <td>{{ $item->posts->count() }}</td>
                                             <td>{{ $item->created_at->format('d-m-Y')}}</td> 
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
@@ -68,9 +70,6 @@
     </div>
 @endsection
 @section('js') 
-<script>
-
-</script>  
 <script>
     function confirmDelete(itemName, form) {
         Swal.fire({
@@ -102,11 +101,11 @@
             [1, 'asc']
         ],
         columnDefs: [{
-                targets: [1,2], // Các cột có thể sắp xếp
+                targets: [1,3], // Các cột có thể sắp xếp
                 orderable: true
             },
             {
-                targets: [0,3,4,5], // Cột "Tên mô hình" không thể sắp xếp
+                targets: [0,2,4,5,6], // Cột "Tên mô hình" không thể sắp xếp
                 orderable: false
             },
         ],

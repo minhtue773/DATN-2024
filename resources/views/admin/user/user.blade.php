@@ -29,6 +29,13 @@
                             <form method="GET">
                                 <div class="d-flex">
                                     <div class="me-3">
+                                        <select class="form-select form-select-sm form-outline-dark" name="role">
+                                            <option value="" selected>Tất cả vai trò --</option>
+                                            <option value="customer" {{ request('role') === 'customer' ? 'selected' : '' }}>Khách hàng</option>
+                                            <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="me-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="" selected>Tất cả trạng thái --</option>
                                             <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Chưa kích hoạt</option>
@@ -140,7 +147,7 @@
 <script>
     new DataTable('#myTable', {
         processing: true,
-        lengthMenu: [5,10,20],
+        lengthMenu: [10,15,20],
         searching: true,
         info: false,
         ordering: true,
