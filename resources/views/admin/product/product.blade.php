@@ -14,7 +14,7 @@
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
-                    <div class="row mt-2">
+                    <div class="row">
                         <h4 class="text-gray-800 mb-3">Danh sách sản phẩm</h4>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div>
@@ -38,24 +38,25 @@
                                     <div class="me-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="0">Tất cả trạng thái --</option>
-                                            <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Sản phẩm
-                                                mới</option>
-                                            <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Sản phẩm
-                                                hot</option>
+                                            <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Mô hình mới</option>
+                                            <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Mô hình hot</option>
+                                            <option value="3" {{ request('status') == 3 ? 'selected' : '' }}>Sắp hết hàng</option>
+                                            <option value="4" {{ request('status') == 4 ? 'selected' : '' }}>Hết hàng</option>
+                                            <option value="5" {{ request('status') == 5 ? 'selected' : '' }}>Đã ngừng bán</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i>
                                         Lọc</button>
                                 </div>
                             </form>
-
                         </div>
                         <div class="col-12">
-                            <form action="">
+                            <form action="{{ route('admin.product.destroyBox') }}" method="POST">
+                                @csrf
                                 <table id="myTable" class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="text-center">
-                                            <th rowspan="2"><input type="checkbox"></th>
+                                            <th rowspan="2"><input type="checkbox" id="checkAll"></th>
                                             <th rowspan="2">Hình</th>
                                             <th rowspan="2">Tên mô hình</th>
                                             <th rowspan="2">Danh mục</th>
@@ -75,11 +76,11 @@
                                     <tbody>
                                         @foreach ($products as $item)
                                             <tr class="text-center">
-                                                <td><input type="checkbox"></td>
+                                                <td><input class="product-checkbox" type="checkbox" name="product_ids[]" value="{{ $item->id }}"></td>
                                                 <td><img src="{{ asset('uploads/images/product') }}/{{ $item->image }}"
                                                         class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                                 <td>{{ $item->name }}</td>
-                                                <td>{{ $item->ProductCategory->name }}</td>
+                                                <td>{{ $item->productCategory->name }}</td>
                                                 <td>{{ number_format($item->price, 0, '.', '.') }} đ</td>
                                                 <td>{{ $item->stock }}</td>
                                                 <td>
@@ -122,15 +123,14 @@
                                                 <td><a href="javascript:void(0);"
                                                         onclick="showProductDetail({{ $item->id }})"><i
                                                             class="fa-solid fa-eye text-success"></i></a></td>
-                                                <td><a href="{{ route('admin.product.edit', $item) }}"><i
-                                                            class="fa fa-edit"></i></a></td>
-                                                <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                                <td><a href="{{ route('admin.product.edit', $item) }}"><i class="fa fa-edit"></i></a></td>
+                                                <td><a style="cursor: pointer" onclick="confirmDeletePath('{{ route('admin.product.delete', $item) }}')"><i class="fa fa-trash text-danger"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex mt-3">
-                                    <button class="btn btn-danger btn-sm">
+                                    <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
                                     </button>
                                 </div>
@@ -160,6 +160,16 @@
     </div>    
 @endsection
 @section('js')
+    {{-- check-all --}}
+    <script>
+        document.getElementById('checkAll').addEventListener('change', function() {
+            let checkboxes = document.querySelectorAll('.product-checkbox');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+    {{-- Datatables --}}
     <script>
         new DataTable('#myTable', {
             processing: true,
@@ -184,9 +194,9 @@
             language: {
                 "emptyTable": "Không có dữ liệu",
                 "processing": "Đang tải dữ liệu",
-                "lengthMenu": "Hiển thị _MENU_ mô hình",
+                "lengthMenu": "Hiển thị _MENU_ trên _TOTAL_ mô hình ",
                 "zeroRecords": "Không tìm thấy mô hình nào",
-                "info": "Trang _PAGE_ của _PAGES_",
+                "info": "Trang _PAGE_ của _PAGES_ trong tổng số _TOTAL_ mô hình",
                 "infoEmpty": "Không có dữ liệu",
                 "infoFiltered": "(lọc từ _MAX_ mô hình)",
                 "search": "Tìm kiếm:",
@@ -201,6 +211,7 @@
             }
         });
     </script>
+    {{-- update hidden --}}
     <script>
         function updateHidden(id, isChecked) {
             $.ajax({
@@ -214,6 +225,7 @@
             });
         }
     </script>
+    {{-- Show detail modal --}}
     <script>
         function showProductDetail(productId) {
             fetch('/admin/product/' + productId)
@@ -227,6 +239,41 @@
                     console.error('Lỗi khi tải chi tiết sản phẩm:', error);
                 });
         }
-
-    </script>    
+    </script>
+    <script>
+    function confirmDelete(form) {
+    Swal.fire({
+        title: 'Xóa sản phẩm',
+        text: 'Tất cả sản phẩm bạn chọn đều sẽ bị xóa!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vẫn xóa!',
+        cancelButtonText: 'Không'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+    }
+    </script>
+    <script>
+        function confirmDeletePath(urlPath) {
+            Swal.fire({
+                title: 'Thông báo',
+                text: 'Bạn muốn xóa sản phẩm này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = urlPath;
+                }
+            });
+        }
+    </script>
 @endsection

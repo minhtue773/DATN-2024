@@ -30,7 +30,17 @@
                                         @error('name')
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
-                                    </div>                                  
+                                    </div>                 
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Thứ tự:</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">#</span>
+                                            <input type="number" class="form-control" name="order_number" value="{{ old('order_number') ?? 0 }}" >
+                                            @error('order_number')
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                            @enderror
+                                        </div>                                                                      
+                                    </div>              
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
                                         <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ old('description') }}</textarea>
@@ -42,7 +52,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Thêm mới</button>
-                                <a href="{{ route('admin.product.index') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
+                                <a href="{{ route('admin.category.index') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
                             </div>
                         </div>
                     </div>

@@ -41,9 +41,14 @@ class UserAuthController extends Controller
         Auth::logout();
         return redirect('/');
     }
-    public function showAccount(){
+    public function showAccount()
+    {
         $user = Auth::user();
-        return view('layout_user.my_account', compact('user'));
+        // Tìm người dùng theo ID
+
+        // Lấy danh sách sản phẩm yêu thích của người dùng
+        $favoriteProducts = $user->favoriteProducts;
+        return view('layout_user.my_account', compact('user','favoriteProducts'));
     }
     public function updateAccount(Request $request)
     {

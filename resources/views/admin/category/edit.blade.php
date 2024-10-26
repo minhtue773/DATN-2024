@@ -31,6 +31,16 @@
                                             <p class="text-danger m-0 mt-2">* {{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Thứ tự:</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">#</span>
+                                            <input type="number" class="form-control" name="order_number" value="{{$category->order_number ?? old('order_number')}}" >
+                                            @error('order_number')
+                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                            @enderror
+                                        </div>                                                                      
+                                    </div>   
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Mô tả:</label>
                                         <textarea class="form-control" name="description" id="editor" style="height: 100px" >{{ $category->description ?? old('description') }}</textarea>
@@ -42,7 +52,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm me-2"><i class="fa-solid fa-floppy-disk me-2"></i>Lưu</button>
-                                <a href="{{ route('admin.product.index') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
+                                <a href="{{ route('admin.category.index') }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
                             </div>
                         </div>
                     </div>
@@ -56,7 +66,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9">
+                                                <img src="{{ asset('uploads/images/product_category') }}/{{ $category->image }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
                                                         <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">

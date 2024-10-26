@@ -72,7 +72,7 @@ class ProductUserController extends Controller
        
 
         // Trả về view với danh sách sản phẩm, danh mục, 3 sản phẩm mới nhất và banner
-        return view('shop', compact('products', 'newProducts', 'categories'));
+        return view('clients.shop', compact('products', 'newProducts', 'categories'));
     }
     public function detail($id = null)
     {

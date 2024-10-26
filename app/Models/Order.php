@@ -13,6 +13,7 @@ class Order extends Model
         'user_id',
         'total',
         'payment_method',
+        'recipient_name',
         'recipient_phone',
         'recipient_address',
         'applied_discount_code',

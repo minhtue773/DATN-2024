@@ -9,6 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.configuration') }}">Thiệp lập chung</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Khuyến mãi</li>
                 </ol>
             </nav>

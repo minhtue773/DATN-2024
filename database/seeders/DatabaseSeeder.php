@@ -116,30 +116,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-        DB::table('contact_information')->insert([
-            'images' => 'img/icon/favicon.png', // Hình ảnh cố định
-            'describe' => $faker->sentence(10), // Mô tả ngẫu nhiên với 10 từ
-            'phone_number' => $faker->phoneNumber(), // Số điện thoại ngẫu nhiên
-            'link_map' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.7144018435624!2d106.7292662114595!3d10.833154358098556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752758243c5d25%3A0xd00279024a178b70!2sCoffee%20Happy!5e0!3m2!1svi!2s!4v1729222863454!5m2!1svi!2s',
-            'email' => $faker->unique()->safeEmail(), // Email ngẫu nhiên
-            'link_facebook' => 'https://facebook.com/' . $faker->userName(), // Liên kết Facebook ngẫu nhiên
-            'link_zalo' => 'https://zalo.me/' . rand(100000000, 999999999), // Liên kết Zalo ngẫu nhiên
-            'slogan' => $faker->sentence(6), // Slogan ngẫu nhiên với 6 từ
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('members')->insert([
-                'name' => $faker->name, // Tên ngẫu nhiên
-                'images' => 'img/team/3.png', // Đường dẫn hình ảnh cố định
-                'describe' => $faker->text(100), // Mô tả ngẫu nhiên
-                'position' => $faker->word, // Vị trí ngẫu nhiên
-                'link_facebook' => $faker->url, // Liên kết Facebook ngẫu nhiên
-                'link_zalo' => 'https://zalo.me/' . rand(100000000, 999999999), // Liên kết Zalo ngẫu nhiên
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+       
     }
 
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
@@ -25,12 +26,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ContactController;
+
 use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\CommentControllers;
 use App\Http\Controllers\PasswordResetController;
 
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');
 /*---------------------- Admin ----------------------*/
@@ -64,6 +64,8 @@ Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
     $request->session()->flash('thongbao', "Đã gửi mail");
     return redirect("thongbao");
 });
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
 Route::get('/blogs/{idCataPost?}', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::get('/login', [UserAuthController::class, 'login'])->name('login');

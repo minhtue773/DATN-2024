@@ -16,113 +16,88 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách bài viết</h4>
-                        <div class="row mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex">
                                 <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-plus me-1"></i>Bài viết mới
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <form action="">                                    
-                                    <div class="input-group">
-                                        <input type="search" id="form1" class="form-control-sm" placeholder="Tìm bài viết...." style="border: 1px solid #0d6efd; outline:none"/>
-                                        <button type="button" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-search"></i>
-                                        </button>
+                            <form action="" method="GET">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm" name="category">
+                                            <option value="">Tất cả chuyên mục --</option>
+                                            @foreach ($categories as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ request('category') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tất cà chuyên mục
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="dropdown-item" href="#">Chuyên mục 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Chuyên mục 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Chuyên mục 3</a></li>
-                                </ul>
-                                <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tất cà lựa chọn
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Mới nhất</a></li>
-                                    <li><a class="dropdown-item" href="#">Cũ nhất</a></li>
-                                    <li><a class="dropdown-item" href="#">Chuyên mục 3</a></li>
-                                </ul>
-                            </div>
+                                    <div class="me-3">
+                                        <select class="form-select form-select-sm form-outline-dark" name="status">
+                                            <option value="">Tất cả trạng thái --</option>
+                                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Công khai</option>
+                                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Riêng tư</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-dark btn-sm"><i class="bi bi-funnel"></i>
+                                        Lọc</button>
+                                </div>
+                            </form>
                         </div>
                         <div class="col-12">
-                            <form action="">
-                                <table class="table table-hover table-bordered">
+                            <form action="{{ route('admin.post.destroyBox') }}" method="POST">
+                                @csrf
+                                <table id="myTable" class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="text-center">
-                                            <th width="5%"><input type="checkbox"></th>
-                                            <th>Hình</th>
-                                            <th>Tiêu đề</th>
-                                            <th>Tác giả</th>
-                                            <th>Chuyên mục</th>
-                                            <th>Thời gian</th>
-                                            <th>Trạng thái</th>
-                                            <th colspan="3" width="15%">Thao tác</th>
+                                            <th rowspan="2"><input type="checkbox" id="checkAll"></th>
+                                            <th rowspan="2">Hình</th>
+                                            <th rowspan="2">Tiêu đề</th>
+                                            <th rowspan="2">Tác giả</th>
+                                            <th rowspan="2">Chuyên mục</th>
+                                            <th rowspan="2">Thời gian</th>
+                                            <th rowspan="2">Trạng thái</th>
+                                            <th rowspan="2">Nổi bật</th>
+                                            <th colspan="3">Thao tác</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Xem</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($posts as $item)
                                         <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td>Bài viết số 1</td>
-                                            <td>Admin</td>
-                                            <td>Amine</td>
-                                            <td>20-08-2024</td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
+                                            <td><input type="checkbox" name=post_ids[] class="post-checkbox" value="{{ $item->id }}"></td>
+                                            <td><img src="{{ asset('uploads/images/post') }}/{{ $item->image }}" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
+                                            <td class="text-capitalize">{{ $item->title }}</td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->category->name }}</td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td>
+                                            @if ($item->status == 0)
+                                            <span class="badge badge-success rounded-pill d-inline">Công khai</span>
+                                            @else
+                                            <span class="badge badge-warning rounded-pill d-inline">Riêng tư</span>
+                                            @endif
+                                            </td>
+                                            <td><input type="checkbox" {{ $item->is_featured == 1 ? 'checked' : '' }}
+                                                onchange="updateCategoryStatus({{ $item->id }}, this.checked)"></td>
+                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i>chưa</a></td>
+                                            <td><a href="{{route('admin.post.edit',$item)}}"><i class="fa fa-edit text-primary"></i></a></td>
+                                            <td><a style="cursor: pointer" onclick="confirmDeletePath('{{ route('admin.post.delete', $item) }}')"><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td>Bài viết số 2</td>
-                                            <td>Admin</td>
-                                            <td>Amine</td>
-                                            <td>23-08-2024</td>
-                                            <td><span class="badge badge-success rounded-pill d-inline">Chưa xuất bản</span></td>
-                                            <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td>Bài viết số 3</td>
-                                            <td>Admin</td>
-                                            <td>Amine</td>
-                                            <td>23-08-2024</td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
-                                            <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox"></td>
-                                            <td><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
-                                            <td>Bài viết số 4</td>
-                                            <td>Admin</td>
-                                            <td>Amine</td>
-                                            <td>23-08-2024</td>
-                                            <td><span class="badge badge-primary rounded-pill d-inline">Đã xuất bản</span></td>
-                                            <td><a href="/admin/home" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
-                                            <td><a href="{{route('admin.post.edit',1)}}"><i class="fa fa-edit text-primary"></i></a></td>
-                                            <td><a href=""><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex">
-                                    <a href="#" class="btn btn-danger btn-sm">
+                                    <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
-                                    </a>
+                                    </button>
                                 </div>
                             </form>     
                         </div>
@@ -132,8 +107,104 @@
                 
         </div>
     </div>
-    <!-- /.container-fluid -->
 @endsection
 @section('js')
-    
+{{-- check-all --}}
+<script>
+    document.getElementById('checkAll').addEventListener('change', function() {
+        let checkboxes = document.querySelectorAll('.post-checkbox');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = this.checked;
+        });
+    });
+</script>
+{{-- Datatables --}}
+<script>
+    new DataTable('#myTable', {
+        processing: true,
+        lengthMenu: [10,15,20],
+        searching: true,
+        info: false,
+        ordering: true,
+        paging: true,
+        responsive: true,
+        order: [
+            [5, 'desc']
+        ],
+        columnDefs: [{
+                targets: [2, 3, 5], // Các cột có thể sắp xếp
+                orderable: true
+            },
+            {
+                targets: [0,1,4,6,7,8,9,10], // Cột "Tên mô hình" không thể sắp xếp
+                orderable: false
+            },
+        ],
+        language: {
+            "emptyTable": "Không có dữ liệu",
+            "processing": "Đang tải dữ liệu",
+            "lengthMenu": "Hiển thị _MENU_ trên _TOTAL_ bài viết ",
+            "zeroRecords": "Không tìm thấy bài viết nào",
+            "info": "Trang _PAGE_ của _PAGES_ trong tổng số _TOTAL_ bài viết",
+            "infoEmpty": "Không có dữ liệu",
+            "infoFiltered": "(lọc từ _MAX_ bài viết)",
+            "search": "Tìm kiếm:",
+            "paginate": {
+                "previous": "Trước",
+                "next": "Sau"
+            },
+            "aria": {
+                "sortAscending": ": Đợi xíu",
+                "sortDescending": ": Đợi xíu",
+            }
+        }
+    });
+</script>
+<script>
+    function updateCategoryStatus(id, isChecked) {
+        $.ajax({
+            url: '{{ route("admin.post.updateFeatured") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                is_featured: isChecked ? 1 : 0
+            }
+        });
+    }
+</script>
+<script>
+    function confirmDelete(form) {
+    Swal.fire({
+        title: 'Xóa bài viết',
+        text: 'Tất cả bài viết bạn chọn đều sẽ bị xóa!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Vẫn xóa!',
+        cancelButtonText: 'Không'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+    }
+    function confirmDeletePath(urlPath) {
+    Swal.fire({
+        title: 'Thông báo',
+        text: 'Bạn muốn xóa bài viết này?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa bài viết',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = urlPath;
+        }
+    });
+    }
+</script>    
 @endsection
