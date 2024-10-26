@@ -11,18 +11,10 @@
     </li>
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHome"
-            aria-expanded="true" aria-controls="collapseHome">
-            <i class="bi bi-house-add-fill"></i>
-            <span>Nội dung trang chủ</span>
+        <a class="nav-link" href="{{ route('admin.configuration') }}">
+            <i class="fa-solid fa-gears"></i>
+            <span>Thiết lập chung</span>
         </a>
-        <div id="collapseHome" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.banner.index')}}">Banner</a>
-                <a class="collapse-item" href="{{route('admin.promotion.index')}}">Khuyến mãi</a>
-            </div>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('admin.user.index')}}">

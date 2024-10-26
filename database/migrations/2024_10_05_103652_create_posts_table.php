@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('content');
+            $table->string('image');
             $table->tinyInteger('status')->default(0)->comment('0:công khai, 1:riêng tư');
             $table->boolean('is_featured')->default(0);
             $table->timestamps();

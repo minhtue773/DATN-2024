@@ -239,7 +239,7 @@
                                         <li>
                                             @switch($order->payment_method)
                                                 @case('cash')
-                                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Thanh toán khi nhận hàng</p>
+                                                    <p class="mb-2"><span class="fw-bold me-2">Loại thanh toán:</span>Thanh toán khi nhận hàng      </p>
                                                     <p class="mb-2"><span class="fw-bold me-2">Trạng thái:</span><span class="badge bg-secondary">Chưa thanh toán</span></p>
                                                     @break
                                                 @case('vnpay')
