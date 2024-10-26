@@ -2,7 +2,7 @@
  <ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.home') }}">
-        <img class="img-fluid" src="{{ asset('img/logo/logo.png') }}" alt="">
+        <img class="img-fluid" src="{{ asset('admin/img/logo.png') }}" alt="">
     </a>
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->

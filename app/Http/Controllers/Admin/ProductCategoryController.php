@@ -23,11 +23,14 @@ class ProductCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:product_categories|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'order_number' => 'integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục.',
             'name.unique' => 'Tên danh mục đã tồn tại trong hệ thống.',
             'name.max' => 'Tên danh mục không được vượt quá 255 ký tự.',
+            'order_number.integer' => 'Thứ tự phải là một số nguyên.',
+            'order_number.min' => 'Thứ tự phải lớn hơn hoặc bằng 0.',
             'photo.image' => 'File tải lên phải là ảnh.',
             'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif.',
             'photo.max' => 'Ảnh không được lớn hơn 2MB.'
@@ -62,11 +65,14 @@ class ProductCategoryController extends Controller
         
         $request->validate([
             'name' => 'required|unique:product_categories,name,' . $category->id . '|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'order_number' => 'integer|min:0',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ], [
             'name.required' => 'Vui lòng nhập tên danh mục.',
             'name.unique' => 'Tên danh mục đã tồn tại trong hệ thống.',
             'name.max' => 'Tên danh mục không được vượt quá 255 ký tự.',
+            'order_number.integer' => 'Thứ tự phải là một số nguyên.',
+            'order_number.min' => 'Thứ tự phải lớn hơn hoặc bằng 0.',
             'photo.image' => 'File tải lên phải là ảnh.',
             'photo.mimes' => 'Ảnh phải có định dạng: jpeg, png, jpg, gif.',
             'photo.max' => 'Ảnh không được lớn hơn 2MB.'
@@ -92,12 +98,20 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $category)
     {
         try {
+            if ($category->products()->exists()) {
+                return redirect()->back()->with('no', 'Vẫn còn tồn tại mô hình thuộc danh mục này.');
+            }
+            $trashedProducts = $category->products()->onlyTrashed()->get();
+            foreach ($trashedProducts as $product) {
+                $product->forceDelete(); 
+            }
+            if ($category->image && file_exists(public_path('uploads/images/product_category/' . $category->image))) {
+                unlink(public_path('uploads/images/product_category/' . $category->image));
+            }
             $category->delete();
-            flash()->success('Xóa danh mục thành công');
-            return redirect()->back();
+            return redirect()->back()->with('success',"Xóa $category->name thành công!");
         } catch (\Throwable $th) {
-            flash()->error('Xóa danh mục thất bại');
-            return redirect()->back();
+            return redirect()->back()->with('no', "Xóa $category->name thất bại do lỗi hệ thống!");
         }
     }
 

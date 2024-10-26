@@ -20,11 +20,15 @@ return new class extends Migration
             $table->string('recipient_phone', 15)->nullable();
             $table->string('applied_discount_code')->nullable();
             $table->enum('payment_method', ['cash','vnpay','momo'])->default('cash');
-            $table->decimal('total', 15, 2);
-            $table->string('recipient_address')->nullable();
+            $table->string('recipient_name');
+            $table->string('recipient_phone', 15);
+            $table->string('recipient_address');
+            $table->string('applied_discount_code')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0:chờ xác nhận, 1:đang xử lý, 2:đang giao hàng, 3:hoàn thành, 4:yêu cầu hủy, 5:đã hủy');
             $table->text('note')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

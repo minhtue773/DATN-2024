@@ -28,6 +28,7 @@
                                     <tr class="text-center">
                                         <th rowspan="2">Hình</th>
                                         <th rowspan="2">Tên danh mục</th>
+                                        <th rowspan="2">Số lượng mô hình</th>
                                         <th rowspan="2">Ngày tạo</th>
                                         <th rowspan="2">Hiển thị</th>
                                         <th colspan="2">Thao tác</th>
@@ -43,6 +44,7 @@
                                             <td><img src="{{ asset('uploads/images/product_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
+                                            <td>{{ $item->products->count() }}</td>
                                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
@@ -89,7 +91,7 @@
     <script>
         new DataTable('#myTable', {
             processing: true,
-            lengthMenu: [5, 10, 20],
+            lengthMenu: [10, 15, 20],
             searching: true,
             info: false,
             ordering: true,
@@ -99,11 +101,11 @@
                 [1, 'asc']
             ],
             columnDefs: [{
-                    targets: [1,2], // Các cột có thể sắp xếp
+                    targets: [1,3], // Các cột có thể sắp xếp
                     orderable: true
                 },
                 {
-                    targets: [0,3,4,5], // Cột "Tên mô hình" không thể sắp xếp
+                    targets: [0,2,4,5,6], // Cột "Tên mô hình" không thể sắp xếp
                     orderable: false
                 },
             ],

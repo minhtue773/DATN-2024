@@ -16,12 +16,10 @@ class ProductController extends Controller
     {
         $categories = ProductCategory::all();
         $query = Product::query();
-        if ($request->category > 0 && $request->status > 0){
-            $query->where('product_category_id',$request->category)
-                ->where('status', $request->status);
-        }elseif ($request->category > 0){
+        if ($request->category > 0) {
             $query->where('product_category_id', $request->category);
-        }elseif ($request->status > 0){
+        }
+        if ($request->status > 0) {
             $query->where('status', $request->status);
         }
         $products = $query->get();
@@ -68,7 +66,7 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product)
-    {
+    {   
         $categories = ProductCategory::all();
         return view('admin.product.edit',compact('product','categories'));
     }
@@ -112,15 +110,25 @@ class ProductController extends Controller
             return redirect()->back();
         }
     }
-    
 
-    public function destroy(Product $product)
-    {
-        //
+    public function delete(Product $product) {
+        try {
+            $product->delete();
+            return redirect()->back()->with("success","Xóa $product->name thành công!");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with("error","Xóa $product->name thất bại!");
+        }
     }
 
-    public function trash() {
-        return view('admin.product.trash');
+    public function destroyBox(Request $request)
+    {
+        if (is_array($request->product_ids)) {
+            Product::destroy($request->product_ids);
+            $count = count($request->product_ids);
+            return redirect()->back()->with('ok', "Xóa $count sản phẩm thành công!");
+        } else {
+            return redirect()->back()->with('no', 'Bạn chưa chọn sản phẩm nào!');
+        }
     }
 
     public function updateHidden(Request $request) {

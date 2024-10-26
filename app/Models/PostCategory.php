@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PostCategory extends Model
 {
@@ -11,8 +12,19 @@ class PostCategory extends Model
 
     protected $fillable = [
         'name',
+        'image',
+        'status',
         'order_number',
         'image',
         'status',
     ];
+    public function posts () {
+        return $this->HasMany(Post::class, 'category_id');
+    }
+    // Trong model PostCategory
+    public function postsCountWithTrashed()
+    {
+        return $this->posts()->withTrashed()->count();
+    }
+
 }

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('post_date')->nullable();
             $table->softDeletes('deleted_at');
-            $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->foreign('product_category_id')->references('id')->on('product_categories');
         });
     }
 
