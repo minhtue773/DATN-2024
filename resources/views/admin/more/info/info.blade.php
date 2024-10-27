@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Thông tin website</li>
                 </ol>
             </nav>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.configuration.updateInfo') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="row">
@@ -26,45 +26,52 @@
                                 <div class="border border-bottom-danger mb-3"></div>    
                                 <div class="row">
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tên website:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="site_name" value="{{ $setting['site_name'] }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Tên website <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="site_name" value="{{ old('site_name', $setting['site_name'] ?? '')}}">
+                                        @error('site_name')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Tên công ty:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="company_name" value="{{ $setting['site_name'] }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Tên công ty <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="company_name" value="{{ old('company_name', $setting['company_name'] ?? '')}}">
+                                        @error('company_name')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Email:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="email" value="{{ $setting['email'] }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="email" value="{{ old('email', $setting['email'] ?? '')}}">
+                                        @error('email')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Hotline:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="phone_number" value="{{ $setting['phone_number'] }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Hotline <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="phone_number" value="{{ old('phone_number', $setting['phone_number'] ?? '')}}">
+                                        @error('phone_number')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Địa chỉ:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="address" value="{{ $setting['address'] }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Địa chỉ <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="address" value="{{ old('address', $setting['address'] ?? '')}}">
+                                        @error('address')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
                                     <div class="col-6 mb-3">
-                                        <label class="form-label">Bản đồ: (Link nhúng)</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="name" value="{{ old('name') }}">
-                                        @error('name')
-                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                        <label class="form-label">Bản đồ: (Link nhúng) <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="..." name="map" value="{{ old('map', $setting['map'] ?? '')}}">
+                                        @error('map')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
+                                    </div>  
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Mô tả ngắn của website <span class="text-danger">*</span></label>
+                                        <textarea class="form-control form-control-sm" placeholder="..." name="description_company">{{ old('description_company', $setting['description_company'] ?? '')}} </textarea>
+                                        @error('description_company')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>  
                                 </div>
@@ -73,27 +80,45 @@
                                 <div class="row">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-facebook me-1"></i>/facebook</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="facebook" value="{{ old('facebook', $setting['facebook'] ?? '')}}">
+                                        @error('facebook')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-tiktok me-1"></i>/tiktok</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="tiktok" value="{{ old('tiktok', $setting['tiktok'] ?? '')}}">
+                                        @error('tiktok')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-instagram me-1"></i>/instagram</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="instagram" value="{{ old('instagram', $setting['instagram'] ?? '')}}">
+                                        @error('instagram')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-youtube me-1"></i>/youtube</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="youtube" value="{{ old('youtube', $setting['youtube'] ?? '')}}">
+                                        @error('youtube')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-twitter me-1"></i>/twitter</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="twitter" value="{{ old('twitter', $setting['twitter'] ?? '')}}">
+                                        @error('twitter')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                  
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" style="min-width: 150px"><i class="bi bi-linkedin me-1"></i>/linkedin</span>
-                                        <input type="text" class="form-control" placeholder="Url...">
+                                        <input type="text" class="form-control" placeholder="Url..." name="linkedin" value="{{ old('linkedin', $setting['linkedin'] ?? '')}}">
+                                        @error('linkedin')
+                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
+                                        @enderror
                                     </div>                                  
                                 </div>
                             </div>
@@ -113,16 +138,16 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9 w-25">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-favicon" class="img-fluid col-9 w-25">
                                                 <div class="lable-zone">
-                                                    <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
+                                                    <label class="photoUpload-file" for="file-favicon">
+                                                        <input type="file" name="favicon" id="file-favicon" onchange="previewImage(event, 'preview-favicon')">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
-                                                        @error('photo')
-                                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                                        @error('photoFavicon')
+                                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                                         @enderror
                                                     </label>
                                                 </div>
@@ -132,6 +157,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">
@@ -141,16 +167,16 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid w-50 col-9">
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-logo" class="img-fluid w-50 col-9">
                                                 <div class="lable-zone">
-                                                    <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
+                                                    <label class="photoUpload-file" for="file-logo">
+                                                        <input type="file" name="logo" id="file-logo" onchange="previewImage(event, 'preview-logo')">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                         </div>
-                                                        @error('photo')
-                                                            <p class="text-danger m-0 mt-2">* {{ $message }}</p>
+                                                        @error('photoLogo')
+                                                            <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                                         @enderror
                                                     </label>
                                                 </div>
@@ -160,7 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </form>
         </div>
@@ -168,13 +194,13 @@
 @endsection
 @section('js')
     <script>
-        function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview-image');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        function previewImage(event, previewId) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById(previewId);
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 @endsection

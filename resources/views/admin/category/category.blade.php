@@ -44,7 +44,7 @@
                                             <td><img src="{{ asset('uploads/images/product_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td class="text-truncate" style="max-width:350px">{{ $item->name }}</td>
-                                            <td>{{ $item->products->count() }}</td>
+                                            <td class="text-center">{{ $item->products->count() }}</td>
                                             <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}

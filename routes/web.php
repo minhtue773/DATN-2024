@@ -48,6 +48,7 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     // MORE
     Route::get('/configuration', [ConfigurationController::class,'index'])->name('configuration');
     Route::get('/configuration/info', [ConfigurationController::class,'info'])->name('configuration.info');
+    Route::post('/configuration/info', [ConfigurationController::class,'updateInfo'])->name('configuration.updateInfo');
     Route::resource('comment', CommentController::class);
     Route::resource('promotion', PromotionController::class);
     Route::resource('banner', BannerController::class);

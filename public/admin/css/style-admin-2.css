@@ -12610,7 +12610,9 @@ body.sidebar-toggled footer.sticky-footer {
   margin-top: 10px;
 }
 
-#preview-image {
+#preview-image,
+#preview-favicon,
+#preview-logo {
   display: block;
   padding: 0;
   margin: 0 auto 20px auto;

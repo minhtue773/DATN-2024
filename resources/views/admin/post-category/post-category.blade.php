@@ -44,7 +44,7 @@
                                             <td><img src="{{ asset('uploads/images/post_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->posts->count() }}</td>
+                                            <td class="text-center">{{ $item->posts->count() }}</td>
                                             <td>{{ $item->created_at->format('d-m-Y')}}</td> 
                                             <td>
                                                 <input type="checkbox" {{ $item->status == 1 ? 'checked' : '' }}
