@@ -25,50 +25,41 @@
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách banners</h4>
                         <div class="col-12">
-                            <form action="">
-                                <table id="bannerTable" class="table table-hover table-bordered">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th rowspan="2"><input type="checkbox"></th>
-                                            <th rowspan="2">Hình ảnh</th>
-                                            <th rowspan="2">Nội dung</th>
-                                            <th rowspan="2">Liên kết</th>
-                                            <th rowspan="2">Ngày tạo</th>
-                                            <th colspan="2">Thao tác</th> <!-- Các cột cho các thao tác -->
-                                        </tr>
-                                        <tr>
-                                            <th>Sửa</th>
-                                            <th>Xóa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox" value="1"></td>
-                                            <td><img src="https://via.placeholder.com/100x60.png?text=Banner+1" class="img-thumbnail" style="max-width:100px; max-height:60px;"></td>
-                                            <td>Giảm giá 50% cho tất cả sản phẩm</td>
-                                            <td><a href="https://example.com/sale1" target="_blank">https://example.com/sale1</a></td>
-                                            <td>06/10/2024</td>
-                                            <td><a href="{{route('admin.banner.edit', $id = 1)}}"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
-                                            <td><a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa banner này?')"><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td><input type="checkbox" value="2"></td>
-                                            <td><img src="https://via.placeholder.com/100x60.png?text=Banner+2" class="img-thumbnail" style="max-width:100px; max-height:60px;"></td>
-                                            <td>Khuyến mãi mùa hè 30%</td>
-                                            <td><a href="https://example.com/sale2" target="_blank">https://example.com/sale2</a></td>
-                                            <td>01/07/2024</td>
-                                            <td><a href="{{route('admin.banner.edit', $id = 1)}}"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
-                                            <td><a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa banner này?')"><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                                <div class="d-flex mt-3">
-                                    <button class="btn btn-danger btn-sm">
-                                        <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
-                                    </button>
-                                </div>
-                            </form>
+                            <table id="myTable" class="table table-hover table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2">Hình ảnh</th>
+                                        <th rowspan="2">Nội dung</th>
+                                        <th rowspan="2">Liên kết</th>
+                                        <th rowspan="2">Ngày tạo</th>
+                                        <th rowspan="2">Hiển thị</th>
+                                        <th colspan="2">Thao tác</th> <!-- Các cột cho các thao tác -->
+                                    </tr>
+                                    <tr>
+                                        <th>Sửa</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($banners as $item)
+                                    <tr class="text-center">
+                                        <td><img src="{{asset('uploads/images/banner')}}/{{$item->image}}" class="img-thumbnail" style="max-width:100px; max-height:60px;"></td>
+                                        <td>{{$item->content}}</td>
+                                        <td><a href="https://example.com/sale1" target="_blank">Link</a></td>
+                                        <td>{{$item->created_at->format('d-m-Y')}}</td>
+                                        <td><input type="checkbox" {{$item->is_hidden == 1 ? 'checked' : ''}} onchange="updateBannerStatus({{ $item->id }}, this.checked)"></td>
+                                        <td><a href="{{route('admin.banner.edit', $item)}}"><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
+                                        <td>
+                                            <form action="{{route('admin.banner.destroy',$item)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="border-0 bg-transparent" type="button" onclick="confirmDelete(this.form)"><i class="fa fa-trash text-danger"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr> 
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -79,22 +70,22 @@
 @endsection
 @section('js')
 <script>
-    new DataTable('#bannerTable', {
+    new DataTable('#myTable', {
         processing: true,
-        lengthMenu: [5,10,20],
+        lengthMenu: [10,15,20],
         searching: true,
         info: false,
         ordering: true,
         paging: true,
         responsive: true,
-        order: [[4, 'desc']], // Sắp xếp theo ngày tạo
+        order: [[3, 'desc']],
         columnDefs: [
             {
-                targets: [1,2,3,4], // Các cột có thể sắp xếp
+                targets: [1,3],
                 orderable: true
             },
             {
-                targets: [0,5,6], // Cột thao tác không thể sắp xếp
+                targets: [0,2,4,5,6],
                 orderable: false
             },
         ],
@@ -117,4 +108,33 @@
         }
     });
 </script>
+<script>
+    function updateBannerStatus(id, isChecked) {
+        $.ajax({
+            url: '{{ route("admin.banner.updateStatus") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: id,
+                is_hidden: isChecked ? 1 : 0
+            }
+        });
+    }
+    function confirmDelete(form) {
+        Swal.fire({
+            title: 'Xóa banner',
+            text: 'Bạn có muốn xóa banner này không!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+</script> 
 @endsection

@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\User;
-use App\Models\WebsiteSetting;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use Faker\Factory as Faker;
+use App\Models\WebsiteSetting;
+use App\Models\ProductCategory;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,99 +34,8 @@ class DatabaseSeeder extends Seeder
             ))
             ->has(Product::factory()->count(5)) // Tạo 5 sản phẩm cho mỗi danh mục
             ->create();
-        DB::table('website_settings')->insert([
-            [
-                'setting_key' => 'site_name',
-                'setting_value' => 'HobbyZone',
-                'description' => 'Tên của trang web',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'setting_key' => 'company_description',
-                'setting_value' => 'ạhdjkahsdjyoqweiuna,msdalskdjadlks',
-                'description' => 'Mô tả trang web',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'setting_key' => 'company_name',
-                'setting_value' => 'HobbyZone',
-                'description' => 'Tên công ty',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'email',
-                'setting_value' => 'hobbyzone@gmail.com',
-                'description' => 'Email liên hệ',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'phone_number',
-                'setting_value' => '0899384048',
-                'description' => 'Số điện thoại liên hệ',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'address',
-                'setting_value' => '123 streett',
-                'description' => 'Địa chỉ doanh nghiệp',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'map',
-                'setting_value' => 'url',
-                'description' => 'Link nhúng bản đồ vị trí',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'facebook',
-                'setting_value' => 'url',
-                'description' => 'Link facebook',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'tiktok',
-                'setting_value' => 'url',
-                'description' => 'Link tiktok',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'youtube',
-                'setting_value' => 'url',
-                'description' => 'Link youtube',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'instagram',
-                'setting_value' => 'url',
-                'description' => 'Link instagram',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'twitter',
-                'setting_value' => 'url',
-                'description' => 'Link twitter',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],  
-            [
-                'setting_key' => 'linkedin',
-                'setting_value' => 'url',
-                'description' => 'Link linkedin',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-        ]);
+        Order::factory()->count(50)->create();
+
         
 
         // $faker = Faker::create();

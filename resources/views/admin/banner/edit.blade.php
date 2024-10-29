@@ -9,12 +9,13 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.banner.index') }}">Banner</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Banner 1</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$banner->content}}</li>
                 </ol>
             </nav>
             <a href="{{ route('admin.banner.index') }}" class="btn btn-danger btn-sm mb-3"><i class="fa-solid fa-right-from-bracket me-2"></i>Thoát</a>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{route('admin.banner.update',$banner)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row h-100">
                     <div class="col-8">
                         <div class="card border-top-primary shadow h-100">
@@ -25,11 +26,11 @@
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung banner:</label>
-                                        <textarea name="content" class="form-control form-control-sm" rows="3" placeholder="nội dung hiển thị của banner ..... " required></textarea>
+                                        <textarea name="content" class="form-control form-control-sm" rows="3" placeholder="nội dung hiển thị của banner ..... ">{{$banner->content ?? old('content')}}</textarea>
                                     </div>
                                     <div class="col-12">
                                         <label class="form-label">Liên kết (URL):</label>
-                                        <input type="url" name="link" class="form-control form-control-sm" placeholder="Nhập URL (nếu có)">
+                                        <input type="url" name="link" class="form-control form-control-sm" placeholder="Nhập URL (nếu có)" {{$banner->link ?? old('link')}}>
                                     </div>
                                 </div>
                             </div>
@@ -48,10 +49,10 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12">
                                         <div class="photoUpload-zone" id="photo-zone">
-                                            <img src="https://p-vn.ipricegroup.com/media/1Ly/d1009254c0370706696faad1800154aa.jpg" id="preview-image" class="img-fluid col-9">
+                                            <img src=" {{asset('uploads/images/banner')}}/{{$banner->image}} " id="preview-image" class="img-fluid col-9">
                                             <div class="lable-zone">
                                                 <label class="photoUpload-file" for="file-zone">
-                                                    <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                    <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                     <div class="d-flex flex-column justify-content-center ">
                                                         <i class="fas fa-cloud-upload-alt"></i>
                                                         <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
@@ -72,10 +73,10 @@
 
 @section('js')
     <script>
-        function previewBanner(event) {
+        function previewImage(event) {
             var reader = new FileReader();
             reader.onload = function() {
-                var output = document.getElementById('preview-banner');
+                var output = document.getElementById('preview-image');
                 output.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);

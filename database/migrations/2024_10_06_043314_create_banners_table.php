@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('link')->nullable();
             $table->text('content')->nullable();
+            $table->boolean('is_hidden')->default(1);
             $table->timestamps();
-            $table->softDeletes('deleted_at');
         });
     }
 

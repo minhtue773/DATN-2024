@@ -46,12 +46,15 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('order/destroyBox', [OrderController::class,'destroyBox'])->name('order.destroyBox');
     Route::resource('order', OrderController::class)->only(['index', 'show']);
     // MORE
-    Route::get('/configuration', [ConfigurationController::class,'index'])->name('configuration');
-    Route::get('/configuration/info', [ConfigurationController::class,'info'])->name('configuration.info');
-    Route::post('/configuration/info', [ConfigurationController::class,'updateInfo'])->name('configuration.updateInfo');
+    Route::get('/config', [ConfigurationController::class,'index'])->name('configuration');
+    Route::get('/config/info', [ConfigurationController::class,'info'])->name('configuration.info');
+    Route::post('/config/info', [ConfigurationController::class,'updateInfo'])->name('configuration.updateInfo');
+
+    Route::resource('/config/banner', BannerController::class);
+    Route::post('/config/banner/updateStatus', [BannerController::class, 'updateStatus'])->name('banner.updateStatus');
+    
+    Route::resource('/config/promotion', PromotionController::class);
     Route::resource('comment', CommentController::class);
-    Route::resource('promotion', PromotionController::class);
-    Route::resource('banner', BannerController::class);
 });
 
 

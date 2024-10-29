@@ -173,7 +173,7 @@
     <script>
         new DataTable('#myTable', {
             processing: true,
-            lengthMenu: [5, 10, 20],
+            lengthMenu: [10, 15, 20],
             searching: true,
             info: false,
             ordering: true,
