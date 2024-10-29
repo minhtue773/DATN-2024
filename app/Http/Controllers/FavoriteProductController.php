@@ -15,33 +15,26 @@ class FavoriteProductController extends Controller
      * @param int $productId
      * @return JsonResponse
      */
-    public function toggleFavorite($productId): JsonResponse
+    public function toggleFavorite($productId)
     {
-        // Kiểm tra người dùng đã đăng nhập
         if (!Auth::check()) {
-            return response()->json(['status' => 'unauthenticated'], 401);
+            return response()->json(['status' => 'unauthenticated', 'message' => 'Vui lòng đăng nhập để thực hiện thao tác.'], 401);
         }
 
         $userId = Auth::id();
 
-        // Kiểm tra nếu sản phẩm đã được thêm vào danh sách yêu thích
         try {
             $favorite = FavoriteProduct::where('product_id', $productId)->where('user_id', $userId)->first();
 
             if ($favorite) {
-                // Nếu đã có, xóa sản phẩm khỏi danh sách yêu thích
                 $favorite->delete();
-                return response()->json(['status' => 'removed']);
+                return response()->json(['status' => 'removed', 'message' => 'Đã bỏ thích sản phẩm.']);
             } else {
-                // Nếu chưa có, thêm vào danh sách yêu thích
-                FavoriteProduct::create([
-                    'product_id' => $productId,
-                    'user_id' => $userId,
-                ]);
-                return response()->json(['status' => 'added']);
+                FavoriteProduct::create(['product_id' => $productId, 'user_id' => $userId]);
+                return response()->json(['status' => 'added', 'message' => 'Đã thêm vào danh sách yêu thích.']);
             }
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra: ' . $e->getMessage()], 500);
         }
     }
 }

@@ -82,6 +82,7 @@
         Swal.fire('Lỗi!', '{{ Session::get('error') }}', 'error');
     @endif
 </script>
+
  <!-- JavaScript Libraries -->
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -90,29 +91,35 @@
  <!-- Template Javascript -->
  <script src="{{ asset('client') }}/js/main.js"></script>
  <script>
-     $(document).on('click', '.wishlist-toggle', function(e) {
-         e.preventDefault();
-         var productId = $(this).data('product-id');
-         var $icon = $(this).find('i');
+    $(document).on('click', '.wishlist-toggle', function(e) {
+    e.preventDefault();
+    var productId = $(this).data('product-id');
 
-         $.ajax({
-             url: '/favorite/toggle/' + productId,
-             method: 'POST', // Phải là 'POST'
-             headers: {
-                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token để bảo mật
-             },
-             success: function(response) {
-                 if (response.status === 'added') {
-                     $icon.addClass('favorited');
-                 } else if (response.status === 'removed') {
-                     $icon.removeClass('favorited');
-                 }
-             },
-             error: function() {
-                 alert('Có lỗi xảy ra, vui lòng thử lại sau.');
-             }
-         });
-     });
+    $.ajax({
+        url: '/favorite/toggle/' + productId,
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            // Hiển thị thông báo thành công
+            if (response.status === 'added') {
+                Swal.fire('Thành công!', response.message, 'success');
+            } else if (response.status === 'removed') {
+                Swal.fire('Thành công!', response.message, 'success');
+            }
+            // Tải lại trang sau khi thêm hoặc bỏ thích
+            location.reload();
+        },
+        error: function(response) {
+            if (response.status === 401) {
+                Swal.fire('Lỗi!', 'Bạn cần đăng nhập để thích sản phẩm.', 'error');
+            } else {
+                Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại sau.', 'error');
+            }
+        }
+    });
+});
  </script>
  <script>
     function changeSort() {

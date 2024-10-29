@@ -30,7 +30,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\OrderControllers;
 use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\CommentControllers;
 use App\Http\Controllers\PasswordResetController;
@@ -109,6 +109,9 @@ Route::get('/auth/facebook/callback', [LoginController::class, 'handleFacebookCa
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
+Route::get('/orders', [OrderControllers::class, 'index'])->name('orders');
+Route::post('/orders/{id}/cancel', [OrderControllers::class, 'cancel'])->name('orders.cancel');
+
 Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
@@ -126,5 +129,6 @@ Route::get("/thongbao", function (Illuminate\Http\Request $request) {
     return view('thongbao', ['thongbao' => $tb]);
 });
 Route::fallback(function () {
-    return response()->view('errors.404', [], 404);
+    $index1 = 0; // Khởi tạo biến $index1
+    return response()->view('errors.404', ['index1' => $index1], 404);
 });

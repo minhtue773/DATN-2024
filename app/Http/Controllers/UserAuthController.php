@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
 
 class UserAuthController extends Controller
 {
@@ -50,12 +51,23 @@ class UserAuthController extends Controller
     }
     public function showAccount()
     {
+        // Lấy thông tin người dùng đã đăng nhập
         $user = Auth::user();
-        // Tìm người dùng theo ID
-        $index1 = 0;
+
+        // Nếu người dùng chưa đăng nhập, có thể chuyển hướng về trang đăng nhập hoặc thông báo lỗi
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem thông tin tài khoản.');
+        }
+
         // Lấy danh sách sản phẩm yêu thích của người dùng
-        $favoriteProducts = $user->favoriteProducts;
-        return view('clients.my_account', compact('user', 'favoriteProducts'), ['index1' => $index1]);
+        // Lưu ý rằng chúng ta sẽ lấy danh sách yêu thích qua quan hệ
+        $favoriteProducts = $user->favoritedBy()->paginate(4); // Phân trang 9 sản phẩm mỗi trang
+
+        // Chỉ định biến index1 cho mục đích nào đó trong view
+        $index1 = 0;
+
+        // Trả về view cùng với thông tin người dùng và danh sách sản phẩm yêu thích
+        return view('clients.my_account', compact('user', 'favoriteProducts', 'index1'));
     }
     public function updateAccount(Request $request)
     {

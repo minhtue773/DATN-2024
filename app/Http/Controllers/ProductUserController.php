@@ -69,7 +69,7 @@ class ProductUserController extends Controller
         $products = $query->paginate(9)->appends($request->except('page'));
         $newProducts = Product::orderBy('created_at', 'desc')->take(3)->get();
 
-       
+
         $index1 = 2;
         // Trả về view với danh sách sản phẩm, danh mục, 3 sản phẩm mới nhất và banner
         return view('clients.shop', compact('products', 'newProducts', 'categories', 'index1'));
@@ -95,7 +95,7 @@ class ProductUserController extends Controller
         if ($sp->discount > 0) {
             $salePrice = $sp->price * (1 - $sp->discount / 100); // Tính giá sale
         }
-
+        $index1 = 0;
         // Truy vấn các hình ảnh của sản phẩm
         $images = ProductImage::where('product_id', $id)->get();
 
@@ -114,6 +114,6 @@ class ProductUserController extends Controller
             });
 
         // Chuyển hướng đến view và truyền dữ liệu sản phẩm, hình ảnh, sản phẩm liên quan, tên thương hiệu và giá sale
-        return view('product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice', 'categories', 'newProducts'));
+        return view('clients.product_detail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice', 'categories', 'newProducts'), ['index1' => $index1]);
     }
 }

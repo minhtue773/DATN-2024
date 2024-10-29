@@ -1,7 +1,16 @@
 @extends('clients.layout.app')
 <link rel="stylesheet" href="{{asset('client/css/my_account.css')}}">
 @section('content')
-
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Trang chủ</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Thông tin tài khoản</p>
+        </div>
+    </div>
+</div>
 <div id="page-content" class="page-wrapper">
 
     <!-- LOGIN SECTION START -->
@@ -115,6 +124,38 @@
                 </div>
             </div>
         </div>
+        <div class="row px-xl-5 pb-3">
+            @foreach ($favoriteProducts as $product)
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="{{ asset( $product->image )}}" alt="{{ $product->name }}">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>{{ number_format($product->price, 2) }} $</h6>
+                            @if($product->discount > 0)
+                            <h6 class="text-muted ml-2"><del>{{ number_format($product->price + ($product->price * $product->discount / 100), 2) }} $</del></h6>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
+                        @auth
+                        <a href="#" class="wishlist-toggle btn btn-sm text-dark p-0 {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'favorited' : '' }}" data-product-id="{{ $product->id }}" title="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}">
+                            <i class="fas fa-heart {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'text-danger' : 'text-primary' }} mr-1"></i>{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}
+                        </a>
+                        @endauth
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        <ul class="shop-pagination box-shadow text-center ptblr-10-30">
+            {{ $favoriteProducts->links('vendor.pagination.custom-pagination') }}
+        </ul>
     </div>
     <!-- LOGIN SECTION END -->
 </div>
