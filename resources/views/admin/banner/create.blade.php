@@ -25,11 +25,17 @@
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Nội dung banner:</label>
-                                        <textarea name="content" class="form-control form-control-sm" rows="3" placeholder="Nhập nội dung banner..." required></textarea>
+                                        <textarea name="content" class="form-control form-control-sm" rows="3" placeholder="Nhập nội dung banner..."></textarea>
+                                        @error('content')
+                                            <span class="text-danger">* {{$message}}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label class="form-label">Liên kết (URL):</label>
-                                        <input type="url" name="link" class="form-control form-control-sm" placeholder="Nhập URL (nếu có)">
+                                        <input type="text" name="link" class="form-control form-control-sm" placeholder="Nhập URL (nếu có)">
+                                        @error('link')
+                                            <span class="text-danger">* {{$message}}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +48,7 @@
                     <div class="col-4 mb-3">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
-                                Hình banner khuyến mãi
+                                Hình banner
                             </div>
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center">
@@ -51,15 +57,17 @@
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg" id="preview-image" class="img-fluid col-9">
                                             <div class="lable-zone">
                                                 <label class="photoUpload-file" for="file-zone">
-                                                    <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                    <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                     <div class="d-flex flex-column justify-content-center ">
                                                         <i class="fas fa-cloud-upload-alt"></i>
                                                         <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>
                                                     </div>
+                                                    @error('photo')
+                                                        <span class="text-danger">* {{$message}}</span>
+                                                    @enderror
                                                 </label>
                                             </div>
                                         </div>
-                                
                                     </div>
                                 </div>
                             </div>
@@ -73,10 +81,10 @@
 
 @section('js')
     <script>
-        function previewBanner(event) {
+        function previewImage(event) {
             var reader = new FileReader();
             reader.onload = function() {
-                var output = document.getElementById('preview-banner');
+                var output = document.getElementById('preview-image');
                 output.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->decimal('total');
+            $table->decimal('total',15,2);
             $table->enum('payment_method', ['cash','vnpay','momo'])->default('cash');
             $table->string('recipient_name');
             $table->string('recipient_phone', 15);

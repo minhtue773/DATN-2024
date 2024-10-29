@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->decimal('price',10,2);
+            $table->decimal('total',10,2);
             $table->integer('discount')->nullable();
             $table->integer('stock');
             $table->integer('view')->default(0);
