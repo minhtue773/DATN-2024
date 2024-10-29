@@ -48,7 +48,28 @@ class AdminController extends Controller
                 ];
                 break;
         }
-        return view('admin.home', compact('chartOrder'));
+        if ($request->has('monthYear') && preg_match('/^\d{4}-\d{2}$/', $request->monthYear)) {
+            $chartPieOrder = $request->monthYear;
+            [$year, $month] = explode('-', $chartPieOrder);
+            $orderSuccess = Order::where('status', 3)
+                ->whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->count();
+            $orderCancel = Order::where('status', 5)
+                ->whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->count();
+        } else {
+            $chartPieOrder = Carbon::now()->format('Y-m');
+            $orderSuccess = Order::where('status', 3)->count();
+            $orderCancel = Order::where('status', 5)->count();
+        }
+        $pieOrder = [
+            'labels' => ['Đơn hàng thành công', 'Đơn hàng đã hủy'],
+            'data' => [$orderSuccess, $orderCancel],
+            'now' => $chartPieOrder
+        ];
+        return view('admin.home', compact('chartOrder','pieOrder'));
     }
     
 
