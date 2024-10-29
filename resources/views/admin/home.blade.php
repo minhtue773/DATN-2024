@@ -98,9 +98,35 @@
                         </div>
                     </div>
                     <!-- Card Body -->
-                    <div class="card-body">
-                        <canvas id="revenue"></canvas>
-                        
+                    <div class="card-body align-content-center">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12">
+                                <canvas id="revenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="card shadow mb-4 h-100">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Đơn hàng</h6>
+                        <form method="GET">
+                            <!-- Input cho Datepicker -->
+                            <div class="d-flex">
+                                <input  type="month" class="form-control form-control-sm" name="monthYear" value="{{request()->monthYear ?? $pieOrder['now']}}">
+                                <button class="btn btn-outline-dark btn-sm ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body align-content-center">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8">
+                                <canvas id="order"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -210,5 +236,38 @@
         }
     });
 </script>
+<script>
+    // Dữ liệu biểu đồ
+    const orderData = {
+        labels: @json($pieOrder['labels']),
+        datasets: [{
+            data: @json($pieOrder['data']),
+            backgroundColor: ["#198754", "#dc3545"], // Màu cho từng phần của biểu đồ
+            hoverBackgroundColor: ["#66BB6A", "#FF4D4D"]
+        }]
+    };
+    // Cấu hình biểu đồ
+    const config = {
+        type: 'pie',
+        data: orderData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    };
+    // Khởi tạo biểu đồ
+    const orderChart = new Chart(
+        document.getElementById('order'),
+        config
+    );
+</script>
+
 
 @endsection
