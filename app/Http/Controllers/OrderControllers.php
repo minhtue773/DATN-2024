@@ -47,4 +47,12 @@ class OrderControllers extends Controller
         // Thông báo lỗi nếu không có quyền
         return redirect()->back()->with('error', 'Bạn không có quyền hủy đơn hàng này.');
     }
+
+    public function show($id)
+    {
+        $order = Order::with('orderDetails.product')->findOrFail($id); // Gọi thêm quan hệ `product` của `orderDetails`
+        $index1 = 1; // Biến đếm (nếu cần dùng)
+
+        return view('clients.orderdetail', compact('order', 'index1'));
+    }
 }

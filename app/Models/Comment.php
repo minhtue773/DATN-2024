@@ -28,4 +28,10 @@ class Comment extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function scopeApproved($query)
+{
+    return $query->where('status', 0);
+}
+
 }

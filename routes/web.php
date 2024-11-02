@@ -64,8 +64,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');// Route cho danh sách bài viết
-Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
 Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
     $arr = $request->post();
     $ht = trim(strip_tags($arr['ht']));
@@ -89,9 +87,11 @@ Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
 });
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscountCode']);
+Route::post('/checkout/remove-discount', [CheckoutController::class, 'removeDiscountCode'])->name('discount.remove');
 Route::post('/checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
-Route::get('/blogs/{idCataPost?}', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blog/{id}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/posts', [BlogController::class, 'index'])->name('posts.index');
+Route::get('/post/{id}', [BlogController::class, 'show'])->name('post.show');
 Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'loginUser']);
 Route::get('/register',[UserAuthController::class,'register'])->name('register');
@@ -111,14 +111,17 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 
 Route::get('/orders', [OrderControllers::class, 'index'])->name('orders');
 Route::post('/orders/{id}/cancel', [OrderControllers::class, 'cancel'])->name('orders.cancel');
+Route::get('/order-details/{id}', [OrderControllers::class, 'show'])->name('order.details');
 
-Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
+
+
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
+Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
 Route::prefix('api')->group(function () {
-    Route::get('/comments/product/{product_id}', [CommentController::class, 'product']);
-    Route::resource('/comments', CommentController::class);
-    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::get('/comments/product/{product_id}', [CommentControllers::class, 'product']);
+    Route::resource('/comments', CommentControllers::class);
+    Route::delete('/comments/{id}', [CommentControllers::class, 'destroy'])->name('comments.destroy');
     Route::resource('/cart', CartController::class);
 });
 

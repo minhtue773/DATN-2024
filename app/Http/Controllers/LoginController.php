@@ -9,37 +9,39 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
+
+    // Phương thức chuyển hướng đến Facebook
     public function redirectToFacebook()
     {
         return Socialite::driver('facebook')->redirect();
     }
-    // Phương thức xử lý callback từ Facebook
+
+    // Xử lý callback từ Facebook
     public function handleFacebookCallback()
     {
         try {
             $facebookUser = Socialite::driver('facebook')->user();
 
-            // Kiểm tra nếu người dùng đã tồn tại trong hệ thống
+            // Kiểm tra xem user đã tồn tại chưa
             $user = User::where('facebook_id', $facebookUser->id)->first();
 
-            if ($user) {
-                // Đăng nhập người dùng
-                Auth::login($user);
-            } else {
-                // Nếu người dùng chưa tồn tại, tạo mới và đăng nhập
+            if (!$user) {
+                // Tạo user mới nếu chưa tồn tại
                 $user = User::create([
                     'name' => $facebookUser->name,
                     'email' => $facebookUser->email,
                     'facebook_id' => $facebookUser->id,
-                    'password' => '' // Có thể là mật khẩu ngẫu nhiên
+                    'avatar' => $facebookUser->avatar,
+                    'password' => bcrypt('123456dummy') // mật khẩu giả (hoặc không dùng)
                 ]);
-
-                Auth::login($user);
             }
 
-            return redirect()->route('home')->with('success', 'Đăng nhập thành công');
+            // Đăng nhập user
+            Auth::login($user);
+
+            return redirect()->to('/home'); // hoặc bất cứ trang nào bạn muốn
         } catch (\Exception $e) {
-            return redirect()->route('login')->with('error', 'Đăng nhập thất bại');
+            return redirect()->to('/login');
         }
     }
     public function redirectToGoogle()
@@ -47,24 +49,28 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+    // Phương thức xử lý callback từ Google
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->user();
-        $user = User::where('email', $googleUser->getEmail())->first();
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-        if (!$user) {
-            // Nếu người dùng chưa có, tạo mới
-            $user = User::create([
-                'name' => $googleUser->getName(),
-                'email' => $googleUser->getEmail(),
-                'password' => '', // hoặc một giá trị mặc định
-            ]);
+            // Tìm hoặc tạo người dùng mới
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
+                    'name' => $googleUser->getName(),
+                    'google_id' => $googleUser->getId(),
+                    'avatar' => $googleUser->getAvatar(),
+                    'password' => bcrypt('123456dummy') // Không dùng mật khẩu này để đăng nhập
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect()->intended('/');
+        } catch (\Exception $e) {
+            return redirect('/login')->with('error', 'Đăng nhập thất bại, vui lòng thử lại.');
         }
-
-        // Đăng nhập người dùng
-        Auth::login($user, true);
-
-        // Chuyển hướng đến trang chủ hoặc một trang nào đó
-        return redirect('/');
     }
 }

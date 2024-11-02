@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
@@ -28,8 +28,8 @@
 
 </head>
 
-<body>
-    <div class="containers">
+<body ng-app="myApp">
+    <div class="containers" ng-controller="mainController">
         @php
         // Chuyển đổi $websiteSettings thành một mảng cho dễ sử dụng
         $settingsArray = $websiteSettings->keyBy('setting_key')->toArray();
@@ -65,7 +65,7 @@
             </div>
             <div class="row align-items-center py-3 px-xl-5">
                 <div class="col-lg-3 d-none d-flex">
-                    <a href="#" class="text-decoration-none text-center">
+                    <a href="/" class="text-decoration-none text-center">
                         <img src="{{ asset('client/img/logo/logo.png') }}" alt="Logo" class="img-fluid w-75">
                     </a>
                 </div>
@@ -87,9 +87,9 @@
                         <i class="fas fa-heart text-primary"></i>
                         <span class="badge">0</span>
                     </a>
-                    <a href="" class="btn border">
+                    <a href="/cart" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">%% countTotalProducts() %%</span>
                     </a>
                 </div>
             </div>

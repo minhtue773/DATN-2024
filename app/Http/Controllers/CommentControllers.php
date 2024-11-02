@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment; // Import model Comment nếu cần
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class CommentController extends Controller
+class CommentControllers extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,27 +12,42 @@ class CommentController extends Controller
 
     
 
-     public function product($product_id) {
-        // Lấy danh sách bình luận cho sản phẩm có id là $product_id
-        $dsBL = Comment::where('product_id', $product_id)
-                       ->join('users', 'users.id', '=', 'comments.user_id')
-                       ->select('comments.*', 'users.name AS user_fullname')
-                       ->get();
-    
-        // Đếm số lượng bình luận
-        $totalComments = $dsBL->count();
-    
-        // Chuẩn bị kết quả trả về
-        $kq = [
-            'status' => true,
-            'message' => 'Lấy dữ liệu thành công!',
-            'data' => $dsBL,
-            'total_comments' => $totalComments, // Thêm số lượng bình luận vào kết quả
-        ];
-    
-        // Trả về response dưới dạng JSON
-        return response()->json($kq, 200);
-    }
+     public function product($product_id)
+     {
+         // Lấy danh sách bình luận đã phê duyệt cho sản phẩm và sắp xếp theo thời gian mới nhất
+         $approvedComments = Comment::approved()
+                                     ->where('product_id', $product_id)
+                                     ->with('user:id,name') // Lấy thông tin user (chỉ lấy id và name)
+                                     ->orderBy('created_at', 'desc')
+                                     ->get();
+     
+         // Đếm số lượng bình luận đã phê duyệt
+         $totalApprovedComments = $approvedComments->count();
+     
+         // Tính trung bình của rating_stars cho sản phẩm với các bình luận đã phê duyệt
+         $averageRating = Comment::approved()
+                                 ->where('product_id', $product_id)
+                                 ->avg('rating_stars');
+     
+         // Nếu không có bình luận nào, thì averageRating sẽ là null, chuyển thành 0
+         $averageRating = $averageRating ?: 0;
+     
+         // Chuẩn bị kết quả trả về
+         $kq = [
+             'status' => true,
+             'message' => 'Lấy dữ liệu thành công!',
+             'data' => $approvedComments,
+             'total_comments' => $totalApprovedComments, // Số lượng bình luận đã phê duyệt
+             'average_rating' => round($averageRating, 1) // Làm tròn rating đến 1 chữ số thập phân
+         ];
+     
+         // Trả về response dưới dạng JSON
+         return response()->json($kq, 200);
+     }
+     
+     
+     
+     
     
     
      
@@ -65,7 +80,7 @@ class CommentController extends Controller
         $comment = new Comment();
         $comment->user_id = Auth::user()->id;
         $comment->product_id = $request->product_id;
-        
+       
         $comment->content = $request->content;
         $comment->rating_stars = $request->rating;
         $comment->save();

@@ -7,6 +7,7 @@ use App\Models\ProductCategory;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Faker\Factory as Faker; // Khai báo đúng namespace cho Faker
 use Illuminate\Database\Seeder;
 use Carbon\Carbon; // Khai báo Carbon
@@ -98,6 +99,30 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
         }
+
+        $types = ['percentage', 'fixed', 'percentage_with_cap'];
+        $statuses = ['active', 'expired', 'used'];
+
+        for ($i = 0; $i < 20; $i++) {
+            $type = $faker->randomElement($types);
+            $maxDiscount = $type == 'percentage_with_cap' ? $faker->randomFloat(2, 10000, 100000) : null;
+
+            DB::table('discount_codes')->insert([
+                'code' => strtoupper(Str::random(10)), // Tạo mã voucher ngẫu nhiên
+                'type' => $type, // Chọn loại ngẫu nhiên
+                'discount' => $type == 'fixed' 
+                    ? $faker->randomFloat(2, 100000, 500000) // Số tiền giảm nếu là 'fixed'
+                    : $faker->randomFloat(2, 5, 50), // Phần trăm giảm nếu là 'percentage' hoặc 'percentage_with_cap'
+                'max_discount' => $maxDiscount, // Giới hạn giảm giá tối đa nếu là 'percentage_with_cap'
+                'quantity' => $faker->numberBetween(50, 200), // Số lượng mã có thể sử dụng
+                'used_count' => $faker->numberBetween(0, 50), // Số lần mã đã được sử dụng
+                'expiry_date' => Carbon::now()->addDays($faker->numberBetween(10, 365)), // Ngày hết hạn
+                'status' => $faker->randomElement($statuses), // Trạng thái ngẫu nhiên
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
         $images = [
             'images/bg/1.jpg',
             'images/bg/2.jpg',

@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use DB;
+use Carbon\Carbon;
 
 
 class BlogController extends Controller
@@ -21,35 +22,44 @@ class BlogController extends Controller
         \View::share('post_cate_arr', $post_cate_arr);
     }
 
-    public function index(Request $request, $idCataPost = 0)
+    public function index(Request $request)
     {
-        $per_page = env('PER_PAGE', 10); // Thiết lập số lượng bài viết mỗi trang
-        $posts = Post::where('status', '1');
+        $post_cate = PostCategory::with('posts')->get();
+        $cate_features = PostCategory::where('status', '1')->take(3)->get();
+        $post_features = Post::where('status', '1')->take(4)->get();
 
-        $categoryPostName = "Tất cả sản phẩm"; // Giá trị mặc định cho tên danh mục
+        $post_cateId = $request->input('post_cateId');
+        $searchTerm = $request->input('search');
 
-        if ($idCataPost) {
-            $posts = $posts->where('category_id', $idCataPost);
-            $categoryPostName = PostCategory::where('id', $idCataPost)->value('name') ?? $categoryPostName;
+        $query = post::query();
+
+        if ($post_cateId) {
+            $query->where('category_id', $post_cateId);
         }
 
-        $posts = $posts->paginate($per_page)->appends($request->except('page'));
+        if ($searchTerm) {
+            $query->where('title', 'LIKE', '%' . $searchTerm . '%');
+        }
 
-        return view('blogs', compact('posts', 'categoryPostName'));
+        $posts = $query->paginate(5)->appends($request->except('page'));
+        $newPosts = post::orderBy('created_at', 'desc')->take(3)->get();
+
+       
+        $index1 = 3;
+        return view('clients.posts', compact('posts', 'cate_features', 'post_features', 'newPosts', 'post_cate', 'index1'));
     }
 
-    // Phương thức để hiển thị một bài viết cụ thể
     public function show($id)
     {
-        // Tìm bài viết theo ID
         $post = Post::findOrFail($id);
         $relatedPosts = Post::where('category_id', $post->category_id)
             ->where('id', '!=', $post->id) // Loại trừ bài viết hiện tại
             ->where('status', 1) // Đảm bảo bài viết có trạng thái 'active'
             ->take(3) // Lấy 3 bài viết
             ->get();
+            $post_features = Post::where('status', '1')->take(4)->get();
 
-        // Trả về view hiển thị bài viết với dữ liệu bài viết và các bài viết cùng loại
-        return view('single_blog', compact('post', 'relatedPosts'));
+        $index1 = 3;
+        return view('clients.postdetail', compact('post', 'post_features', 'relatedPosts', 'index1'));
     }
 }
