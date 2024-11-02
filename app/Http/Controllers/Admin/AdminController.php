@@ -14,69 +14,13 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index(Request $request) {
-        $chartOrderType = $request->chartOrder ?? 'month';
-        switch ($chartOrderType) {
-            case 'month':
-                $labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-                $data = array_fill(0, 12, 0); 
-                $orders = Order::selectRaw('MONTH(created_at) as month, SUM(total) as total')
-                                ->groupBy('month')
-                                ->get();
-                foreach ($orders as $order) {
-                    $data[$order->month - 1] = $order->total; 
-                }
-                $chartOrder = [ 
-                    'labels' => $labels, 
-                    'data' => $data
-                ];
-                break;
-            case 'year':
-                $orders = Order::selectRaw('YEAR(created_at) as year, SUM(total) as total')
-                ->groupBy('year')
-                ->orderBy('year')
-                ->get();
-                // Khởi tạo labels và data
-                $labels = [];
-                $data = [];
-                foreach ($orders as $order) {
-                    $labels[] = $order->year; // Lưu năm vào labels
-                    $data[] = $order->total;   // Lưu tổng doanh thu vào data
-                }
-                $chartOrder = [ 
-                    'labels' => $labels, 
-                    'data' => $data
-                ];
-                break;
-        }
-        if ($request->has('monthYear') && preg_match('/^\d{4}-\d{2}$/', $request->monthYear)) {
-            $chartPieOrder = $request->monthYear;
-            [$year, $month] = explode('-', $chartPieOrder);
-            $orderSuccess = Order::where('status', 3)
-                ->whereYear('created_at', $year)
-                ->whereMonth('created_at', $month)
-                ->count();
-            $orderCancel = Order::where('status', 5)
-                ->whereYear('created_at', $year)
-                ->whereMonth('created_at', $month)
-                ->count();
-        } else {
-            $chartPieOrder = Carbon::now()->format('Y-m');
-            $orderSuccess = Order::where('status', 3)->count();
-            $orderCancel = Order::where('status', 5)->count();
-        }
-        $pieOrder = [
-            'labels' => ['Đơn hàng thành công', 'Đơn hàng đã hủy'],
-            'data' => [$orderSuccess, $orderCancel],
-            'now' => $chartPieOrder
-        ];
-        return view('admin.home', compact('chartOrder','pieOrder'));
+        return view('admin.home');
     }
     
-
     public function login() {
         return view('admin.account.login');
     }
-
+    
     public function postLogin(Request $request) {
         $request->validate([
             'email' => 'required|email|exists:users,email',

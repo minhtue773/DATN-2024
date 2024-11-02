@@ -26,7 +26,7 @@
                             <div class="col-8">
                                 <div class="py-5 px-3">
                                     <div class="text-center">
-                                        <img class="img-fluid mb-3" src="{{ asset('img/logo/logo.png') }}" alt="">
+                                        <img class="img-fluid mb-3" src="{{ asset('admin/img/logo.png') }}" alt="">
                                         <h1 class="h4 text-gray-900 mb-4">Đăng nhập Admin</h1>
                                     </div>
                                     <form class="user" action="{{ route('admin.postLogin') }}" method="POST">

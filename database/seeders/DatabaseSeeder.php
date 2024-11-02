@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             ))
             ->has(Product::factory()->count(5)) // Tạo 5 sản phẩm cho mỗi danh mục
             ->create();
-        Order::factory()->count(50)->create();
+        Order::factory()->count(200)->create();
 
         
 
