@@ -87,7 +87,7 @@
                     </a>
                     <a href="/cart" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">%% countTotalProducts() %%</span>
+                        <span ng-cloak class="badge">%% countTotalProducts() %%</span>
                     </a>
                 </div>
             </div>

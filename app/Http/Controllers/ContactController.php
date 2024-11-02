@@ -9,7 +9,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $index1 = 4;
+        $index1 = 5;
         return view('clients.contact', compact('index1'));
     }
 }
