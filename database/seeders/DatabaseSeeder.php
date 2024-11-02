@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'), // Mật khẩu mặc định
                 'phone_number' => $faker->phoneNumber(), // Số điện thoại ngẫu nhiên
                 'address' => $faker->address(), // Địa chỉ ngẫu nhiên
-                'gender' => $faker->randomElement(['nam', 'nữ']), // Giới tính ngẫu nhiên
+                'gender' => $faker->randomElement(['male', 'female']), // Giới tính ngẫu nhiên
                 'status' => 1, // Trạng thái mặc định
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -89,12 +89,11 @@ class DatabaseSeeder extends Seeder
                 'user_id' => rand(1, 10),
                 'category_id' => rand(1, 10),
                 'image' => 'img/blog/1.jpg',
-                'image_big' => 'img/blog/10.jpg',
                 'title' => $faker->sentence(6, true),
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),
                 'status' => 1,
-                'post_date' => Carbon::now(),
+                
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -136,7 +135,6 @@ class DatabaseSeeder extends Seeder
                 'image' => $image,
                 'link' => null, // or a random link if needed
                 'content' => 'Banner content for ' . basename($image),
-                'name' => 'Banner ' . basename($image),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
