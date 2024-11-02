@@ -7,8 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
-
-    <!-- Favicon -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="img/favicon.ico" rel="icon">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
     <!-- Google Web Fonts -->
