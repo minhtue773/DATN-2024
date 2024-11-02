@@ -28,7 +28,7 @@ return new class extends Migration
             $table->softDeletes('deleted_at');
             $table->foreign('product_category_id')->references('id')->on('product_categories');
         });
-        
+    
     }
 
     /**
