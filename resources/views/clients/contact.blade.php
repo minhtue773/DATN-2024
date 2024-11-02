@@ -25,20 +25,20 @@
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
             <div class="contact-form">
-                <div id="success"></div>
+                
                 <form method="post" action="{{ url('/guilienhe') }}">
                     <div class="control-group">
-                        <input type="text" class="form-control" id="ht" placeholder="Họ và tên"
+                        <input type="text" class="form-control"  name="ht" placeholder="Họ và tên"
                             required="required" data-validation-required-message="Please enter your name" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <input type="email" class="form-control" id="em" placeholder="Email"
+                        <input type="email" class="form-control" name="em"  placeholder="Email"
                             required="required" data-validation-required-message="Please enter your email" />
                         <p class="help-block text-danger"></p>
                     </div>
                     <div class="control-group">
-                        <textarea class="form-control" rows="6" id="nd" placeholder="Nội dung liên hệ..."
+                        <textarea class="form-control" rows="6" name="nd"  placeholder="Nội dung liên hệ..."
                             required="required"
                             data-validation-required-message="Please enter your message"></textarea>
                         <p class="help-block text-danger"></p>

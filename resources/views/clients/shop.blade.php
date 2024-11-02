@@ -43,7 +43,7 @@
             </div>
 
             <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Tìm kiếm theo giá</h5>
+                <h5 class="font-weight-semi-bold mb-4 custom-small">Tìm kiếm theo giá</h5>
                 <div id="cat-treeview" class="product-cat">
                     <ul class="list-unstyled price-list">
                         <li class="{{ request('price_range') == 'under_1m' ? 'open' : 'closed' }}">
@@ -76,7 +76,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <form action="{{ route('products.index') }}" method="GET">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm theo tên sản phẩm" value="{{ request('search') }}">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm..." value="{{ request('search') }}">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary" type="submit">
                                         <i class="fa fa-search"></i>
@@ -112,7 +112,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                            <img class="img-fluid w-100" src="{{ asset('uploads/product/'.$product->image) }}" alt="{{ $product->name }}">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xemt</a>
+                            <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem</a>
                             @auth
                             <a href="#" class="wishlist-toggle btn btn-sm text-dark p-0 {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'favorited' : '' }}" data-product-id="{{ $product->id }}" title="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}">
                                 <i class="fas fa-heart {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'text-danger' : 'text-primary' }} mr-1"></i>{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}

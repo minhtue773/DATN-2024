@@ -358,107 +358,99 @@
 
         </div>
         @section('viewFunction')
-            <script>
-                viewFunction = function($scope, $http) {
-                    $scope.quantity = 1; // Khởi tạo số lượng
+        <script>
+    viewFunction = function($scope, $http) {
+        $scope.quantity = 1; // Khởi tạo số lượng
 
-                    $scope.validateQuantity = function() {
-                        // Kiểm tra giới hạn hợp lệ
-                        if ($scope.quantity <= 0) {
-                            $scope.quantity = 1;
-                            alert("Số lượng không thể nhỏ hơn 1. Số lượng đã được đặt lại thành 1.");
-                        } else if ($scope.quantity > {{ $sp->stock }}) {
-                            $scope.quantity = {{ $sp->stock }};
-                            alert("Số lượng đã đạt tối đa tồn kho. Số lượng đã được đặt lại thành " + $scope.quantity +
-                                ".");
+        // Hàm kiểm tra và cập nhật số lượng
+        $scope.validateQuantity = function() {
+            if ($scope.quantity <= 0) {
+                $scope.quantity = 1;
+                Swal.fire('Thông báo', "Số lượng không thể nhỏ hơn 1. Số lượng đã được đặt lại thành 1.", 'warning');
+            } else if ($scope.quantity > {{ $sp->stock }}) {
+                $scope.quantity = {{ $sp->stock }};
+                Swal.fire('Thông báo', "Số lượng đã đạt tối đa tồn kho. Số lượng đã được đặt lại thành " + $scope.quantity + ".", 'warning');
+            }
+            // Cập nhật lại giá trị của ô input
+            document.getElementById('quantityInput').value = $scope.quantity;
+        };
+
+        // Hàm giảm số lượng
+        $scope.decreaseQty = function() {
+            if ($scope.quantity > 1) {
+                $scope.quantity--;
+            } else {
+                Swal.fire('Thông báo', "Số lượng không thể nhỏ hơn 1.", 'warning');
+            }
+            $scope.validateQuantity();
+        };
+
+        // Hàm tăng số lượng
+        $scope.increaseQty = function() {
+            if ($scope.quantity < {{ $sp->stock }}) {
+                $scope.quantity++;
+            } else {
+                Swal.fire('Thông báo', "Số lượng đã đạt tối đa tồn kho.", 'warning');
+            }
+            $scope.validateQuantity();
+        };
+
+        // Lấy danh sách bình luận
+        $scope.dsBL = [];
+        $scope.getComment = function() {
+            $http.get('/api/comments/product/{{ $sp->id }}').then(
+                function(res) {
+                    $scope.dsBL = res.data.data; // Danh sách bình luận
+                    $scope.totalComments = res.data.total_comments; // Số lượng bình luận
+                    $scope.average_rating = res.data.average_rating;
+                },
+                function(res) {
+                    console.error('Lỗi khi lấy dữ liệu từ API', res);
+                }
+            );
+        };
+
+        $scope.getComment();
+
+        // Gửi bình luận
+        $scope.sendComment = function() {
+            $http.post('/api/comments', {
+                'product_id': {{ $sp->id }},
+                'content': $scope.content,
+                'rating': $scope.rating,
+            }).then(
+                function(res) {
+                    if (res.data.status) {
+                        $scope.content = '';
+                        $scope.rating = 5;
+                        $scope.getComment();
+                        Swal.fire('Thành công', 'Thêm bình luận thành công!', 'success');
+                    }
+                },
+                function(error) {
+                    Swal.fire('Lỗi!', 'Có lỗi xảy ra: ' + error.data.message, 'error');
+                }
+            );
+        };
+
+        // Xóa bình luận
+        $scope.deleteComment = function(commentId) {
+            if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) {
+                $http.delete('/api/comments/' + commentId).then(
+                    function(res) {
+                        if (res.data.status) {
+                            $scope.getComment();
+                            Swal.fire('Thành công', 'Bình luận đã được xóa!', 'success');
                         }
-
-                        // Cập nhật lại giá trị của ô input trực tiếp
-                        document.getElementById('quantityInput').value = $scope.quantity;
-                    };
-
-                    // Hàm giảm số lượng
-                    $scope.decreaseQty = function() {
-                        if ($scope.quantity > 1) {
-                            $scope.quantity--;
-                        } else {
-                            alert("Số lượng không thể nhỏ hơn 1.");
-                        }
-                        $scope.validateQuantity();
-                    };
-
-                    // Hàm tăng số lượng
-                    $scope.increaseQty = function() {
-                        if ($scope.quantity < {{ $sp->stock }}) {
-                            $scope.quantity++;
-                        } else {
-                            alert("Số lượng đã đạt tối đa tồn kho.");
-                        }
-                        $scope.validateQuantity();
-                    };
-                    $scope.dsBL = [];
-                    $scope.getComment = function() {
-                        $http.get('/api/comments/product/{{ $sp->id }}').then(
-                            function(res) { // Thành công
-                                $scope.dsBL = res.data.data; // Danh sách bình luận
-                                $scope.totalComments = res.data.total_comments; // Số lượng bình luận
-                                $scope.average_rating = res.data.average_rating;
-                                console.log($scope.dsBL);
-                                console.log("Tổng số bình luận: ", $scope.totalComments); // In ra số lượng bình luận
-                            },
-                            function(res) { // Thất bại
-                                console.error('Lỗi khi lấy dữ liệu từ API', res);
-                            }
-                        );
-                    };
-
-
-                    $scope.getComment();
-
-                    $scope.sendComment = function() {
-                        $http.post('/api/comments', {
-                            'product_id': {{ $sp->id }},
-                            'content': $scope.content,
-                            'rating': $scope.rating,
-                        }).then(
-                            function(res) {
-                                if (res.data.status) {
-
-                                    $scope.content = '';
-                                    $scope.rating = 5;
-
-
-                                    $scope.getComment();
-
-
-                                    alert('Thêm bình luận thành công!');
-
-
-                                }
-                            },
-                            function(error) {
-
-                                alert('Có lỗi xảy ra: ' + error.data.message);
-
-                            }
-                        );
-                    };
-
-
-                    $scope.deleteComment = function(commentId) {
-                        if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) {
-                            $http.delete('/api/comments/' + commentId).then(
-                                function(res) {
-                                    if (res.data.status) {
-                                        $scope.successMessage = res.data.message;
-                                        $scope.getComment();
-                                    }
-                                },
-                            );
-                        }
-                    };
-                };
-            </script>
+                    },
+                    function(error) {
+                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xóa bình luận.', 'error');
+                    }
+                );
+            }
+        };
+    };
+</script>
         @endsection
     @else
         <div class="error-section mb-80" style="margin-left: 30%">
