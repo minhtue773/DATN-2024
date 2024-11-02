@@ -1,16 +1,16 @@
 @extends('clients.layout.app')
 @section('title')
-    
+Bài viết chi tiết
 @endsection
 @section('content')
-    <!-- Page Header Start -->
- <div class="container-fluid bg-secondary mb-5">
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Post</h1>
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">@yield('title')</h1>
         <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0"><a href=""> Trang chủ</a></p>
             <p class="m-0 px-2">-</p>
-            <p class="m-0">Shopping Cart</p>
+            <p class="m-0">@yield('title')</p>
         </div>
     </div>
 </div>
@@ -23,61 +23,33 @@
                 <div class="single-post row">
                     <div class="col-lg-12">
                         <div class="feature-img">
-                            <img class="img-fluid" src="{{ asset('client') }}/img/blog/feature-img1.jpg" alt="">
+                            <img class="img-fluid" src="/{{ $post->image_big }}" alt="">
                         </div>
                     </div>
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a href="#">Food,</a>
-                                <a class="active" href="#">Technology,</a>
-                                <a href="#">Politics,</a>
-                                <a href="#">Lifestyle</a>
+                                <a href="#">{{ $post->category->name }}</a> <!-- Thay bằng tên danh mục nếu cần -->
                             </div>
                             <ul class="blog_meta list">
-                                <li><a href="#">Mark wiens<i class="lnr lnr-user"></i></a></li>
-                                <li><a href="#">12 Dec, 2018<i class="lnr lnr-calendar-full"></i></a></li>
-                                <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
-                            </ul>
-                            <ul class="social-links">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-github"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#">{{ $post->user->name }}<i class="lnr lnr-user"></i></a></li> <!-- Giả định bạn có mối quan hệ với User -->
+                                <li><a href="#">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d M Y') }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                <li><a href="#">{{ $post->views ?? '0' }} Views<i class="lnr lnr-eye"></i></a></li> <!-- Giả định bạn có trường views -->
+                                <li><a href="#">{{ $post->comments_count ?? '0' }} Comments<i class="lnr lnr-bubble"></i></a></li> <!-- Giả định bạn có trường comments_count -->
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 blog_details">
-                        <h2>Astronomy Binoculars A Great Alternative</h2>
+                        <h2>{{ $post->title }}</h2>
                         <p class="excert">
-                            MCSE boot camps have its supporters and its detractors. Some people do not understand
-                            why you should have to spend money on boot camp when you can get the MCSE study
-                            materials yourself at a fraction.
-                        </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why
-                            you should have to spend money on boot camp when you can get the MCSE study materials
-                            yourself at a fraction of the camp price. However, who has the willpower to actually
-                            sit through a self-imposed MCSE training. who has the willpower to actually sit through
-                            a self-imposed
-                        </p>
-                        <p>
-                            Boot camps have its supporters and its detractors. Some people do not understand why
-                            you should have to spend money on boot camp when you can get the MCSE study materials
-                            yourself at a fraction of the camp price. However, who has the willpower to actually
-                            sit through a self-imposed MCSE training. who has the willpower to actually sit through
-                            a self-imposed
+                            {{ $post->description }}
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <div class="quotes">
-                            MCSE boot camps have its supporters and its detractors. Some people do not understand
-                            why you should have to spend money on boot camp when you can get the MCSE study
-                            materials yourself at a fraction of the camp price. However, who has the willpower to
-                            actually sit through a self-imposed MCSE training.
+                            {{ $post->content }}
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-6">
                                 <img class="img-fluid" src="{{ asset('client') }}/img/blog/post-img1.jpg" alt="">
                             </div>
@@ -98,7 +70,7 @@
                                     the willpower.
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="navigation-area">
@@ -259,15 +231,19 @@
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget search_widget">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Posts" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                            </span>
-                        </div><!-- /input-group -->
+                        <form action="/posts" method="GET">
+                            @csrf
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Tìm kiếm bài viết" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Tìm kiếm bài viết'">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                                </span>
+                            </div>
+                        </form>
+
                         <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget author_widget">
+                    <!-- <aside class="single_sidebar_widget author_widget">
                         <img class="author_img rounded-circle" src="{{ asset('client') }}/img/blog/author.png" alt="">
                         <h4>Charlie Barber</h4>
                         <p>Senior blog writer</p>
@@ -281,96 +257,43 @@
                             should have to spend money on boot camp when you can get. Boot camps have itssuppor
                             ters andits detractors.</p>
                         <div class="br"></div>
-                    </aside>
+                    </aside> -->
                     <aside class="single_sidebar_widget popular_post_widget">
-                        <h3 class="widget_title">Popular Posts</h3>
+                        <h3 class="widget_title">Bài viết nổi bật</h3>
+                        @foreach ($post_features as $post)
                         <div class="media post_item">
-                            <img src="{{ asset('client') }}/img/blog/popular-post/post1.jpg" alt="post">
+                            <img src="/{{ $post->image }}" alt="post" class="img-fluid w-25">
                             <div class="media-body">
                                 <a href="blog-details.html">
-                                    <h3>Space The Final Frontier</h3>
+                                    <h3>{{ $post->title }}</h3>
                                 </a>
                                 <p>02 Hours ago</p>
                             </div>
                         </div>
-                        <div class="media post_item">
-                            <img src="{{ asset('client') }}/img/blog/popular-post/post2.jpg" alt="post">
-                            <div class="media-body">
-                                <a href="blog-details.html">
-                                    <h3>The Amazing Hubble</h3>
-                                </a>
-                                <p>02 Hours ago</p>
-                            </div>
-                        </div>
-                        <div class="media post_item">
-                            <img src="{{ asset('client') }}/img/blog/popular-post/post3.jpg" alt="post">
-                            <div class="media-body">
-                                <a href="blog-details.html">
-                                    <h3>Astronomy Or Astrology</h3>
-                                </a>
-                                <p>03 Hours ago</p>
-                            </div>
-                        </div>
-                        <div class="media post_item">
-                            <img src="{{ asset('client') }}/img/blog/popular-post/post4.jpg" alt="post">
-                            <div class="media-body">
-                                <a href="blog-details.html">
-                                    <h3>Asteroids telescope</h3>
-                                </a>
-                                <p>01 Hours ago</p>
-                            </div>
-                        </div>
+                        @endforeach
                         <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget ads_widget">
+                    <!-- <aside class="single_sidebar_widget ads_widget">
                         <a href="#"><img class="img-fluid" src="{{ asset('client') }}/img/blog/add.jpg" alt=""></a>
                         <div class="br"></div>
-                    </aside>
+                    </aside> -->
                     <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title">Post Catgories</h4>
+                        <h4 class="widget_title">Danh mục bài viết</h4>
                         <ul class="list cat-list">
                             <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Technology</p>
-                                    <p>37</p>
+                                <a href="/posts" class="d-flex justify-content-between">
+                                    <p>Tất cả</p>
+                                    <p>000</p>
                                 </a>
                             </li>
+                            @foreach ($post_cate_arr as $post_cate)
                             <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Lifestyle</p>
-                                    <p>24</p>
+                                <a href="{{ route('posts.index', ['post_cateId' => $post_cate->id]) }}" class="d-flex justify-content-between">
+                                    <p>{{ $post_cate->name}}</p>
+                                    <p>{{ $post_cate->posts->count()}}</p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Fashion</p>
-                                    <p>59</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Art</p>
-                                    <p>29</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Food</p>
-                                    <p>15</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Architecture</p>
-                                    <p>09</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Adventure</p>
-                                    <p>44</p>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                         <div class="br"></div>
                     </aside>
@@ -392,23 +315,6 @@
                         </div>
                         <p class="text-bottom">You can unsubscribe at any time</p>
                         <div class="br"></div>
-                    </aside>
-                    <aside class="single-sidebar-widget tag_cloud_widget">
-                        <h4 class="widget_title">Tag Clouds</h4>
-                        <ul class="list">
-                            <li><a href="#">Technology</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Architecture</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Food</a></li>
-                            <li><a href="#">Technology</a></li>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Art</a></li>
-                            <li><a href="#">Adventure</a></li>
-                            <li><a href="#">Food</a></li>
-                            <li><a href="#">Lifestyle</a></li>
-                            <li><a href="#">Adventure</a></li>
-                        </ul>
                     </aside>
                 </div>
             </div>

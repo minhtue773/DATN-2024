@@ -1,17 +1,123 @@
+.tt{
+    max-width: 80%;
+    margin: auto;
+}
+.tt .contact-info {
+    background-color: #f8f9fa; /* Light background color */
+    border: 1px solid #dee2e6; /* Border around the section */
+    border-radius: 5px; /* Slightly rounded corners */
+    padding: 15px; /* Reduced padding */
+    margin-top: 15px; /* Space above the section */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    font-size: 14px; /* Smaller font size */
+}
+
+.tt .contact-info p {
+    margin: 5px 0; /* Reduced space between paragraphs */
+    color: #343a40; /* Dark text color */
+}
+
+.tt .contact-info strong {
+    color: #007bff; /* Color for labels */
+}
 /*========= blog_categorie_area css ===========*/
 .blog_categorie_area {
     padding-top: 80px;
     padding-bottom: 80px;
 }
-
+.category-image {
+    max-width: 100%; /* Ensures the image does not exceed the container's width */
+    height: auto;    /* Keeps the aspect ratio */
+    width: 200px;      /* Adjusts the width to 70% of its container */
+}
 .categories_post {
     position: relative;
     text-align: center;
     cursor: pointer;
 }
+.input-group .form-control {
+    border-radius: 0.5rem; /* Bo tròn góc cho ô nhập */
+    transition: border-color 0.3s; /* Hiệu ứng chuyển tiếp cho đường viền */
+}
 
+.input-group .form-control:focus {
+    border-color: #007bff; /* Đổi màu đường viền khi ô tìm kiếm được chọn */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Hiệu ứng bóng */
+}
+
+.input-group .btn {
+    border-radius: 0.5rem; /* Bo tròn góc cho nút */
+}
+
+.input-group .btn:hover {
+    background-color: #0056b3; /* Đổi màu nền khi hover */
+    color: #ffffff; /* Đổi màu chữ khi hover */
+}
 .categories_post img {
     max-width: 100%;
+}
+.category-list, .price-list {
+    margin: 0;
+    padding: 0;
+}
+.pagination .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.pagination .page-link {
+    margin: 0 5px;
+    color: #007bff;
+    border: 1px solid transparent; /* Add border for better click area */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.pagination .page-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    color: #fff;
+}
+
+.filter-link {
+    font-size: 1.2em;
+    color: #333;
+    text-decoration: none; /* Remove underline by default */
+    padding: 10px 15px; /* Add padding for a better click area */
+    border-radius: 4px; /* Rounded corners */
+    display: flex;
+    justify-content: space-between; /* Aligns count to the right */
+    align-items: center; /* Centers items vertically */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.filter-link:hover {
+    background-color: #007bff; /* Change background color on hover */
+    color: #ffffff; /* Change text color on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Subtle shadow effect */
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+.product-count {
+    margin-left: auto; /* Pushes count to the right */
+    font-size: 0.9em; /* Smaller font size for count */
+    color: #888; /* Gray color for count */
+}
+
+/* Add styles for open/closed states */
+.open > .filter-link {
+    background-color: #0056b3; /* Active link background */
+    color: #ffffff; /* Active link text color */
+}
+
+.closed > .filter-link {
+    background-color: transparent; /* Default background */
+    color: #333; /* Default text color */
 }
 
 .categories_post .categories_details {

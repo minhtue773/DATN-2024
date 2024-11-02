@@ -22,6 +22,8 @@ class User extends Authenticatable
         'gender',
         'status',
         'birthday',
+        'facebook_id',
+        'google_id'
     ];
 
     protected $hidden = [
@@ -56,5 +58,12 @@ class User extends Authenticatable
     }
     public function discountCodeHistories () {
         return $this->hasMany(DiscountCodeHistory::class);
+    }
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();
+    }
+    public function favoritedBy() {
+        return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id');
     }
 }
