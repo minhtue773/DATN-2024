@@ -1,36 +1,38 @@
 <?php
 
+use App\Mail\GuiEmail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderControllers;
+use App\Http\Controllers\ContactController;
+// ---------------------
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CommentControllers;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\ProductUserController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CommentController;
-use App\Http\Controllers\Admin\ConfigurationController;
-use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\PromotionController;
-use App\Http\Controllers\Admin\ProductCategoryController;
-// ---------------------
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\AboutController;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\BlogController;
-use App\Mail\GuiEmail;
-use App\Http\Controllers\ContactController;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\UserAuthController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrderControllers;
-use App\Http\Controllers\FavoriteProductController;
-use App\Http\Controllers\CommentControllers;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\FavoriteProductController;
+use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\ConfigurationController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'postLogin'])->name('admin.postLogin');

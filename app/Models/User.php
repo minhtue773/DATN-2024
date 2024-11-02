@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function discountCodeHistories () {
         return $this->hasMany(DiscountCodeHistory::class);
     }
-    public function favorites(): BelongsToMany
+    public function favorites()
     {
         return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id')->withTimestamps();
     }
