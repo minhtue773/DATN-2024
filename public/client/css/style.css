@@ -592,7 +592,10 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-
+.containers{
+  max-width: 1920px;
+  margin: auto;
+}
 .container,
 .container-fluid,
 .container-sm,

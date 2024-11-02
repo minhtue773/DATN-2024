@@ -15,16 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('post_id');
             $table->string('content');
             $table->tinyInteger('rating_stars')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
-            $table->softDeletes('deleted_at');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            
         });
     }
 

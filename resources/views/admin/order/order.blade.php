@@ -127,7 +127,7 @@
                                                 </td>
                                                 <td>#{{ $item->invoice_code }}</td>
                                                 <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                                                <td>{{ $item->User->name }}</td>
+                                                <td>{{ $item->user->name ?? '' }}</td>
                                                 <td>{{ $item->recipient_address }}</td>
                                                 <td class="text-danger">{{ number_format($item->total,0,'.','.') }} đ</td>
                                                 @switch($item->status)
