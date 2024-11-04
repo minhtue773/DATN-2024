@@ -7,11 +7,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
-    <!-- Google Web Fonts -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('uploads/favicon/favicon.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('uploads/favicon/favicon.ico') }}" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -83,13 +81,13 @@
                     </form>
                 </div>
                 <div class="col-lg-3 col-6 text-right">
-                    <a href="" class="btn border">
+                    <a href="/" class="btn border">
                         <i class="fas fa-heart text-primary"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">{{ $favoriteCount }}</span> <!-- Hiển thị số lượng sản phẩm yêu thích -->
                     </a>
                     <a href="/cart" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">%% countTotalProducts() %%</span>
+                        <span ng-cloak class="badge">%% countTotalProducts() %%</span>
                     </a>
                 </div>
             </div>

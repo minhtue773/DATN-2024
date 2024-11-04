@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
                 'product_category_id' => rand(1, 4), // Danh mục ngẫu nhiên từ 1 đến 4
                 'name' => $faker->words(3, true), // Tên ngẫu nhiên với 3 từ
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên
-                'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
+                'image' => rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
                 'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên
                 'discount' => $faker->numberBetween(0, 50), // Giảm giá ngẫu nhiên
                 'stock' => $faker->numberBetween(0, 100), // Số lượng tồn kho ngẫu nhiên
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             for ($j = 1; $j <= 4; $j++) {
                 DB::table('product_images')->insert([
                     'product_id' => $productId, // Liên kết với sản phẩm vừa tạo
-                    'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh từ 1.jpg đến 7.jpg
+                    'image' => rand(1, 7) . '.jpg', // Hình ảnh từ 1.jpg đến 7.jpg
                 ]);
             }
         }
@@ -88,12 +88,11 @@ class DatabaseSeeder extends Seeder
             DB::table('posts')->insert([
                 'user_id' => rand(1, 10),
                 'category_id' => rand(1, 10),
-                'image' => 'img/blog/1.jpg',
+                'image' => '1.jpg',
                 'title' => $faker->sentence(6, true),
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),
                 'status' => 1,
-                
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
@@ -123,10 +122,10 @@ class DatabaseSeeder extends Seeder
         }
 
         $images = [
-            'images/bg/1.jpg',
-            'images/bg/2.jpg',
-            'images/bg/3.jpg',
-            'images/bg/4.jpg',
+            '1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpg',
         ];
 
         // Loop through and insert each banner

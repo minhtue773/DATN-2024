@@ -95,13 +95,13 @@ Route::post("/guilienhe", function (Illuminate\Http\Request $request) {
             ->send(new GuiEmail($ht, $em, $nd));
 
         // Thiết lập thông báo thành công
-        $request->session()->$request->flash('success', "Đã gửi mail thành công!");
+        $request->session()->flash('success', "Đã gửi mail thành công!");
     } catch (\Exception $e) {
         // Thiết lập thông báo lỗi
-        $request->session()->$request->flash('error', "Có lỗi xảy ra: " . $e->getMessage());
+        $request->session()->flash('error', "Có lỗi xảy ra: " . $e->getMessage());
     }
 
-    return redirect()->back(); // Chuyển hướng về trang trước
+    return redirect()->back();
 });
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');

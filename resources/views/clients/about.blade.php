@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <img src="{{ $settingsArray['img_favicon']['setting_value'] ?? 'https://via.placeholder.com/400' }}" alt="Hình ảnh về chúng tôi" class="img-fluid rounded">
+            <img src="{{ 'uploads/favicon/'.$settingsArray['img_favicon']['setting_value'] ?? 'https://via.placeholder.com/400' }}" alt="Hình ảnh về chúng tôi" class="img-fluid rounded">
         </div>
     </div>
 </div>
