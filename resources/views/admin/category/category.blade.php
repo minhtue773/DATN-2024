@@ -74,7 +74,7 @@
     function confirmDelete(itemName, form) {
         Swal.fire({
             title: 'Xóa danh mục',
-            text: `Tất cả sản phẩm thuộc ${itemName} đều sẽ bị xóa!`,
+            text: `Bạn muốn xóa danh mục ${itemName} ?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

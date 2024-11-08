@@ -132,8 +132,8 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="d-flex flex-wrap justify-content-between" id="preview-container">
-                                                @if ($product->ProductImage->isNotEmpty())
-                                                    @foreach ($product->ProductImage as $item)
+                                                @if ($product->productImages->isNotEmpty())
+                                                    @foreach ($product->productImages as $item)
                                                         <img src="{{ asset('uploads/images/product') }}/{{ $item->image }}" class="img-thumbnail mb-3" style="height: 75px; width: 75px">
                                                     @endforeach
                                                 @endif

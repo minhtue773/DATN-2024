@@ -3,8 +3,8 @@
         <div class="col-md-6">
             <img src="{{ asset('uploads/images/product') }}/{{ $product->image }}" alt="" class="img-fluid mb-3 rounded border">
             <div class="previews d-flex justify-content-center" style="gap: 20px">
-                @if ($product->ProductImage->isNotEmpty())
-                    @foreach ($product->ProductImage as $item)
+                @if ($product->productImages->isNotEmpty())
+                    @foreach ($product->productImages as $item)
                     <img src="{{ asset('uploads/images/product') }}/{{ $item->image }}" alt="" class="img-thumbnail" style="height: 75px; width:75px">
                     @endforeach
                 @endif
@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6">
             <h3 class="product-title text-primary">{{ $product->name }}</h3>
-            <h6>Danh mục: <span>{{ $product->ProductCategory->name }}</span></h6>
+            <h6>Danh mục: <span>{{ $product->productCategory->name }}</span></h6>
             <div class="rating mb-3">
                 <div class="stars mb-2">
                     <span class="fa fa-star checked"></span>

@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Vòng lặp để tạo 1000 sản phẩm ngẫu nhiên
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             // Tạo sản phẩm mới
             $productId = DB::table('products')->insertGetId([
                 'product_category_id' => rand(1, 4), // Danh mục ngẫu nhiên từ 1 đến 4
@@ -72,6 +72,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
         for ($i = 0; $i < 10; $i++) {
             DB::table('post_categories')->insert([
                 'name' => $faker->words(2, true),
@@ -82,7 +83,6 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ]);
         }
-
 
         for ($i = 0; $i < 100; $i++) {
             DB::table('posts')->insert([
@@ -180,9 +180,6 @@ class DatabaseSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            // ... Thêm các mục khác tương tự
-        ]);
-        DB::table('website_settings')->insert([
             [
                 'id' => 6,
                 'setting_key' => 'address',
@@ -265,22 +262,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'id' => 16,
-                'setting_key' => '_token',
-                'setting_value' => 'RImvLFtJkLcvrMqGULW4Ma4s0HlRdB6ped8Vt1Es',
-                'description' => NULL,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => 17,
-                'setting_key' => '_method',
-                'setting_value' => 'POST',
-                'description' => NULL,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => 18,
                 'setting_key' => 'description_company',
                 'setting_value' => '123123',
                 'description' => NULL,
@@ -288,7 +269,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'id' => 19,
+                'id' => 17,
                 'setting_key' => 'favicon',
                 'setting_value' => '/private/var/folders/yx/qpqpf06x3czdx67_rg74d72h0000gn/T/php1lEroz',
                 'description' => NULL,
@@ -296,18 +277,10 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'id' => 20,
+                'id' => 18,
                 'setting_key' => 'logo',
                 'setting_value' => '/private/var/folders/yx/qpqpf06x3czdx67_rg74d72h0000gn/T/phpw5JUjw',
                 'description' => NULL,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
-                'id' => 21,
-                'setting_key' => 'link_map',
-                'setting_value' => 'https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1162.0917142442966!2d106.73140026960887!3d10.833412166535986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x31752758243c5d25%3A0xd00279024a178b70!2sCoffee%20Happy!3m2!1d10.8331322!2d106.7318303!4m5!1s0x317527d303238df1%3A0x4e42bc0930d2510c!2zMjUgxJDGsOG7nW5nIDI3LCBIaeG7h3AgQsOsbmggQ2jDoW5oLCBUaOG7pyDEkOG7qWMsIEjhu5MgQ2jDrSBNaW5o!3m2!1d10.8333953!2d106.7322406!5e1!3m2!1svi!2s!4v1730024867364!5m2!1svi!2s',
-                'description' => 'Link Map',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
