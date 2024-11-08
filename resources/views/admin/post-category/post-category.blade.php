@@ -39,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $item)
+                                    @foreach ($postCategories as $item)
                                         <tr class="text-center">
                                             <td><img src="{{ asset('uploads/images/post_category') }}/{{ $item->image }}"
                                                     class="img-thumbnail" style="max-width:70px; max-height:55px"></td>
@@ -74,7 +74,7 @@
     function confirmDelete(itemName, form) {
         Swal.fire({
             title: 'Xóa chyên mục',
-            text: `Tất cả bài viết thuộc ${itemName} đều sẽ bị xóa!`,
+            text: `Bạn muốn xóa chuyên mục ${itemName} ?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -98,7 +98,7 @@
         paging: true,
         responsive: true,
         order: [
-            [1, 'asc']
+            [3, 'desc']
         ],
         columnDefs: [{
                 targets: [1,3], // Các cột có thể sắp xếp

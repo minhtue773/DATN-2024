@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Str;
-use Faker\Factory as Faker; // Khai báo đúng namespace cho Faker
+use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon; // Khai báo Carbon
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Faker\Factory as Faker; // Khai báo đúng namespace cho Faker
 
 class DatabaseSeeder extends Seeder
 {
@@ -121,14 +122,12 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
-
         $images = [
             'images/bg/1.jpg',
             'images/bg/2.jpg',
             'images/bg/3.jpg',
             'images/bg/4.jpg',
         ];
-
         // Loop through and insert each banner
         foreach ($images as $image) {
             DB::table('banners')->insert([
@@ -285,5 +284,19 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now()
             ],
         ]);
+        for ($i = 0; $i < 50; $i++) {
+            Order::create([
+                'user_id' => rand(1, 10), // Người dùng ngẫu nhiên từ 1 đến 10
+                'total' => $faker->randomFloat(0, 100000, 5000000), // Tổng giá trị ngẫu nhiên
+                'payment_method' => $faker->randomElement(['cash', 'vnpay', 'momo']), // Phương thức thanh toán ngẫu nhiên
+                'recipient_name' => $faker->name(), // Tên người nhận ngẫu nhiên
+                'recipient_phone' => '0899384048', // Số điện thoại ngẫu nhiên
+                'recipient_address' => $faker->address(), // Địa chỉ người nhận ngẫu nhiên
+                'invoice_code' => $faker->unique()->numerify('INV####'),
+                'status' => $faker->numberBetween(0, 3), // Trạng thái đơn hàng ngẫu nhiên
+                'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
     }
 }

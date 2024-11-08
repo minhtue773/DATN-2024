@@ -37,8 +37,8 @@
             </div>
             <p style="text-align: justify">{!! $product->description !!}</p>
             @if ($product->discount > 0)
-                <h5 class="price text-danger">Giá khuyến mãi: <span>{{ number_format(($product->price * (100 - $product->discount) / 100),0,'.','.') }} đ</span></h5>
-                <h5 class="price">Giá bán: <s>{{ number_format($product->price,0,'.','.') }} đ</s></h5>
+            <h5 class="price">Giá bán: <s>{{ number_format($product->price,0,'.','.') }} đ</s></h5>
+                <h5 class="price text-danger">Giá khuyến mãi: <span>{{ number_format(($product->price * (100 - $product->discount) / 100),0,'.','.') }} đ</span><span class="small ms-2">({{ $product->discount }}%)</span></h5>
             @else
                 <h5 class="price text-danger">Giá bán: <span>{{ number_format($product->price,0,'.','.') }} đ</h5>
             @endif

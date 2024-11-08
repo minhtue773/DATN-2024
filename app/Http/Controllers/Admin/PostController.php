@@ -13,19 +13,16 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = PostCategory::all();
+        $postCategories = PostCategory::all();
         $query = Post::query();
-
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
-
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-
         $posts = $query->get();
-        return view('admin.post.post', compact('categories', 'posts'));
+        return view('admin.post.post', compact('postCategories', 'posts'));
     }
 
 

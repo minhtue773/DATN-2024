@@ -10,8 +10,8 @@ class PostCategoryController extends Controller
 {
     public function index()
     {
-        $categories = PostCategory::all();
-        return view('admin.post-category.post-category', compact('categories'));
+        $postCategories = PostCategory::all();
+        return view('admin.post-category.post-category', compact('postCategories'));
     }
 
     public function create()

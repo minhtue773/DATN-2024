@@ -13,9 +13,55 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function index(Request $request) {
-        return view('admin.home');
+    public function index(Request $request)
+    {
+        $currentYear = Carbon::now()->year;
+        $filterBy = $request->chartOrder ?? 'month';
+        switch ($filterBy) {
+            case 'month':
+                $monthRevenue = Order::selectRaw('MONTH(created_at) as month, SUM(total) as total')
+                ->whereYear('created_at', $currentYear)
+                ->groupBy('month')
+                ->orderBy('month')
+                ->pluck('total', 'month');
+                $labels = [
+                    'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                    'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+                ];
+                $data = [];
+                for($i=1; $i<=12; $i++) {
+                    $data[] = $monthRevenue[$i] ?? 0;
+                }
+                $revenue = [
+                    'labels' => $labels,
+                    'data' => $data
+                ];
+                break;
+            case 'year':
+                $yearRevenue = Order::selectRaw('YEAR(created_at) as year, SUM(total) as total')
+                ->groupBy('year')
+                ->orderBy('year')
+                ->pluck('total', 'year');
+                $labels = $yearRevenue->keys()->map(fn($year) => 'Năm ' . $year)->toArray();
+                $data = $yearRevenue->values()->toArray();
+                $revenue = [
+                    'labels' => $labels,
+                    'data' => $data
+                ];
+                break;
+                
+            }
+            // Lọc đơn hàng thành công và đã hủy theo tháng và năm
+            $orderStats = Order::selectRaw('status, COUNT(*) as count')
+                ->groupBy('status')
+                ->pluck('count', 'status')
+                ->toArray();
+            $canceledOrders = $orderStats[0] ?? 0;   // Đơn hàng đã hủy
+            $successfulOrders = $orderStats[1] ?? 0; // Đơn hàng thành công
+        return view('admin.home', compact('revenue'));
     }
+
+
     
     public function login() {
         return view('admin.account.login');

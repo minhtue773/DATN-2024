@@ -16,9 +16,11 @@ class PostCategory extends Model
         'status',
         'order_number',
     ];
+
     public function posts () {
-        return $this->HasMany(Post::class, 'category_id');
+        return $this->hasMany(Post::class, 'category_id');
     }
+    
     // Trong model PostCategory
     public function postsCountWithTrashed()
     {

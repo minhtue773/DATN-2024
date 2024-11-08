@@ -27,7 +27,7 @@
                                     <div class="me-3">
                                         <select class="form-select form-select-sm" name="category">
                                             <option value="">Tất cả chuyên mục --</option>
-                                            @foreach ($categories as $item)
+                                            @foreach ($postCategories as $item)
                                                 <option value="{{ $item->id }}"
                                                     {{ request('category') == $item->id ? 'selected' : '' }}>
                                                     {{ $item->name }}
