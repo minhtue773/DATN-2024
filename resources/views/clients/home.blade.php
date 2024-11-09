@@ -12,7 +12,7 @@ Trang chủ
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">
                     <h4 class="text-light text-uppercase font-weight-medium mb-3">{{ $banner->content }}</h4>
-                   
+
                     <a href="{{ $banner->link }}" class="btn btn-light py-2 px-3">Xem thêm</a>
                 </div>
             </div>
@@ -77,7 +77,7 @@ Trang chủ
         </div>
 
         @endforeach
-        
+
     </div>
 </div>
 <!-- Categories End -->
@@ -110,13 +110,17 @@ Trang chủ
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
-                    <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem</a>
+                    <a href="{{ route('product.detail', $product->slug) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem</a>
                     @auth
                     <a href="#" class="wishlist-toggle btn btn-sm text-dark p-0 {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'favorited' : '' }}" data-product-id="{{ $product->id }}" title="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}">
                         <i class="fas fa-heart {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'text-danger' : 'text-primary' }} mr-1"></i>{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}
                     </a>
                     @endauth
-                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm</a>
+                    @if ($product->stock == 0)
+                    <a href="javascript:void(0);" class="btn btn-sm text-dark p-0">Hết hàng</a>
+                    @else
+                    <a href="javascript:void(0);" class="btn btn-sm text-dark p-0" ng-click="addToCart({{ $product->id }},1)"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -134,7 +138,7 @@ Trang chủ
             <div class="position-relative bg-secondary text-center text-md-{{ $loop->first ? 'right' : 'left' }} text-white mb-2 py-5 px-5">
                 <img src="{{ asset('uploads/product/'.$product->image) }}" alt="{{ $product->name }}">
                 <div class="position-relative" style="z-index: 1;">
-                    <h5 class="text-uppercase text-primary mb-3">{{ $product->discount }}%  giảm giá cực sốc</h5>
+                    <h5 class="text-uppercase text-primary mb-3">{{ $product->discount }}% giảm giá cực sốc</h5>
                     <h1 class="mb-4 font-weight-semi-bold">{{ $product->name }}</h1>
                     <a href="{{ route('product.detail', $product->id) }}" class="btn btn-outline-primary py-md-2 px-md-3">Xem thêm</a>
                 </div>
@@ -167,13 +171,17 @@ Trang chủ
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between bg-light border">
-                    <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem chi tiết</a>
+                    <a href="{{ route('product.detail', $product->slug) }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>Xem</a>
                     @auth
                     <a href="#" class="wishlist-toggle btn btn-sm text-dark p-0 {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'favorited' : '' }}" data-product-id="{{ $product->id }}" title="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}">
                         <i class="fas fa-heart {{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'text-danger' : 'text-primary' }} mr-1"></i>{{ Auth::user()->favorites()->where('product_id', $product->id)->exists() ? 'Bỏ thích' : 'Thích' }}
                     </a>
                     @endauth
-                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ hàng</a>
+                    @if ($product->stock == 0)
+                    <a href="javascript:void(0);" class="btn btn-sm text-dark p-0">Hết hàng</a>
+                    @else
+                    <a href="javascript:void(0);" class="btn btn-sm text-dark p-0" ng-click="addToCart({{ $product->id }},1)"><i class="fas fa-shopping-cart text-primary mr-1"></i>Thêm</a>
+                    @endif
                 </div>
             </div>
         </div>

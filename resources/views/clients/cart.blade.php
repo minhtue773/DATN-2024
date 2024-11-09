@@ -42,10 +42,10 @@
                 <tbody class="align-middle">
                     <tr ng-repeat="sp in cart">
                         <td class="align-middle"> <a href="/product/%% sp.id %%">
-                                <img src="{{ asset('client/%%sp.hinh%%') }}" alt="" style="width: 50px;">
+                                <img src="{{ asset('uploads/product/%%sp.hinh%%') }}" alt="" style="width: 50px;">
 
                             </a> <a href="/product/%% sp.id %%">
-                                %% sp.name %%
+                                - %% sp.name %%
                             </a></td>
                         <td class="align-middle"><span ng-if="sp.sale > 0">
 

@@ -72,11 +72,11 @@ Bài viết
                             <div class="blog_post">
                                 <img src="/{{ $post->image_big }}" alt="{{ $post->title }}">
                                 <div class="blog_details">
-                                    <a href="{{ url('/post', [$post->id]) }}">
+                                    <a href="{{ route('posts.show', ['slug' => $post->slug]) }}">
                                         <h2>{{ $post->title }}</h2>
                                     </a>
                                     <p>{{ $post->description }}</p>
-                                    <a href="{{ url('/post', [$post->id]) }}" class="white_bg_btn">Xem thêm</a>
+                                    <a href="{{ route('posts.show', ['slug' => $post->slug]) }}" class="white_bg_btn">Xem thêm</a>
                                 </div>
                             </div>
                         </div>

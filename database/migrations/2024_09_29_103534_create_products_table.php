@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_category_id');
             $table->string('name');
+            $table->string('slug')->unique(); // Thêm cột slug và đảm bảo giá trị là duy nhất
             $table->text('description')->nullable();
             $table->string('image');
-            $table->decimal('price',10,2);
+            $table->decimal('price', 10, 2);
             $table->integer('discount')->nullable();
             $table->integer('stock');
             $table->integer('view')->default(0);
@@ -28,7 +29,6 @@ return new class extends Migration
             $table->softDeletes('deleted_at');
             $table->foreign('product_category_id')->references('id')->on('product_categories');
         });
-    
     }
 
     /**

@@ -47,13 +47,17 @@ class DatabaseSeeder extends Seeder
         }
 
         // Vòng lặp để tạo 1000 sản phẩm ngẫu nhiên
+
+
         for ($i = 0; $i < 1000; $i++) {
-            // Tạo sản phẩm mới
+            // Tạo sản phẩm mới với slug tự động
+            $productName = $faker->words(3, true);
             $productId = DB::table('products')->insertGetId([
                 'product_category_id' => rand(1, 4), // Danh mục ngẫu nhiên từ 1 đến 4
-                'name' => $faker->words(3, true), // Tên ngẫu nhiên với 3 từ
+                'name' => $productName, // Tên ngẫu nhiên với 3 từ
+                'slug' => Str::slug($productName), // Slug từ tên
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên
-                'image' => rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
+                'image' => rand(1, 7) . '.jpg', // Hình ảnh từ 1.jpg đến 7.jpg
                 'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên
                 'discount' => $faker->numberBetween(0, 50), // Giảm giá ngẫu nhiên
                 'stock' => $faker->numberBetween(0, 100), // Số lượng tồn kho ngẫu nhiên
@@ -85,11 +89,23 @@ class DatabaseSeeder extends Seeder
 
 
         for ($i = 0; $i < 100; $i++) {
+            $title = $faker->sentence(6, true);
+            $slug = Str::slug($title);
+
+            // Kiểm tra và thêm hậu tố cho slug nếu cần để tránh trùng lặp
+            $slugBase = $slug;
+            $count = 0;
+            while (DB::table('posts')->where('slug', $slug)->exists()) {
+                $count++;
+                $slug = $slugBase . '-' . $count;
+            }
+
             DB::table('posts')->insert([
                 'user_id' => rand(1, 10),
                 'category_id' => rand(1, 10),
                 'image' => '1.jpg',
-                'title' => $faker->sentence(6, true),
+                'title' => $title,
+                'slug' => $slug,
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),
                 'status' => 1,
@@ -108,7 +124,7 @@ class DatabaseSeeder extends Seeder
             DB::table('discount_codes')->insert([
                 'code' => strtoupper(Str::random(10)), // Tạo mã voucher ngẫu nhiên
                 'type' => $type, // Chọn loại ngẫu nhiên
-                'discount' => $type == 'fixed' 
+                'discount' => $type == 'fixed'
                     ? $faker->randomFloat(2, 100000, 500000) // Số tiền giảm nếu là 'fixed'
                     : $faker->randomFloat(2, 5, 50), // Phần trăm giảm nếu là 'percentage' hoặc 'percentage_with_cap'
                 'max_discount' => $maxDiscount, // Giới hạn giảm giá tối đa nếu là 'percentage_with_cap'

@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -23,7 +24,7 @@ class ProductController extends Controller
             $query->where('status', $request->status);
         }
         $products = $query->get();
-        return view('admin.product.product', compact('products','categories'));
+        return view('admin.product.product', compact('products', 'categories'));
     }
 
     public function create()
@@ -35,22 +36,28 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         try {
-            if($request->hasFile('photo')){
+            if ($request->hasFile('photo')) {
                 $image = time() . '_' . uniqid() . '.' . $request->photo->extension();
-                $request->photo->move(public_path('uploads/images/product'),$image);
-                $request->merge(['image'=>$image]);
+                $request->photo->move(public_path('uploads/images/product'), $image);
+                $request->merge(['image' => $image]);
             }
+
+            // Tạo slug từ tên sản phẩm và thêm vào request
+            $request->merge(['slug' => Str::slug($request->name)]);
+
             $product = Product::create($request->all());
-            if($request->hasFile('photos')){
-                foreach($request->photos as $photo){
+
+            if ($request->hasFile('photos')) {
+                foreach ($request->photos as $photo) {
                     $image = time() . '_' . uniqid() . '.' . $photo->extension();
-                    $photo->move(public_path('uploads/images/product'),$image);
+                    $photo->move(public_path('uploads/images/product'), $image);
                     ProductImage::create([
                         'product_id' => $product->id,
                         'image' => $image
                     ]);
                 }
             }
+
             flash()->success('Thêm sản phẩm mới thành công');
             return redirect()->route('admin.product.index');
         } catch (\Throwable $th) {
@@ -66,9 +73,9 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product)
-    {   
+    {
         $categories = ProductCategory::all();
-        return view('admin.product.edit',compact('product','categories'));
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
@@ -82,7 +89,10 @@ class ProductController extends Controller
                 $request->photo->move(public_path('uploads/images/product'), $image);
                 $request->merge(['image' => $image]);
             }
-            
+
+            // Tạo slug từ tên sản phẩm và thêm vào request
+            $request->merge(['slug' => Str::slug($request->name)]);
+
             $product->update($request->all());
 
             if ($request->hasFile('photos')) {
@@ -111,12 +121,13 @@ class ProductController extends Controller
         }
     }
 
-    public function delete(Product $product) {
+    public function delete(Product $product)
+    {
         try {
             $product->delete();
-            return redirect()->back()->with("success","Xóa $product->name thành công!");
+            return redirect()->back()->with("success", "Xóa $product->name thành công!");
         } catch (\Throwable $th) {
-            return redirect()->back()->with("error","Xóa $product->name thất bại!");
+            return redirect()->back()->with("error", "Xóa $product->name thất bại!");
         }
     }
 
@@ -131,7 +142,8 @@ class ProductController extends Controller
         }
     }
 
-    public function updateHidden(Request $request) {
+    public function updateHidden(Request $request)
+    {
         $product = Product::find($request->id);
         if ($product) {
             $product->is_hidden = $request->is_hidden;

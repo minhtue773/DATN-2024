@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use App\Models\Product; // Nếu bạn có model Product
@@ -69,57 +70,25 @@ class ProductUserController extends Controller
         $products = $query->paginate(9)->appends($request->except('page'));
         $newProducts = Product::orderBy('created_at', 'desc')->take(3)->get();
 
-       
+
         $index1 = 2;
         // Trả về view với danh sách sản phẩm, danh mục, 3 sản phẩm mới nhất và banner
         return view('clients.shop', compact('products', 'newProducts', 'categories', 'index1'));
     }
-    public function detail($id = null)
+    public function detail($slug = null)
     {
-        // Lấy danh sách các danh mục
+        // Fetch categories
         $categories = ProductCategory::all();
-    
-        // Khởi tạo các biến mặc định
-        $sp = Product::where('id', $id)->where('is_hidden', 0)->first();
-        $salePrice = null;
-        $images = [];
-        $categoryName = null;
-        $relatedProducts = [];
-        $index1 = 1;
-    
-        // Chỉ thực hiện nếu sản phẩm tồn tại
-        if ($sp) {
-            // Tính giá sale nếu có giảm giá
-            $salePrice = $sp->price;
-            if ($sp->discount > 0) {
-                $salePrice = $sp->price * (1 - $sp->discount / 100);
-            }
-    
-            // Lấy danh sách hình ảnh của sản phẩm
-            $images = ProductImage::where('product_id', $id)->get();
-    
-            // Lấy tên danh mục của sản phẩm
-            $categoryName = ProductCategory::where('id', $sp->product_category_id)->value('name');
-    
-            // Truy vấn các sản phẩm liên quan và tính giá sale nếu có
-            $relatedProducts = Product::where('product_category_id', $sp->product_category_id)
-            ->where('id', '!=', $id)
-            ->where('is_hidden', 0)
-            ->take(8)
-            ->select('id', 'name', 'price', 'discount', 'image', 'stock') // Bao gồm trường stock
-            ->get()
-            ->map(function ($product) {
-                $product->sale_price = $product->discount > 0 
-                    ? $product->price * (1 - $product->discount / 100) 
-                    : $product->price;
-                return $product;
-            });
-        
-        }
-    
-        // Chuyển hướng đến view và truyền dữ liệu
-        return view('clients.prodetail', compact('sp', 'images', 'relatedProducts', 'categoryName', 'salePrice', 'categories', 'index1'));
+
+        // Get product details by slug with necessary relations
+        $sp = Product::with('productImages', 'productCategory')
+            ->visible() // Filter products that are not hidden
+            ->where('slug', $slug)
+            ->first();
+
+
+        $index1 = 2;
+        // Return the view with necessary data
+        return view('clients.prodetail', compact('sp', 'index1'));
     }
-    
-    
 }

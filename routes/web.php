@@ -109,7 +109,8 @@ Route::post('/checkout/apply-discount', [CheckoutController::class, 'applyDiscou
 Route::post('/checkout/remove-discount', [CheckoutController::class, 'removeDiscountCode'])->name('discount.remove');
 Route::post('/checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
 Route::get('/posts', [BlogController::class, 'index'])->name('posts.index');
-Route::get('/post/{id}', [BlogController::class, 'show'])->name('post.show');
+Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
+
 Route::get('/login', [UserAuthController::class, 'login'])->name('login');
 Route::post('/login', [UserAuthController::class, 'loginUser']);
 Route::get('/register',[UserAuthController::class,'register'])->name('register');
@@ -135,7 +136,7 @@ Route::get('/order-details/{id}', [OrderControllers::class, 'show'])->name('orde
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
-Route::get('/product/{id}', [ProductUserController::class, 'detail'])->name('product.detail');
+Route::get('product/{slug}', [ProductUserController::class, 'detail'])->name('product.detail');
 Route::prefix('api')->group(function () {
     Route::get('/comments/product/{product_id}', [CommentControllers::class, 'product']);
     Route::resource('/comments', CommentControllers::class);

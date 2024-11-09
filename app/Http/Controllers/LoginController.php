@@ -26,7 +26,6 @@ class LoginController extends Controller
             $user = User::where('facebook_id', $facebookUser->id)->first();
 
             if (!$user) {
-                // Download avatar and save locally
                 $avatarPath = $this->downloadAndSaveAvatar($facebookUser->avatar, $facebookUser->id);
 
                 // Create a new user if not exists
@@ -35,11 +34,10 @@ class LoginController extends Controller
                     'email' => $facebookUser->email,
                     'facebook_id' => $facebookUser->id,
                     'image' => $avatarPath,
-                    'password' => bcrypt('123456dummy') // Placeholder password
+                    'password' => bcrypt('placeholder_password') // Consider using a secure, random token
                 ]);
             }
 
-            // Log the user in
             Auth::login($user);
 
             return redirect()->to('/home')->with('success', 'Đăng nhập thành công.');
@@ -60,21 +58,22 @@ class LoginController extends Controller
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
 
-            // Download avatar and save locally
-            $avatarPath = $this->downloadAndSaveAvatar($googleUser->getAvatar(), $googleUser->getId());
+            // Check if user already exists
+            $user = User::where('google_id', $googleUser->getId())->first();
 
-            // Find or create a new user
-            $user = User::updateOrCreate(
-                ['email' => $googleUser->getEmail()],
-                [
+            if (!$user) {
+                $avatarPath = $this->downloadAndSaveAvatar($googleUser->getAvatar(), $googleUser->getId());
+
+                // Create a new user if not exists
+                $user = User::create([
                     'name' => $googleUser->getName(),
+                    'email' => $googleUser->getEmail(),
                     'google_id' => $googleUser->getId(),
                     'image' => $avatarPath,
-                    'password' => bcrypt('123456dummy') // Placeholder password
-                ]
-            );
+                    'password' => bcrypt('placeholder_password') // Consider using a secure, random token
+                ]);
+            }
 
-            // Log the user in
             Auth::login($user);
 
             return redirect()->intended('/')->with('success', 'Đăng nhập thành công.');
@@ -86,16 +85,25 @@ class LoginController extends Controller
     // Helper method to download and save avatar
     protected function downloadAndSaveAvatar($url, $userId)
     {
-        // Generate a unique file name
-        $filename = "user_{$userId}_" . uniqid() . '.jpg';
+        try {
+            // Generate a unique file name
+            $filename = "user_{$userId}_" . uniqid() . '.jpg';
+            $directory = public_path('uploads/users');
 
-        // Define the path where to save the file
-        $path = public_path('uploads/users/' . $filename);
+            // Ensure the directory exists
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
 
-        // Download and save the file
-        file_put_contents($path, file_get_contents($url));
+            $path = $directory . '/' . $filename;
 
-        // Return the file path to be stored in the database
-        return 'uploads/users/' . $filename;
+            // Download and save the file
+            file_put_contents($path, file_get_contents($url));
+
+            return 'uploads/users/' . $filename;
+        } catch (\Exception $e) {
+            // Return a default avatar if download fails
+            return 'uploads/users/default_avatar.jpg';
+        }
     }
 }
