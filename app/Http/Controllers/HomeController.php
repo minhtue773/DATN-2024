@@ -11,7 +11,7 @@ use App\Models\Banner;
 class HomeController extends Controller
 {
     public function index()
-    {
+    {  
         // Lấy 4 danh mục sắp xếp theo order_number từ nhỏ đến cao
         $categories_dn = ProductCategory::orderBy('order_number', 'asc')->take(4)->get();
 

@@ -27,8 +27,15 @@
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Tên mô hình:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" value="{{ $product->name ?? old('name') }}">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Nhập tên..." name="name" id="name" value="{{ $product->name ?? old('name') }}">
                                         @error('name')
+                                            <p class="text-danger m-0 mt-1">* {{ $message }}</p>
+                                        @enderror
+                                    </div>                                      
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Slug:</label>
+                                        <input type="text" class="form-control form-control-sm" placeholder="abc-abv-ab..." name="slug" id="slug" value="{{ $product->slug ?? old('slug') }}">
+                                        @error('slug')
                                             <p class="text-danger m-0 mt-1">* {{ $message }}</p>
                                         @enderror
                                     </div>                                      

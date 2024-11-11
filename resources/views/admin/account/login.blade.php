@@ -35,16 +35,16 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user mb-1" name="email"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Nhập email...">
+                                                placeholder="Nhập email..." value="{{ old('email') }}" >
                                             @error('email')
-                                                <span class="text-danger">(*){{ $message }}</span>
+                                                <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" name="password"
                                                 id="exampleInputPassword" placeholder="Password">
                                             @error('password')
-                                                <span class="text-danger">(*){{ $message }}</span>
+                                                <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

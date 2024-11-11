@@ -51,10 +51,9 @@ class ProductController extends Controller
                     ]);
                 }
             }
-            flash()->success('Thêm sản phẩm mới thành công');
-            return redirect()->route('admin.product.index');
+            return redirect()->route('admin.product.index')->with('success', 'Thêm sản phẩm mới thành công');
         } catch (\Throwable $th) {
-            flash()->error('Thêm sản phẩm mới thất bại');
+            return redirect()->route('admin.product.index')->with('error', 'Thêm sản phẩm mới thất bại');
             return redirect()->back();
         }
     }
@@ -82,9 +81,7 @@ class ProductController extends Controller
                 $request->photo->move(public_path('uploads/images/product'), $image);
                 $request->merge(['image' => $image]);
             }
-            
             $product->update($request->all());
-
             if ($request->hasFile('photos')) {
                 $oldImages = ProductImage::where('product_id', $product->id)->get();
                 foreach ($oldImages as $oldImage) {
@@ -103,11 +100,9 @@ class ProductController extends Controller
                 }
             }
 
-            flash()->success("Cập nhật $product->name thành công");
-            return redirect()->route('admin.product.index');
+            return redirect()->route('admin.product.index')->with('success',"Cập nhật $product->name thành công");
         } catch (\Throwable $th) {
-            flash()->error("Cập nhật $product->name thất bại");
-            return redirect()->back();
+            return redirect()->back()->with('error',"Cập nhật $product->name thất bại");
         }
     }
 

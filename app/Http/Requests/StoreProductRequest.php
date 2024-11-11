@@ -23,6 +23,13 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:products,slug', // giả sử bảng là "models"
+                'regex:/^[a-z0-9-]+$/', // Chỉ cho phép chữ thường, số và dấu gạch ngang
+            ],
             'product_category_id' => 'required|exists:product_categories,id',
             'price' => 'required|numeric|min:0',
             'discount' => 'nullable|integer|min:0|max:100', // Giảm giá không vượt quá 100%
@@ -40,6 +47,11 @@ class StoreProductRequest extends FormRequest
             'name.required' => 'Tên mô hình là bắt buộc.',
             'name.string' => 'Tên mô hình phải là chuỗi.',
             'name.max' => 'Tên mô hình không được vượt quá 255 ký tự.',
+            'slug.required' => 'Slug là bắt buộc.',
+            'slug.string' => 'Slug phải là chuỗi.',
+            'slug.max' => 'Slug không được vượt quá 255 ký tự.',
+            'slug.unique' => 'Slug đã tồn tại. Vui lòng chọn slug khác.',
+            'slug.regex' => 'Slug không đúng định dạng.',
             'product_category_id.required' => 'Danh mục sản phẩm là bắt buộc.',
             'product_category_id.exists' => 'Danh mục sản phẩm không tồn tại.',
             'price.required' => 'Giá mô hình là bắt buộc.',

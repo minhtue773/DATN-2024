@@ -41,7 +41,6 @@ class PostController extends Controller
         }
         $isFeatured = $request->boolean('is_featured', false);
         $request->merge(['is_featured' => $isFeatured]);
-        
         try {
             Post::create($request->all());
             return redirect()->route('admin.post.index')->with('success', 'Thêm bài viết mới thành công');

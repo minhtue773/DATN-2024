@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory, SoftDeletes; // Sử dụng các trait HasFactory và SoftDeletes
 
     protected $fillable = [
-        'product_category_id', 'name', 'description', 'image', 'price',
+        'product_category_id', 'name', 'slug', 'description', 'image', 'price',
         'discount', 'stock', 'view', 'status', 'is_hidden'
     ]; // Các trường có thể gán giá trị hàng loạt
 

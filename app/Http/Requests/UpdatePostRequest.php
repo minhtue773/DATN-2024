@@ -21,8 +21,16 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $postID = $this->route('post')->id;
         return [
             'title' => 'required|string|max:255',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:posts,slug,' . $postID,
+                'regex:/^[a-z0-9-]+$/',
+            ],
             'category_id' => 'required|exists:post_categories,id',
             'status' => 'required|in:0,1',
             'description' => 'nullable|string|max:500',
@@ -35,6 +43,11 @@ class UpdatePostRequest extends FormRequest
         return [
             'title.required' => 'Tiêu đề là bắt buộc.',
             'title.max' => 'Tiêu đề không được dài quá 255 ký tự.',
+            'slug.required' => 'Slug là bắt buộc.',
+            'slug.string' => 'Slug phải là chuỗi.',
+            'slug.max' => 'Slug không được vượt quá 255 ký tự.',
+            'slug.unique' => 'Slug đã tồn tại. Vui lòng chọn slug khác.',
+            'slug.regex' => 'Slug không đúng định dạng.',
             'category_id.required' => 'Chuyên mục là bắt buộc.',
             'category_id.exists' => 'Chuyên mục không hợp lệ.',
             'status.required' => 'Trạng thái là bắt buộc.',

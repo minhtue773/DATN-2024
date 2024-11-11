@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
             $productId = DB::table('products')->insertGetId([
                 'product_category_id' => rand(1, 4), // Danh mục ngẫu nhiên từ 1 đến 4
                 'name' => $faker->words(3, true), // Tên ngẫu nhiên với 3 từ
+                'slug' => $faker->unique()->slug,
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên
                 'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
                 'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên
@@ -91,6 +92,7 @@ class DatabaseSeeder extends Seeder
                 'category_id' => rand(1, 10),
                 'image' => 'img/blog/1.jpg',
                 'title' => $faker->sentence(6, true),
+                'slug' => $faker->unique()->slug,
                 'description' => $faker->sentence(100),
                 'content' => $faker->paragraph(5),
                 'status' => 1,
@@ -296,6 +298,14 @@ class DatabaseSeeder extends Seeder
                 'status' => $faker->numberBetween(0, 3), // Trạng thái đơn hàng ngẫu nhiên
                 'created_at' => $faker->dateTimeBetween('-1 year', 'now'),
                 'updated_at' => Carbon::now(),
+            ]);
+        }
+        for ($i = 0; $i < 200; $i++) {
+            DB::table('order_details')->insert([
+                'order_id' => rand(1, 50), // Ngẫu nhiên lấy order từ 1 đến 50
+                'product_id' => rand(1, 200), // Ngẫu nhiên lấy sản phẩm từ 1 đến 200
+                'quantity' => rand(1, 5), // Số lượng ngẫu nhiên từ 1 đến 5
+                'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên từ 100.000 đến 10.000.000
             ]);
         }
     }

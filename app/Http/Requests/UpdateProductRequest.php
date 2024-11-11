@@ -21,16 +21,24 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        $productId = $this->route('product')->id;
         return [
             'name' => 'required|string|max:255',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:products,slug,' . $productId,
+                'regex:/^[a-z0-9-]+$/',
+            ],
             'product_category_id' => 'required|exists:product_categories,id',
             'price' => 'required|numeric|min:0',
-            'discount' => 'nullable|integer|min:0|max:100', // Giảm giá không vượt quá 100%
+            'discount' => 'nullable|integer|min:0|max:100',
             'stock' => 'required|integer|min:0',
             'status' => 'nullable|in:0,1,2,3,4,5',
             'description' => 'nullable|string',
-            'photo' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048', // Không bắt buộc, 2MB max
-            'photos.*' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048', // 2MB max cho từng ảnh
+            'photo' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'photos.*' => 'nullable|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ];
     }
     public function messages()
@@ -39,6 +47,11 @@ class UpdateProductRequest extends FormRequest
             'name.required' => 'Tên mô hình là bắt buộc.',
             'name.string' => 'Tên mô hình phải là chuỗi.',
             'name.max' => 'Tên mô hình không được vượt quá 255 ký tự.',
+            'slug.required' => 'Slug là bắt buộc.',
+            'slug.string' => 'Slug phải là chuỗi.',
+            'slug.max' => 'Slug không được vượt quá 255 ký tự.',
+            'slug.unique' => 'Slug đã tồn tại. Vui lòng chọn slug khác.',
+            'slug.regex' => 'Slug không đúng định dạng.',
             'product_category_id.required' => 'Danh mục sản phẩm là bắt buộc.',
             'product_category_id.exists' => 'Danh mục sản phẩm không tồn tại.',
             'price.required' => 'Giá mô hình là bắt buộc.',
