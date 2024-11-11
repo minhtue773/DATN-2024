@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusUpdatedMail;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use App\Models\Product;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 
 class OrderController extends Controller
 {
@@ -64,7 +67,32 @@ class OrderController extends Controller
             'status' => $newStatus,
             'updated_at' => Carbon::now()
         ]);
+    
+        $statusMessage = '';
+        switch ($newStatus) {
+            case 1:
+                $statusMessage = 'Đơn hàng của bạn đã được xác nhận và đang được xử lý.';
+                break;
+            case 2:
+                $statusMessage = 'Đơn hàng của bạn đang được giao.';
+                break;
+            case 3:
+                $statusMessage = 'Đơn hàng của bạn đã được giao thành công.';
+                break;
+            case 5:
+                $statusMessage = 'Đơn hàng của bạn đã được hủy.';
+                foreach ($order->orderDetails as $orderDetail) {
+                    $product = $orderDetail->product;
+                    $product->stock += $orderDetail->quantity;
+                    $product->save();
+                }
+                break;
+        }
+    
+        // Gửi email cho khách hàng
+        Mail::to($order->user->email)->send(new OrderStatusUpdatedMail($order, $statusMessage));
     }
+    
 
     public function updateStatus(Order $order) {
         switch ($order->status) {

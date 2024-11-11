@@ -18,11 +18,19 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
+        $orderStatus = Order::selectRaw('status ,COUNT(*) as count')
+        ->whereIn('status', [3, 5])
+        ->groupBy('status')
+        ->orderBy('status')
+        ->get();
+
+        $labels = $orderStatus->pluck('status');
+        $data = $orderStatus->pluck('count')->toArray();
+        dd($data);
+
         $revenue = $this->getRevenueData($request->chartOrder ?? 'month');
         $productTop = $this->getTopProducts($request->input('productTop', 5));
-
         $access = $this->getAccess();
-
         $monthVisit = $this->getMonthVisits();
 
         return view('admin.home', compact('revenue', 'productTop', 'access', 'monthVisit'));
