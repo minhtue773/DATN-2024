@@ -1,5 +1,6 @@
 @extends('clients.layout.app')
 @section('title')
+    Chi Tiết Sản Phẩm
 @endsection
 @section('content')
     @if (isset($sp))
@@ -17,7 +18,7 @@
 
             <div class="container-fluid py-5">
                 <div class="row px-xl-5">
-                    <div class="col-lg-5 pb-5">
+                    <div style="max-width: 500px;margin:auto" class="col-lg-6 pb-5">
                         <div id="product-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner border">
 
@@ -28,7 +29,8 @@
                                             Sale {{ $sp->discount }}%
                                         </div>
                                     @endif
-                                    <img class="w-100 h-100" src="{{ asset('client/' . $sp->image) }}" alt="Image">
+                                    <img class="w-100 h-100" src="{{ asset('uploads/images/product/' . $sp->image) }}"
+                                        alt="Image">
 
                                 </div>
 
@@ -40,10 +42,15 @@
                                         </div>
                                     @endif
                                     <div class="carousel-item">
-                                        <img class="w-100 h-100" src="{{ asset('client/' . $hinh->image) }}" alt="Image">
+                                        <img class="w-100 h-100" src="{{ asset('uploads/images/product/' . $hinh->image) }}"
+                                            alt="Image">
                                     </div>
                                 @endforeach
-
+                                @if ($sp->stock == 0)
+                                    <div class="sold-out-overlay">
+                                        <span class="sold-out-text">Hết hàng</span>
+                                    </div>
+                                @endif
 
                             </div>
                             <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -55,22 +62,11 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-7 pb-5">
+                    <div class="col-lg-6 pb-5">
                         <h3 class="font-weight-semi-bold">{{ $sp->name }}</h3>
-                        <p class="text-dark font-weight-medium mb-0 mr-3" style="margin-top: 2%">Danh Mục:
-                            {{ $categoryName }}</p>
-                        @if ($sp->stock == 0)
-                            <p class="text-dark font-weight-medium mb-0 mr-3" style="margin-top: 1%">Tình Trạng: Hết Hàng
-                            </p>
-                        @else
-                            <p class="text-dark font-weight-medium mb-0 mr-3" style="margin-top: 1%">Tình Trạng: Còn Hàng
-                            </p>
-                        @endif
-
-
 
                         <div class="d-flex mb-3" style="margin-top: 1%">
-                            <div class="text-primary mr-2">
+                            <div class="text-primary mr-2" ng-cloak>
                                 <i class="fas fa-star" ng-show="average_rating >= 1"></i>
                                 <i class="fas fa-star" ng-show="average_rating >= 2"></i>
                                 <i class="fas fa-star" ng-show="average_rating >= 3"></i>
@@ -84,9 +80,27 @@
                                 <i class="far fa-star" ng-show="average_rating < 2"></i>
                                 <i class="far fa-star" ng-show="average_rating < 1"></i>
                             </div>
-                            <small class="pt-1">(%% totalComments || 0 %% Đánh giá)</small>
+                            <small class="pt-1" ng-cloak>(%% totalComments || 0 %% Đánh giá)</small>
 
                         </div>
+
+                        <p class="text-dark font-weight-medium mb-0 mr-3" style="margin-top: 2%">Danh Mục:
+                            {{ $categoryName }}
+                        </p>
+                        @if ($sp->stock == 0)
+                            <p class="text-dark font-weight-medium mb-4 mr-3" style="margin-top: 1%">Tình Trạng: Hết Hàng
+                            </p>
+                        @else
+                            <p class="text-dark font-weight-medium mb-4 mr-3" style="margin-top: 1%">Tình Trạng: Còn Hàng
+                                ({{ $sp->stock }})
+                            </p>
+                        @endif
+
+                       
+
+
+
+                      
 
                         @if ($sp->discount > 0)
                             <h3 class="font-weight-semi-bold mb-4" style="text-decoration: line-through;">
@@ -101,49 +115,71 @@
                             </h3>
                         @endif
 
+                        <p class="text-dark font-weight-medium mb-0 mr-3" style="margin-top: 2%">Kích thước:
+                            {{ $sp->size }}
+                        </p>
+
+                        <p class="text-dark font-weight-medium mb-4 mr-3" style="margin-top: 2%;">Cân nặng:
+                            {{ $sp->weight }} kg
+                        </p>
 
 
                         <div class="d-flex align-items-center mb-4 pt-2">
-                            <div class="input-group quantity mr-3" style="width: 130px;">
+                            @if ($sp->stock > 0)
+                                <div class="input-group quantity mr-3" style="width: 130px;">
 
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-minus" ng-click="decreaseQty()">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-minus" ng-click="decreaseQty()">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="number" id="quantityInput" ng-model="quantity"
+                                        ng-blur="validateQuantity()" class="form-control quantity-input"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                        onkeydown="if(['-', '+', 'e'].includes(event.key)) event.preventDefault();" />
+
+
+
+
+
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-plus" ng-click="increaseQty()">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <input type="text" id="quantityInput" ng-model="quantity" ng-change="validateQuantity()"
-                                    min="1" max="{{ $sp->stock }}" class="form-control" />
+                            @endif
 
-
-
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-plus" ng-click="increaseQty()">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
                             @if ($sp->stock == 0)
                                 <button class="btn btn-primary px-3" disabled>Hết hàng</button>
                             @else
                                 <button class="btn btn-primary px-3"
-                                    ng-click="addToCart2({{ $sp->id }}, quantity)"><i
+                                    ng-click="addToCart({{ $sp->id }}, quantity, {{ $sp->stock }})"><i
                                         class="fa fa-shopping-cart mr-1"></i> Thêm Vào Giỏ Hàng</button>
+
+                                <button class="btn btn-primary px-3" style="margin-left: 2%"
+                                    ng-click="addToCart2({{ $sp->id }}, quantity, {{ $sp->stock }})">Mua
+                                    Ngay</button>
                             @endif
 
                         </div>
                         <div class="d-flex pt-2">
-                            <p class="text-dark font-weight-medium mb-0 mr-2">Chia Sẻ Lên:</p>
+                            <p class="text-dark font-weight-medium mb-0 mr-2" style="font-size: 1.5em;">Chia Sẻ Lên:</p>
                             <div class="d-inline-flex">
-                                <a class="text-dark px-2" href="">
+                                <a class="px-2" href="" style="color: #3b5998; font-size: 1.5em;">
+                                    <!-- Màu xanh Facebook -->
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a class="text-dark px-2" href="">
+                                <a class="px-2" href="" style="color: #1da1f2; font-size: 1.5em;">
+                                    <!-- Màu xanh Twitter -->
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a class="text-dark px-2" href="">
+                                <a class="px-2" href="" style="color: #0077b5; font-size: 1.5em;">
+                                    <!-- Màu xanh LinkedIn -->
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
-                                <a class="text-dark px-2" href="">
+                                <a class="px-2" href="" style="color: #bd081c; font-size: 1.5em;">
+                                    <!-- Màu đỏ Pinterest -->
                                     <i class="fab fa-pinterest"></i>
                                 </a>
                             </div>
@@ -154,8 +190,8 @@
                     <div class="col">
                         <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                             <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Mô Tả</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Thông Tin</a>
-                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Đánh Giá (%% totalComments
+                            <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3" ng-cloak>Đánh Giá (%%
+                                totalComments
                                 || 0 %% )</a>
                         </div>
                         <div class="tab-content">
@@ -164,94 +200,55 @@
                                 <p>{{ $sp->description }}</p>
 
                             </div>
-                            <div class="tab-pane fade" id="tab-pane-2">
-                                <h4 class="mb-3">Additional Information</h4>
-                                <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
-                                    invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
-                                    consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
-                                    diam.
-                                    Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing,
-                                    eos
-                                    dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod
-                                    nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt
-                                    tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item px-0">
-                                                Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item px-0">
-                                                Sit erat duo lorem duo ea consetetur, et eirmod takimata.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Duo amet accusam eirmod nonumy stet et et stet eirmod.
-                                            </li>
-                                            <li class="list-group-item px-0">
-                                                Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                          
                             <div class="tab-pane fade" id="tab-pane-3">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4 class="mb-4">%% totalComments || 0 %% đánh giá cho "{{ $sp->name }}"
                                         </h4>
-                                        <div class="media mb-4" ng-repeat="bl in dsBL">
-                                            <img src="{{ asset('client') }}/img/user.jpg" alt="Image"
-                                                class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                            <div class="media-body">
-                                                <h6>%% bl.user_fullname %%<small> - <i>%% bl.created_at | date: 'dd/MM/yyyy
-                                                            HH:mm:ss' %%</i></small>
 
-                                                    <small ng-if="bl.user_id == currentUserId"><a
-                                                            href="javascript:void(0);" ng-click="deleteComment(bl.id)">/
-                                                            Xóa</a>
-                                                    </small>
-                                                </h6>
-                                                <div class="text-primary mb-2">
-                                                    <i class="fas fa-star" ng-show="bl.rating_stars >= 1"></i>
-                                                    <i class="fas fa-star" ng-show="bl.rating_stars >= 2"></i>
-                                                    <i class="fas fa-star" ng-show="bl.rating_stars >= 3"></i>
-                                                    <i class="fas fa-star" ng-show="bl.rating_stars >= 4"></i>
-                                                    <i class="fas fa-star" ng-show="bl.rating_stars >= 5"></i>
+                                        <!-- Container cho phần bình luận với thanh cuộn -->
+                                        <div class="comments-container" style="max-height: 400px; overflow-y: auto;">
+                                            <div class="media mb-4" ng-repeat="bl in dsBL">
+                                                <img src="{{ asset('uploads/images/user/') }}/%% bl.user.image %%"
+                                                    alt="Image" class="img-fluid mr-3 mt-1 rounded-circle"
+                                                    style="width: 45px;">
+                                                <div class="media-body">
+                                                    <h6>%% bl.user_fullname %%<small> - <i>%% bl.created_at | date:
+                                                                'dd/MM/yyyy HH:mm:ss' %%</i></small>
+                                                        <small ng-if="bl.user_id == currentUserId">
+                                                            <a href="javascript:void(0);"
+                                                                ng-click="deleteComment(bl.id)">/ Xóa</a>
+                                                        </small>
+                                                    </h6>
+                                                    <div class="text-primary mb-2">
+                                                        <i class="fas fa-star" ng-show="bl.rating_stars >= 1"></i>
+                                                        <i class="fas fa-star" ng-show="bl.rating_stars >= 2"></i>
+                                                        <i class="fas fa-star" ng-show="bl.rating_stars >= 3"></i>
+                                                        <i class="fas fa-star" ng-show="bl.rating_stars >= 4"></i>
+                                                        <i class="fas fa-star" ng-show="bl.rating_stars >= 5"></i>
 
-                                                    <i class="far fa-star" ng-show="bl.rating_stars < 5"></i>
-                                                    <i class="far fa-star" ng-show="bl.rating_stars < 4"></i>
-                                                    <i class="far fa-star" ng-show="bl.rating_stars < 3"></i>
-                                                    <i class="far fa-star" ng-show="bl.rating_stars < 2"></i>
-                                                    <i class="far fa-star" ng-show="bl.rating_stars < 1"></i>
+                                                        <i class="far fa-star" ng-show="bl.rating_stars < 5"></i>
+                                                        <i class="far fa-star" ng-show="bl.rating_stars < 4"></i>
+                                                        <i class="far fa-star" ng-show="bl.rating_stars < 3"></i>
+                                                        <i class="far fa-star" ng-show="bl.rating_stars < 2"></i>
+                                                        <i class="far fa-star" ng-show="bl.rating_stars < 1"></i>
+                                                    </div>
+                                                    <p>%% bl.content %%</p>
                                                 </div>
-                                                <p>%% bl.content %%</p>
                                             </div>
                                         </div>
+
                                     </div>
+
                                     @auth
                                         <div class="col-md-6">
                                             <h4 class="mb-4">Để lại 1 đánh giá</h4>
-
                                             <div class="d-flex my-3">
                                                 <div class="form-group">
                                                     <label for="userRating">Sao đánh giá</label>
-                                                    <select ng-model="rating" class="form-control" id="rating">
+                                                    <select ng-model="rating" ng-init="rating = '5'" class="form-control"
+                                                        id="rating">
                                                         <option value="5">5 sao</option>
                                                         <option value="4">4 sao</option>
                                                         <option value="3">3 sao</option>
@@ -260,36 +257,63 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <form>
+                                            <form name="commentForm" ng-submit="sendComment()" novalidate>
                                                 <div class="form-group">
                                                     <label for="message">Nội Dung Đánh giá</label>
-
                                                     <textarea id="message" cols="30" rows="5" class="form-control" ng-model="content"
-                                                        placeholder="Nhập nội dung bình luận" required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name">Tên của bạn</label>
-                                                    <input type="text" class="form-control" id="name"
-                                                        value="{{ Auth::user()->name }}" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email">Email của bạn</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        value="{{ Auth::user()->email }}" readonly>
+                                                        placeholder="Nhập nội dung bình luận (bình luận phải ít nhất 5 kí tự)" required ng-minlength="5"></textarea>
+
+                                                    <!-- Hiển thị thông báo lỗi nếu nội dung dưới 5 ký tự -->
+                                                    <div class="text-danger"
+                                                        ng-show="commentForm.message.$dirty && commentForm.message.$error.minlength">
+                                                        Nội dung phải có ít nhất 5 ký tự.
+                                                    </div>
                                                 </div>
 
                                                 <div class="form-group mb-0">
-                                                    <button class="btn btn-primary" ng-click="sendComment()">Gửi bình
-                                                        luận</button>
+                                                    <!-- Nút gửi bị vô hiệu hóa nếu nội dung dưới 5 ký tự -->
+                                                    <button class="btn btn-primary" ng-disabled="commentForm.$invalid">Gửi
+                                                        bình luận</button>
                                                 </div>
-
-
-
                                             </form>
                                         </div>
                                     @endauth
                                     @guest
-                                        <h4 class="mb-4"><a href="/login">Đăng nhập để bình luận</a></h4>
+
+                                        <div class="col-md-6">
+                                            <h4 class="mb-4">Để lại 1 đánh giá</h4>
+                                            <div class="d-flex my-3">
+                                                <div class="form-group">
+                                                    <label for="userRating">Sao đánh giá</label>
+                                                    <select ng-model="rating" ng-init="rating = '5'" class="form-control"
+                                                        id="rating">
+                                                        <option value="5">5 sao</option>
+                                                        <option value="4">4 sao</option>
+                                                        <option value="3">3 sao</option>
+                                                        <option value="2">2 sao</option>
+                                                        <option value="1">1 sao</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <form name="commentForm" ng-submit="sendComment()" novalidate>
+                                                <div class="form-group">
+                                                    <label for="message">Nội Dung Đánh giá</label>
+                                                    <textarea id="message" cols="30" rows="5" class="form-control" ng-model="content"
+                                                        placeholder="Nhập nội dung bình luận (bình luận phải ít nhất 5 kí tự)" required ng-minlength="5"></textarea>
+
+                                                    <!-- Hiển thị thông báo lỗi nếu nội dung dưới 5 ký tự -->
+                                                    <div class="text-danger"
+                                                        ng-show="commentForm.message.$dirty && commentForm.message.$error.minlength">
+                                                        Nội dung phải có ít nhất 5 ký tự.
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mb-0">
+                                                    <!-- Nút gửi bị vô hiệu hóa nếu nội dung dưới 5 ký tự -->
+                                                    <button class="btn btn-primary" href="/login">Gửi bình luận</button>
+                                                </div>
+                                            </form>
+                                        </div>
 
                                     @endguest
                                 </div>
@@ -303,20 +327,40 @@
                 <div class="text-center mb-4">
                     <h2 class="section-title px-5"><span class="px-2">Mô Hình Liên Quan</span></h2>
                 </div>
-                <div class="row px-xl-5">
+                <div style="max-width: 1640px; margin:auto" class="row px-xl-5">
                     <div class="col">
                         <div class="owl-carousel related-carousel">
                             @foreach ($relatedProducts as $product)
                                 <div class="card product-item border-0">
+
                                     <div
                                         class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}">
-                                            <img class="img-fluid w-100" src="{{ asset('client/' . $product->image) }}"
-                                                alt="{{ $product->name }}">
-                                        </a>
+
+                                        <img class="img-fluid w-100" style="max-height: 420px;"
+                                            src="{{ asset('uploads/images/product/' . $product->image) }}"
+                                            alt="{{ $product->name }}">
+                                        @if ($product->stock == 0)
+                                            <div class="sold-out-overlay">
+                                                <span class="sold-out-text">Hết hàng</span>
+                                            </div>
+                                        @endif
+                                        <!-- Wishlist button -->
+                                        @auth
+                                            <a href="#"
+                                                class="wishlist-toggle btn btn-sm text-dark p-0 {{ Auth::user()->favorites()->where('product_id', $product->id)->exists()? 'favorited': '' }}"
+                                                data-product-id="{{ $product->id }}"
+                                                data-status="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists()? 'favorited': '' }}"
+                                                title="{{ Auth::user()->favorites()->where('product_id', $product->id)->exists()? 'Bỏ thích': 'Thích' }}">
+                                                <i
+                                                    class="fas fa-heart {{ Auth::user()->favorites()->where('product_id', $product->id)->exists()? 'text-danger': 'text-primary' }} mr-1"></i>
+                                                <span
+                                                    class="wishlist-text">{{ Auth::user()->favorites()->where('product_id', $product->id)->exists()? 'Bỏ thích': 'Thích' }}</span>
+                                            </a>
+                                        @endauth
+
                                     </div>
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}">
+                                        <a href="{{ route('product.detail', $product->slug) }}">
                                             <h6 class="text-truncate mb-3">{{ $product->name }}</h6>
                                         </a>
                                         <div class="d-flex justify-content-center">
@@ -335,16 +379,15 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                        <a href="{{ route('product.detail', $product->slug) }}"
                                             class="btn btn-sm text-dark p-0"><i
-                                                class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                                class="fas fa-eye text-primary mr-1"></i>Xem</a>
                                         @if ($product->stock == 0)
                                             <a href="javascript:void(0);" class="btn btn-sm text-dark p-0">Hết hàng</a>
                                         @else
                                             <a href="javascript:void(0);" class="btn btn-sm text-dark p-0"
-                                                ng-click="addToCart({{ $sp->id }}, quantity)"><i
-                                                    class="fas fa-shopping-cart text-primary mr-1"></i>Thêm vào giỏ
-                                                hàng</a>
+                                                ng-click="addToCart({{ $product->id }}, 1, {{ $product->stock }})"><i
+                                                    class="fas fa-shopping-cart text-primary mr-1"></i>Thêm</a>
                                         @endif
 
                                     </div>
@@ -362,18 +405,18 @@
                 viewFunction = function($scope, $http) {
                     $scope.quantity = 1; // Khởi tạo số lượng
 
+                    // Hàm kiểm tra và cập nhật số lượng
                     $scope.validateQuantity = function() {
-                        // Kiểm tra giới hạn hợp lệ
                         if ($scope.quantity <= 0) {
                             $scope.quantity = 1;
-                            alert("Số lượng không thể nhỏ hơn 1. Số lượng đã được đặt lại thành 1.");
+                            Swal.fire('Thông báo', "Số lượng không thể nhỏ hơn 1. Số lượng đã được đặt lại thành 1.",
+                                'warning');
                         } else if ($scope.quantity > {{ $sp->stock }}) {
                             $scope.quantity = {{ $sp->stock }};
-                            alert("Số lượng đã đạt tối đa tồn kho. Số lượng đã được đặt lại thành " + $scope.quantity +
-                                ".");
+                            Swal.fire('Thông báo', "Số lượng đã đạt tối đa tồn kho. Số lượng đã được đặt lại thành " +
+                                $scope.quantity + ".", 'warning');
                         }
-
-                        // Cập nhật lại giá trị của ô input trực tiếp
+                        // Cập nhật lại giá trị của ô input
                         document.getElementById('quantityInput').value = $scope.quantity;
                     };
 
@@ -382,7 +425,7 @@
                         if ($scope.quantity > 1) {
                             $scope.quantity--;
                         } else {
-                            alert("Số lượng không thể nhỏ hơn 1.");
+                            Swal.fire('Thông báo', "Số lượng không thể nhỏ hơn 1.", 'warning');
                         }
                         $scope.validateQuantity();
                     };
@@ -392,29 +435,29 @@
                         if ($scope.quantity < {{ $sp->stock }}) {
                             $scope.quantity++;
                         } else {
-                            alert("Số lượng đã đạt tối đa tồn kho.");
+                            Swal.fire('Thông báo', "Số lượng đã đạt tối đa tồn kho.", 'warning');
                         }
                         $scope.validateQuantity();
                     };
+
+                    // Lấy danh sách bình luận
                     $scope.dsBL = [];
                     $scope.getComment = function() {
                         $http.get('/api/comments/product/{{ $sp->id }}').then(
-                            function(res) { // Thành công
+                            function(res) {
                                 $scope.dsBL = res.data.data; // Danh sách bình luận
                                 $scope.totalComments = res.data.total_comments; // Số lượng bình luận
                                 $scope.average_rating = res.data.average_rating;
-                                console.log($scope.dsBL);
-                                console.log("Tổng số bình luận: ", $scope.totalComments); // In ra số lượng bình luận
                             },
-                            function(res) { // Thất bại
+                            function(res) {
                                 console.error('Lỗi khi lấy dữ liệu từ API', res);
                             }
                         );
                     };
 
-
                     $scope.getComment();
 
+                    // Gửi bình luận
                     $scope.sendComment = function() {
                         $http.post('/api/comments', {
                             'product_id': {{ $sp->id }},
@@ -423,40 +466,49 @@
                         }).then(
                             function(res) {
                                 if (res.data.status) {
-
                                     $scope.content = '';
-                                    $scope.rating = 5;
-
-
+                                    $scope.rating = '5';
                                     $scope.getComment();
-
-
-                                    alert('Thêm bình luận thành công!');
-
-
+                                    Swal.fire('Thành công', 'Thêm bình luận thành công!', 'success');
                                 }
                             },
                             function(error) {
+                                Swal.fire({
+                                    icon: "question",
+                                    showConfirmButton: false,
+                                    title: "Bạn chưa đăng nhập",
+                                    html: "<a href='/login'>Đăng nhập ngay</a>",
 
-                                alert('Có lỗi xảy ra: ' + error.data.message);
-
+                                });
                             }
                         );
                     };
 
-
+                    // Xóa bình luận
                     $scope.deleteComment = function(commentId) {
-                        if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) {
-                            $http.delete('/api/comments/' + commentId).then(
-                                function(res) {
-                                    if (res.data.status) {
-                                        $scope.successMessage = res.data.message;
-                                        $scope.getComment();
+                        Swal.fire({
+                            title: 'Bạn có chắc chắn muốn xóa bình luận này?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Xóa',
+                            cancelButtonText: 'Hủy',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $http.delete('/api/comments/' + commentId).then(
+                                    function(res) {
+                                        if (res.data.status) {
+                                            $scope.getComment();
+                                            Swal.fire('Thành công', 'Bình luận đã được xóa!', 'success');
+                                        }
+                                    },
+                                    function(error) {
+                                        Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xóa bình luận.', 'error');
                                     }
-                                },
-                            );
-                        }
+                                );
+                            }
+                        });
                     };
+
                 };
             </script>
         @endsection
@@ -465,9 +517,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="error-404 box-shadow p-4"> <!-- Added p-4 class for Bootstrap padding -->
+                        <div class="error-404 box-shadow p-4">
                             <img src="img/others/error.jpg" alt="" class="img-fluid">
-                            <div class="go-to-btn btn-hover-2 mt-3"> <!-- Add margin-top for spacing -->
+                            <div class="go-to-btn btn-hover-2 mt-3">
                                 <h4>Sản Phẩm Không Tồn Tại Hoặc Bị Ẩn</h4>
                                 <a href="/" class="btn btn-primary">Trở về trang chủ</a>
                             </div>
@@ -477,8 +529,4 @@
             </div>
         </div>
     @endif
-
-
-
-
 @endsection

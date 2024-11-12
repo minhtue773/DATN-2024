@@ -20,40 +20,7 @@ class CartController extends Controller
     {
 
         $index1 = 1;
-    return view('clients.cart',  compact('index1'));
-       
-       
-    }
-
-    public function checkout(Request $request)
-    {
-
-        $order = new Order();
-        $order->user_id = Auth::check() ? Auth::user()->id : null;
-        $order->user_fullname = $request->input('name');
-        $order->user_phone = $request->input('sdt');
-        $order->user_address = $request->input('diachi');
-        $order->user_email = $request->input('email');
-        $order->total_money = 0;
-        $order->total_quantity = 0;
-        $order->save();
-
-        foreach (session('cart') as $sp) {
-            $order_detail = new OrderDetail();
-            $order_detail->order_id = $order->id;
-            $order_detail->product_id = $sp['id']; // Sửa thành $sp['id']
-            $order_detail->quantity = $sp['soluong']; // Sửa thành $sp['soluong']
-            $order_detail->price = is_null($sp['sale_price']) ? $sp['price'] : $sp['sale_price']; // Sửa thành $sp['sale_price']
-            $order_detail->save();
-        
-            $order->total_money += $order_detail->quantity * $order_detail->price;
-            $order->total_quantity += $order_detail->quantity;
-        }
-        $order->save();
-
-        session()->forget('cart');
-        $request->session()->flash('thongbao', "Đã checkout thành công, Đơn hàng của bạn đang được xử lý");
-        return redirect("/thongbao");
+        return view('clients.cart',  compact('index1'));
     }
 
     public function index()
@@ -78,10 +45,10 @@ class CartController extends Controller
         if (is_null(session('cart'))) {
             session()->put('cart', []);
         }
-    
+
         $cart = session('cart');
         $inCart = false; // Giả sử chưa có sản phẩm trong giỏ hàng
-    
+
         // Kiểm tra sản phẩm đã có trong giỏ hàng hay chưa
         foreach ($cart as &$item) {
             if ($item['id'] == $request->product_id) {
@@ -90,22 +57,22 @@ class CartController extends Controller
                 break;
             }
         }
-    
+
         // Nếu sản phẩm chưa có trong giỏ hàng thì thêm vào
         if (!$inCart) {
             $sp = Product::find($request->product_id);
             if ($sp) {
                 // Lấy tên thương hiệu từ ProductCategory
                 $categoryName = $sp->ProductCategory ? $sp->ProductCategory->name : 'Không xác định';
-    
+
                 // Lưu giá gốc
                 $originalPrice = $sp->price;
-    
+
                 // Kiểm tra giảm giá, nếu `discount` là null hoặc bằng 0 thì không áp dụng giảm giá
                 $finalPrice = (!is_null($sp->discount) && $sp->discount > 0)
                     ? $sp->price * (1 - $sp->discount / 100) // Nếu có giảm giá, tính giá sau khi giảm
                     : $sp->price; // Nếu không có giảm giá, giữ nguyên giá gốc
-    
+
                 $spItem = [
                     'id' => $sp->id,
                     'name' => $sp->name,
@@ -114,6 +81,7 @@ class CartController extends Controller
                     'hinh' => $sp->image,
                     'sale' => $sp->discount, // Giữ lại giá trị giảm giá
                     'stock' => $sp->stock,
+                    'slug' => $sp->slug,
                     'soluong' => $request->quantity,
                     'category_name' => $categoryName, // Thêm tên thương hiệu vào giỏ hàng
                 ];
@@ -125,21 +93,21 @@ class CartController extends Controller
                 ], 404);
             }
         }
-    
+
         // Cập nhật lại giỏ hàng trong session
         session()->put('cart', $cart);
-    
+
         // Tạo kết quả trả về
         $kq = [
             "status" => true,
             "message" => "Đã thêm sản phẩm vào giỏ hàng!",
             "data" => session('cart'),
         ];
-    
+
         return response()->json($kq, 200);
     }
-    
-    
+
+
 
 
 
@@ -200,4 +168,41 @@ class CartController extends Controller
         ];
         return response()->json($kq, 200);
     }
+
+    public function clearCart()
+    {
+        session()->forget('cart');
+
+        return response()->json([
+            "status" => true,
+            "message" => "Đã xóa giỏ hàng thành công!"
+        ]);
+    }
+
+    public function apiCheckout(Request $request)
+    {
+        $cart = session('cart', []);
+    
+        foreach ($cart as $index => $item) {
+            $product = Product::find($item['id']);
+            if ($product) {
+                // Tính toán giá với discount nếu có
+                $actualPrice = $product->price;
+                if ($product->discount > 0) {
+                    $actualPrice = $product->price * (1 - $product->discount / 100);
+                }
+    
+                // Kiểm tra và cập nhật giá trong giỏ hàng nếu khác giá hiện tại
+                if ($item['price'] != $actualPrice) {
+                    $cart[$index]['price'] = $actualPrice;
+                }
+            }
+        }
+    
+        session(['cart' => $cart]);
+    
+        return response()->json(['success' => true]);
+    }
+    
+    
 }

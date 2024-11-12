@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="categories_post">
-                        <img src="{{ asset('client') }}/img/blog/cat-post/cat-post-3.jpg" alt="post">
+                        <img src="{{ asset('uploads') }}/blog/cat-post/cat-post-3.jpg" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
                                 <a href="blog-details.html">

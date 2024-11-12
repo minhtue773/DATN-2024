@@ -3,18 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Promotion;
+use App\Models\DiscountCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePromotionRequest;
 use App\Http\Requests\UpdatePromotionRequest;
+use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.promotion.promotion');
+        $query = DiscountCode::query();
+        if ($request->status > 0) {
+            $query->where('status', $request->status);
+        }
+        $DiscountCodes = $query->get();
+        return view('admin.promotion.promotion', compact('DiscountCodes'));
     }
 
     /**

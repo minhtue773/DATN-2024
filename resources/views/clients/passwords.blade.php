@@ -22,74 +22,85 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="{{asset('client/css/login.css')}}">
+
 </head>
 
 <body>
-    <div id="" class="header-middle-area plr-185" style="background-color:white; position: fixed;top: 0;width: 100%;">
-        <div class="container-fluid">
-            <div class="full-width-mega-dropdown">
+    @php
+    // Chuyển đổi $websiteSettings thành một mảng cho dễ sử dụng
+    $settingsArray = $websiteSettings->keyBy('setting_key')->toArray();
+    @endphp
+    <section class="d-flex justify-content-center align-items-center" style="background: linear-gradient(135deg, #f5f5f5, #8f8b95);height: 100%;">
+        <div class="container ">
+            <div class="row d-flex justify-content-center align-items-center ">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="{{asset('uploads/images/transformer.png')}}"
+                                    alt="login form" class="img-fluid h-100 w-100" style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    @if ($errors->any())
+                                    <div class="col-12">
+                                        @foreach ($errors->all() as $error )
+                                        <div class="alert alert-danger">{{$error}}</div>
+                                        @endforeach
+                                    </div>
+                                    @endif
 
-                <div class="row">
+                                    @if (session()->has('error'))
+                                    <div class="alert alert-danger">{{session('error')}}</div>
+                                    @endif
 
-                    <!-- logo -->
-                    <div class="col-md-2 col-sm-6 col-xs-12">
-                        <div class="logo " style="height: 75px;">
-                            <a href="/">
-                                <img style="height: 32px; width: 191px;" src="img/logo/logo.png" alt="logo chính">
-                            </a>
+                                    @if(session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                    @endif
+                                    <form action="{{route('password.email')}}" method="POST">
+                                        @csrf
+                                        <div class="d-flex justify-content-center align-items-center mb-2">
+                                            <div class="row">
+
+                                                <!-- logo -->
+                                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                                    <div class="logo ">
+                                                        <a href="/">
+                                                            <img style="height: 52px; width: 270px;" src="{{ asset('uploads/images/logo/' . $settingsArray['img_logo']['setting_value']) }}" alt="logo chính">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Quên mật khẩu</h3>
+                                        <div data-mdb-input-init class="input-group form-outline mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="email" id="form2Example17" name="email" class="form-control form-control-lg" placeholder="Email khôi phục mật khẩu" />
+                                        </div>
+                                        @error('email')
+                                        <div class="error-message">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+
+                                        <div class="pt-1 mb-3">
+                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-lg btn-block" type="submit">Gửi mã xác nhận</button>
+                                        </div>
+
+
+                                    </form>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="d-flex justify-content-center h-100">
-            <div class="card">
-            @if ($errors->any())
-                <div class="col-12">
-                    @foreach ($errors->all() as $error )
-                    <div class="alert alert-danger">{{$error}}</div>
-                    @endforeach
-                </div>
-                @endif
+    </section>
 
-                @if (session()->has('error'))
-                <div class="alert alert-danger">{{session('error')}}</div>
-                @endif
-
-                @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                <div class="card-header">
-                    <h3>Quên mật khẩu</h3>
-
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('password.email') }}" method="POST">
-                        @csrf
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="email" name="email" class="form-control" placeholder="Tài khoản email">
-
-                        </div>
-                        @error('email')
-                        <div class="error-message">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        <button type="submit" class="btn float-right login_btn">Gửi mã xác nhận</button>
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

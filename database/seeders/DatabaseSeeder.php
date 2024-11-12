@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create('vi_VN');
         for ($i = 0; $i < 10; $i++) {
-
             ProductCategory::create([
                 'name' => $faker->words(2, true), // Tạo tên ngẫu nhiên với 2 từ
                 'order_number' => $i + 1, // Thứ tự từ 1 đến 10
@@ -55,7 +54,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->words(3, true), // Tên ngẫu nhiên với 3 từ
                 'slug' => $faker->unique()->slug,
                 'description' => $faker->sentence(10), // Mô tả ngẫu nhiên
-                'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
+                'image' => rand(1, 7) . '.jpg', // Hình ảnh ngẫu nhiên từ 1.jpg đến 12.jpg
                 'price' => $faker->randomFloat(2, 100000, 10000000), // Giá ngẫu nhiên
                 'discount' => $faker->numberBetween(0, 50), // Giảm giá ngẫu nhiên
                 'stock' => $faker->numberBetween(0, 100), // Số lượng tồn kho ngẫu nhiên
@@ -70,7 +69,7 @@ class DatabaseSeeder extends Seeder
             for ($j = 1; $j <= 4; $j++) {
                 DB::table('product_images')->insert([
                     'product_id' => $productId, // Liên kết với sản phẩm vừa tạo
-                    'image' => 'img/product/' . rand(1, 7) . '.jpg', // Hình ảnh từ 1.jpg đến 7.jpg
+                    'image' => rand(1, 7) . '.jpg', // Hình ảnh từ 1.jpg đến 7.jpg
                 ]);
             }
         }
@@ -108,7 +107,6 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $type = $faker->randomElement($types);
             $maxDiscount = $type == 'percentage_with_cap' ? $faker->randomFloat(2, 10000, 100000) : null;
-
             DB::table('discount_codes')->insert([
                 'code' => strtoupper(Str::random(10)), // Tạo mã voucher ngẫu nhiên
                 'type' => $type, // Chọn loại ngẫu nhiên

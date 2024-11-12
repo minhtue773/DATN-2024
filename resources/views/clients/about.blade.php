@@ -19,9 +19,10 @@
     $settingsArray = $websiteSettings->keyBy('setting_key')->toArray();
     @endphp
     <div class="row mt-4 align-items-center" style="height: 400px;"> <!-- Thiết lập chiều cao cho hàng -->
-        <div class="col-md-6 text-center">
+        <div class="col-md-6 text-justify">
             <h2>Về Chúng Tôi</h2>
-            <p>{{ $settingsArray['company_description']['setting_value'] ?? 'Chúng tôi là một đội ngũ đam mê với sứ mệnh cung cấp các sản phẩm và dịch vụ tốt nhất cho khách hàng. Với nhiều năm kinh nghiệm trong ngành, chúng tôi cam kết mang đến giá trị và sự hài lòng cho từng khách hàng.' }}</p>
+            <p>HobbyZone là trang web chuyên bán các mô hình sưu tập tại TP.HCM, mang đến cho khách hàng đam mê mô hình một không gian mua sắm trực tuyến phong phú và chuyên nghiệp. Trang web cung cấp đa dạng các loại mô hình từ xe hơi, máy bay, đến nhân vật nổi tiếng, giúp khách hàng dễ dàng tìm thấy các sản phẩm yêu thích. Với giao diện thân thiện, thông tin chi tiết và hình ảnh sắc nét, HobbyZone cam kết mang lại trải nghiệm mua sắm thuận tiện và đáng tin cậy cho các tín đồ mô hình ở mọi lứa tuổi.
+            </p>
             <h4>Liên hệ:</h4>
             <ul class="list-unstyled">
                 <li>Địa chỉ: {{ $settingsArray['address']['setting_value'] ?? 'Địa chỉ chưa được cập nhật' }}</li>
@@ -30,7 +31,7 @@
             </ul>
         </div>
         <div class="col-md-6">
-            <img src="{{ $settingsArray['img_favicon']['setting_value'] ?? 'https://via.placeholder.com/400' }}" alt="Hình ảnh về chúng tôi" class="img-fluid rounded">
+            <img src="{{ asset('uploads/images/favicon/favicon.png') }}" alt="Hình ảnh về chúng tôi" class="img-fluid rounded">
         </div>
     </div>
 </div>

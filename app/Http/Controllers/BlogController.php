@@ -44,22 +44,30 @@ class BlogController extends Controller
         $posts = $query->paginate(5)->appends($request->except('page'));
         $newPosts = post::orderBy('created_at', 'desc')->take(3)->get();
 
-       
+
         $index1 = 3;
         return view('clients.posts', compact('posts', 'cate_features', 'post_features', 'newPosts', 'post_cate', 'index1'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $post = Post::findOrFail($id);
+        // Tìm bài viết theo slug thay vì id
+        $post = Post::where('slug', $slug)->firstOrFail();
+
+        // Lấy các bài viết liên quan
         $relatedPosts = Post::where('category_id', $post->category_id)
             ->where('id', '!=', $post->id) // Loại trừ bài viết hiện tại
             ->where('status', 1) // Đảm bảo bài viết có trạng thái 'active'
             ->take(3) // Lấy 3 bài viết
             ->get();
-            $post_features = Post::where('status', '1')->take(4)->get();
 
+        // Lấy các bài viết nổi bật
+        $post_features = Post::where('status', '1')->take(4)->get();
+
+        // Thiết lập giá trị cho biến index1 (nếu cần)
         $index1 = 3;
+
+        // Trả về view với các dữ liệu cần thiết
         return view('clients.postdetail', compact('post', 'post_features', 'relatedPosts', 'index1'));
     }
 }

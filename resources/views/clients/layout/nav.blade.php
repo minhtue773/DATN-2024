@@ -26,7 +26,7 @@
             <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                 <div class="d-flex align-items-center">
                     <a href="" class="text-decoration-none d-block d-lg-none">
-                        <img src="{{ asset('client/img/logo/logo.jpg') }}" alt="" class="img-fluid w-50">
+                        <img src="{{ asset('uploads/images/logo/' . $settingsArray['img_logo']['setting_value']) }}" alt="" class="img-fluid w-50">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
@@ -44,10 +44,6 @@
                             thiệu</a>
                         <a href="{{ route('contact.index') }}"
                             class="nav-item nav-link {{ $index1 == 5 ? 'active' : '' }}">Liên hệ</a>
-                        @auth
-                        <a href="{{ route('orders') }}"
-                            class="nav-item nav-link {{ $index1 == 6 ? 'active' : '' }}">Đơn Hàng Của Bạn</a>
-                        @endauth
 
                     </div>
                     @if (Auth::check())

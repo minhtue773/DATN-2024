@@ -18,6 +18,7 @@ class OrderControllers extends Controller
 
             // Lấy dữ liệu từ bảng `order`, `order_details`, và `product` của người dùng đã đăng nhập
             $data = Order::where('user_id', $userId)
+            ->orderBy('id','desc')
                 ->with(['orderDetails.product']) // Tải cả mối quan hệ product của orderDetails
                 ->get();
             $index1 = 1;
@@ -29,24 +30,76 @@ class OrderControllers extends Controller
         }
     }
 
-    public function cancel($id)
+    public function cancel(Request $request, $id)
     {
+        $request->validate([
+            'cancel_reason' => 'required|min:3', // Kiểm tra lý do hủy ít nhất 3 ký tự
+        ]);
         // Tìm đơn hàng theo ID
         $order = Order::findOrFail($id);
-
+    
         // Kiểm tra nếu người dùng là chủ đơn hàng
         if (Auth::id() === $order->user_id) {
-            // Cập nhật trạng thái đơn hàng
-            $order->status = 5; // Hoặc một trạng thái khác mà bạn muốn
+            // Kiểm tra nếu có lý do hủy trong request và cập nhật vào trường 'note'
+            $cancelReason = $request->input('cancel_reason', 'Không có lý do'); // Lý do hủy, mặc định nếu không có
+    
+            // Cập nhật trạng thái đơn hàng và lưu lý do hủy
+            $order->status = 4; // Trạng thái hủy (có thể là trạng thái khác mà bạn định nghĩa)
+            $order->note = $cancelReason; // Lưu lý do hủy vào note
             $order->save();
-
+    
             // Thông báo thành công
-            return redirect()->back()->with('success', 'Đơn hàng đã được hủy thành công.');
+            return redirect()->back()->with('success', 'Yêu Cầu Hủy Đơn Hàng Đã Được Gửi.');
         }
-
+    
         // Thông báo lỗi nếu không có quyền
         return redirect()->back()->with('error', 'Bạn không có quyền hủy đơn hàng này.');
     }
+    
+    public function changePaymentMethod(Request $request, $id)
+    {
+        // Tìm đơn hàng theo ID
+        $order = Order::findOrFail($id);
+    
+        // Kiểm tra nếu người dùng là chủ đơn hàng
+        if (Auth::id() === $order->user_id) {
+            // Lấy phương thức thanh toán mới từ request
+            $newPaymentMethod = $request->input('payment_method');
+            
+            // Kiểm tra phương thức thanh toán hợp lệ (ví dụ: 'vnpay', 'momo', 'cod', ...)
+            $validPaymentMethods = ['vnpay', 'momo', 'cash']; // Bạn có thể thay đổi giá trị này theo nhu cầu của bạn
+            if (in_array($newPaymentMethod, $validPaymentMethods)) {
+                // Cập nhật phương thức thanh toán
+                $order->payment_method = $newPaymentMethod;
+                $order->save();
+                
+                return redirect()->back()->with('success', 'Phương thức thanh toán đã được thay đổi.');
+            } else {
+                return redirect()->back()->with('error', 'Phương thức thanh toán không hợp lệ.');
+            }
+        }
+    
+        // Thông báo lỗi nếu không có quyền
+        return redirect()->back()->with('error', 'Bạn không có quyền thay đổi phương thức thanh toán cho đơn hàng này.');
+    }
+    
+    
+
+    public function restore($orderId)
+{
+    $order = Order::find($orderId);
+
+    if ($order && $order->status == 4) {
+        // Cập nhật trạng thái của đơn hàng thành 0 (Khôi phục)
+        $order->status = 0;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Đơn hàng đã được khôi phục.');
+    }
+
+    return redirect()->back()->with('error', 'Không thể khôi phục đơn hàng.');
+}
+
 
     public function show($id)
     {

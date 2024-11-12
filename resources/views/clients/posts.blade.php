@@ -22,7 +22,7 @@ Bài viết
             @foreach ( $cate_features as $cate)
             <div class="col-lg-4">
                 <div class="categories_post">
-                    <img src="{{ $cate->image }}" alt="post">
+                    <img src="{{ asset('uploads/images/post_category/' . $cate->image) }}" alt="post">
                     <div class="categories_details">
                         <div class="categories_text">
                             <a href="{{ route('posts.index', ['post_cateId' => $cate->id]) }}">
@@ -60,23 +60,23 @@ Bài viết
                                 <div class="post_tag">
                                     <a href="#">{{ $post->category->name }}</a> <!-- Thay bằng tên danh mục nếu cần -->
                                 </div>
-                                <ul class="blog_meta list">
-                                    <li><a href="#">{{ $post->user->name }}<i class="lnr lnr-user"></i></a></li> <!-- Giả định bạn có mối quan hệ với User -->
+                                <ul class="blog_meta list list-unstyled">
+                                    <li><a href="#">{{ $post->user->name }}<i class="lnr lnr-   user"></i></a></li>
                                     <li><a href="#">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d M Y') }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                    <li><a href="#">{{ $post->views ?? '0' }} Views<i class="lnr lnr-eye"></i></a></li> <!-- Giả định bạn có trường views -->
-                                    <li><a href="#">{{ $post->comments_count ?? '0' }} Comments<i class="lnr lnr-bubble"></i></a></li> <!-- Giả định bạn có trường comments_count -->
+                                    <li><a href="#">{{ $post->views ?? '0' }} Views<i class="lnr lnr-eye"></i></a></li>
+                                    <li><a href="#">{{ $post->comments_count ?? '0' }} Comments<i class="lnr lnr-bubble"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="blog_post">
-                                <img src="/{{ $post->image_big }}" alt="{{ $post->title }}">
+                                <img src="{{ asset('uploads/images/post/' . $post->image) }}" alt="{{ $post->title }}">
                                 <div class="blog_details">
-                                    <a href="{{ url('/post', [$post->id]) }}">
+                                    <a href="{{ route('posts.show', ['slug' => $post->slug]) }}">
                                         <h2>{{ $post->title }}</h2>
                                     </a>
                                     <p>{{ $post->description }}</p>
-                                    <a href="{{ url('/post', [$post->id]) }}" class="white_bg_btn">Xem thêm</a>
+                                    <a href="{{ route('posts.show', ['slug' => $post->slug]) }}" class="white_bg_btn">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@ Bài viết
             </div>
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
-                <aside class="single_sidebar_widget search_widget">
+                    <aside class="single_sidebar_widget search_widget">
                         <form action="/posts" method="GET">
                             @csrf
                             <div class="input-group">
@@ -123,7 +123,7 @@ Bài viết
                         <h3 class="widget_title">Bài viết nổi bật</h3>
                         @foreach ($post_features as $post)
                         <div class="media post_item">
-                            <img src="/{{ $post->image }}" alt="post" class="img-fluid w-25">
+                            <img src="{{ asset('uploads/images/post/' . $post->image) }}" alt="post" class="img-fluid w-25">
                             <div class="media-body">
                                 <a href="blog-details.html">
                                     <h3>{{ $post->title }}</h3>
@@ -134,13 +134,10 @@ Bài viết
                         @endforeach
                         <div class="br"></div>
                     </aside>
-                    <aside class="single_sidebar_widget ads_widget">
-                        <a href="#"><img class="img-fluid" src="{{ asset('client') }}/img/blog/add.jpg" alt=""></a>
-                        <div class="br"></div>
-                    </aside>
+
                     <aside class="single_sidebar_widget post_category_widget">
                         <h4 class="widget_title">Danh mục bài viết</h4>
-                        <ul class="list cat-list">
+                        <ul class="list cat-list list-unstyled">
                             <li>
                                 <a href="/posts" class="d-flex justify-content-between">
                                     <p>Tất cả</p>
@@ -158,25 +155,7 @@ Bài viết
                         </ul>
                         <div class="br"></div>
                     </aside>
-                    <aside class="single-sidebar-widget newsletter_widget">
-                        <h4 class="widget_title">Newsletter</h4>
-                        <p>
-                            Here, I focus on a range of items and features that we use in life without
-                            giving them a second thought.
-                        </p>
-                        <div class="form-group d-flex flex-row">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-                                </div>
-                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
-                            </div>
-                            <a href="#" class="bbtns">Subcribe</a>
-                        </div>
-                        <p class="text-bottom">You can unsubscribe at any time</p>
-                        <div class="br"></div>
-                    </aside>
+
                     <!-- <aside class="single-sidebar-widget tag_cloud_widget">
                             <h4 class="widget_title">Tag Clouds</h4>
                             <ul class="list">

@@ -7,15 +7,17 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/icon/favicon.png') }}">
-    <!-- Google Web Fonts -->
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('uploads/images/favicon/favicon.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('uploads/favicon/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Libraries Stylesheet -->
@@ -28,7 +30,12 @@
 
 </head>
 
+
 <body ng-app="myApp">
+    <!-- Loading Animation -->
+
+
+
     <div class="containers" ng-controller="mainController">
         @php
         // Chuyển đổi $websiteSettings thành một mảng cho dễ sử dụng
@@ -66,7 +73,7 @@
             <div class="row align-items-center py-3 px-xl-5">
                 <div class="col-lg-3 d-none d-flex">
                     <a href="/" class="text-decoration-none text-center">
-                        <img src="{{ asset('client/img/logo/logo.png') }}" alt="Logo" class="img-fluid w-75">
+                        <img src="{{ asset('uploads/images/logo/' . $settingsArray['img_logo']['setting_value']) }}" alt="Logo" class="img-fluid w-75">
                     </a>
                 </div>
 
@@ -83,13 +90,13 @@
                     </form>
                 </div>
                 <div class="col-lg-3 col-6 text-right">
-                    <a href="" class="btn border">
+                    <a href="{{ route('my_account') }}" class="btn border">
                         <i class="fas fa-heart text-primary"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">{{ $favoriteCount }}</span> <!-- Hiển thị số lượng sản phẩm yêu thích -->
                     </a>
                     <a href="/cart" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">%% countTotalProducts() %%</span>
+                        <span ng-cloak class="badge">%% countTotalProducts() %%</span>
                     </a>
                 </div>
             </div>

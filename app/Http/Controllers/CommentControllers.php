@@ -17,7 +17,7 @@ class CommentControllers extends Controller
          // Lấy danh sách bình luận đã phê duyệt cho sản phẩm và sắp xếp theo thời gian mới nhất
          $approvedComments = Comment::approved()
                                      ->where('product_id', $product_id)
-                                     ->with('user:id,name') // Lấy thông tin user (chỉ lấy id và name)
+                                     ->with('user:id,name,image') // Lấy thông tin user (chỉ lấy id và name)
                                      ->orderBy('created_at', 'desc')
                                      ->get();
      

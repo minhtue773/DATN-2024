@@ -10,7 +10,7 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $index1 = 3;
+        $index1 = 4;
         return view('clients.about',compact('index1'));
     }
 }

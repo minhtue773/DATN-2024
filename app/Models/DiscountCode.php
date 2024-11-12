@@ -11,10 +11,20 @@ class DiscountCode extends Model
 
     protected $fillable = [
         'code',
+        'type',
+        'discount',
+        'max_discount',
         'quantity',
-        'applied_amount_for_discount_code',
+        'used_count',
+        'start_date',
+        'expiry_date',
         'status',
-        'discount_percentage',
-        'maximum_discount_amount',
+        'is_hidden',
+    ];
+
+    protected $casts = [
+        'expiry_date' => 'date',
+        'discount' => 'decimal:2',
+        'max_discount' => 'decimal:2',
     ];
 }

@@ -11,7 +11,7 @@ use App\Models\Banner;
 class HomeController extends Controller
 {
     public function index()
-    {  
+    {
         // Lấy 4 danh mục sắp xếp theo order_number từ nhỏ đến cao
         $categories_dn = ProductCategory::orderBy('order_number', 'asc')->take(4)->get();
 
@@ -19,13 +19,13 @@ class HomeController extends Controller
         $categoriess = ProductCategory::withCount('products')->orderBy('order_number', 'asc')->take(6)->get();
 
         // Lấy 8 sản phẩm có lượt xem cao nhất
-        $topViewedProducts = Product::orderBy('view', 'desc')->take(8)->get();
+        $topViewedProducts = Product::orderBy('view', 'desc')->where('is_hidden', 0)->take(8)->get();
 
         // Lấy 2 sản phẩm có mức giảm giá lớn nhất
-        $topDiscountedProducts = Product::orderBy('discount', 'desc')->take(2)->get();
+        $topDiscountedProducts = Product::orderBy('discount', 'desc')->where('is_hidden', 0)->take(2)->get();
 
         // Lấy 8 sản phẩm mới nhất
-        $latestProducts = Product::orderBy('created_at', 'desc')->take(8)->get();
+        $latestProducts = Product::orderBy('created_at', 'desc')->where('is_hidden', 0)->take(8)->get();
 
         // Lấy dữ liệu của banner
         $banners = Banner::all();
