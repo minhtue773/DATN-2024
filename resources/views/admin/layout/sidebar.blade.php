@@ -7,7 +7,9 @@
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <span class="nav-link">Bảng điều khiển</span>
+        <a class="nav-link" href="{{ route('admin.home') }}">
+        <span>Bảng điều khiển</span>
+        </a>
     </li>
     <hr class="sidebar-divider my-0">
     <li class="nav-item">

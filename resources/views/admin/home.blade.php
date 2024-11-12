@@ -18,28 +18,28 @@
                 <div class="card border-top-success shadow h-100 p-2 bg-success-subtle">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-3">
+                            <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
                                 <div class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                     <i class="fa-solid fa-user fa-2x mb-2"></i>
                                     <h6 class="m-0 mb-1">Đang online</h6>
                                     <h5 class="m-0">{{ number_format($access['online' ?? ''], 0, '.', '.') }}</h5>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
                                 <div class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                     <i class="fa-solid fa-user-group fa-2x mb-2"></i>
                                     <h6 class="m-0 mb-1">Truy cập tuần này</h6>
                                     <h5 class="m-0">{{ number_format($access['access_week' ?? ''], 0, '.', '.') }}</h5>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
                                 <div class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                     <i class="fa-solid fa-users fa-2x mb-2"></i>
                                     <h6 class="m-0 mb-1">Truy cập tháng {{ \Carbon\Carbon::now()->format('m-Y') }}</h6>
                                     <h5 class="m-0">{{ number_format($access['access_month' ?? ''], 0, '.', '.') }}</h5>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
                                 <div class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                     <i class="fa-solid fa-chart-simple fa-2x mb-2"></i>
                                     <h6 class="m-0 mb-1">Tổng lượng truy cập</h6>
@@ -51,8 +51,8 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4">
                 <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -61,7 +61,7 @@
                     <!-- Card Body -->
                     <div class="card-body align-content-center">
                         <div class="row d-flex justify-content-center">
-                            <div class="col-12">
+                            <div class="col-12 col-sm-12 col-md-8 col-xl-8">
                                 <canvas id="visited"></canvas>
                             </div>
                         </div>
@@ -69,9 +69,8 @@
                 </div>
             </div>
         </div>
-        <!-- Content Row -->
-        <div class="row mb-4">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
                 <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -97,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
                 <div class="card shadow mb-4 h-100">
                     <!-- Card Header - Dropdown -->
                     <div
@@ -119,6 +118,25 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
                                 <canvas id="revenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+                <div class="card shadow mb-4 h-100">
+                    <!-- Card Header - Dropdown -->
+                    <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Đơn hàng</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body align-content-center">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-8">
+                                <canvas id="orderStatus"></canvas>
                             </div>
                         </div>
                     </div>
@@ -212,6 +230,22 @@
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
+            }]
+        }
+    });
+    const orderStatus = new Chart(document.getElementById('orderStatus'), {
+        type: 'pie',
+        data: {
+            labels: @json($orderStatus['labels']),
+            datasets: [{
+                data: @json($orderStatus['data']),
+                backgroundColor: [
+                'rgb(72, 187, 120)',
+                
+                'rgb(247, 104, 120)', // Màu danger nhạt hơn
+                
+                ],
+                hoverOffset: 4
             }]
         }
     });

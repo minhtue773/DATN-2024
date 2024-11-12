@@ -18,22 +18,13 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $orderStatus = Order::selectRaw('status ,COUNT(*) as count')
-        ->whereIn('status', [3, 5])
-        ->groupBy('status')
-        ->orderBy('status')
-        ->get();
-
-        $labels = $orderStatus->pluck('status');
-        $data = $orderStatus->pluck('count')->toArray();
-        dd($data);
-
         $revenue = $this->getRevenueData($request->chartOrder ?? 'month');
         $productTop = $this->getTopProducts($request->input('productTop', 5));
         $access = $this->getAccess();
         $monthVisit = $this->getMonthVisits();
-
-        return view('admin.home', compact('revenue', 'productTop', 'access', 'monthVisit'));
+        $orderStatus = $this->getOrderStatus();
+        
+        return view('admin.home', compact('revenue', 'productTop', 'access', 'monthVisit', 'orderStatus'));
     }
 
     public function filterProductTop(Request $request)
@@ -147,6 +138,24 @@ class AdminController extends Controller
             'data' => array_values($data)  
         ];
         return $getMonthVisit;
+    }
+
+    private function getOrderStatus() {
+        $orders = Order::selectRaw('status ,COUNT(*) as count')
+        ->whereIn('status', [3, 5])
+        ->groupBy('status')
+        ->orderBy('status')
+        ->get();
+
+        $labels = ['Đơn hàng thành công', 'Đơn hàng đã hủy'];
+        $data = $orders->pluck('count')->toArray();
+        
+        $orderStatus = [
+            'labels' => $labels,
+            'data' => $data
+        ];
+
+        return $orderStatus;
     }
     
 
