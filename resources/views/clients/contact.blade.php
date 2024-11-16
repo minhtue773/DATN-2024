@@ -86,7 +86,7 @@
             <div class="google-map plr-185">
                 <!-- Thay thế div cũ bằng iframe Google Maps -->
                 <iframe
-                    src=" {{ $settingsArray['link_map']['setting_value'] }}"
+                    src=" {{ $settingsArray['map']['setting_value'] }}"
                     width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
