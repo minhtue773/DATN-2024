@@ -33,8 +33,8 @@ class OrderPlaced implements ShouldBroadcastNow
 
     public function broadcastWith() {
         return [
-            'order_id' => $this->order->id,
-            'customer_name' => $this->order->customer_name,
+            'invoice_code' => $this->order->invoice_code,
+            'customer_name' => $this->order->recipient_name,
             'total' => $this->order->total,
         ];
     }

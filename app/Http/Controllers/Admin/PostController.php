@@ -28,8 +28,8 @@ class PostController extends Controller
 
     public function create()
     {
-        $categories = PostCategory::all();
-        return view('admin.post.create' ,compact('categories'));
+        $postCategories = PostCategory::all();
+        return view('admin.post.create' ,compact('postCategories'));
     }
 
     public function store(StorePostRequest $request)
@@ -57,8 +57,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $categories = PostCategory::all();
-        return view('admin.post.edit', compact('post','categories'));
+        $postCategories = PostCategory::all();
+        return view('admin.post.edit', compact('post','postCategories'));
     }
 
     public function update(UpdatePostRequest $request, Post $post)

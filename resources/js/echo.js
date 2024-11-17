@@ -11,9 +11,14 @@ window.Echo = new Echo({
 });
 window.Echo.channel('orders')
 .listen('.order.placed', function(data) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+        maximumFractionDigits: 0 // Không hiển thị phần thập phân
+    });
+    const totalFormatted = formatter.format(data.total);    
     Toastify({
-        text: 'có đơn hàng mới từ tuệ',
-        avatar: "https://png.pngtree.com/png-clipart/20230418/original/pngtree-order-confirm-line-icon-png-image_9065104.png",
+        text: 'Đơn hàng mới #' + data.invoice_code + ' từ ' + data.customer_name + ': ' + totalFormatted,
         className: "success",
         duration: 3000,
         destination: false,

@@ -90,9 +90,9 @@ Route::middleware(LogVisit::class)->group(function () {
     Route::get('/realtime', function(){
         echo 123;
         $order = (object)[
-            'id' => 1,
-            'customer_name' => 'tueeee',
-            'total' => 123
+            'invoice_code' => 'HBZ123123',
+            'recipient_name' => 'tueeee',
+            'total' => 12312313
         ];
         event(new OrderPlaced($order));
     });

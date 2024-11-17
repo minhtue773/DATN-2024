@@ -41,7 +41,7 @@
                                         <label class="form-label">Chuyên mục:</label>
                                         <select class="form-select form-select-sm" name="category_id">
                                             <option>----Chọn chuyên mục---</option>
-                                            @foreach ($categories as $item)
+                                            @foreach ($postCategories as $item)
                                             <option value="{{ $item->id }}" {{ $item->id == old('category_id') ? 'selected' : '' }}>{{ $item->name }}</option>
                                             @endforeach
                                         </select>

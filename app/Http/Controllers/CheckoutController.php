@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -206,6 +207,8 @@ class CheckoutController extends Controller
         $order->total = $request->input('total');
         $order->invoice_code = 'HBZ-' . strtoupper(uniqid());
         $order->save();
+        // Gữi realtime -> admin
+        event(new OrderPlaced($order));
 
         foreach ($cart as $item) {
             $product = Product::find($item['id']);
