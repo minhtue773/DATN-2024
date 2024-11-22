@@ -1,12 +1,11 @@
 <?php
 
-use App\Events\OrderPlaced;
 use App\Mail\GuiEmail;
+use App\Events\OrderCancel;
+use App\Events\OrderPlaced;
 use App\Http\Middleware\LogVisit;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Events\Registered;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
@@ -46,6 +45,8 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('home', [AdminController::class, 'index'])->name('home');
     Route::get('/filter-product-top', [AdminController::class, 'filterProductTop'])->name('filterProductTop');
     Route::get('/filter-revenue', [AdminController::class, 'filterRevenue'])->name('filterRevenue');
+    Route::get('/notification', [AdminController::class, 'notification'])->name('notification');
+    Route::get('/notification/read/{id}', [AdminController::class, 'markAsRead']);
     // Trash
     Route::get('trash', [AdminController::class, 'trash'])->name('trash');
     Route::get('trash/restore/{type}/{id}', [AdminController::class, 'restore'])->name('trash.restore');
@@ -75,7 +76,6 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
     Route::get('/config', [ConfigurationController::class, 'index'])->name('configuration');
     Route::get('/config/info', [ConfigurationController::class, 'info'])->name('configuration.info');
     Route::post('/config/info', [ConfigurationController::class, 'updateInfo'])->name('configuration.updateInfo');
-
     Route::resource('/config/banner', BannerController::class);
     Route::post('/config/banner/updateStatus', [BannerController::class, 'updateStatus'])->name('banner.updateStatus');
     Route::resource('/config/promotion', PromotionController::class);
@@ -87,14 +87,25 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->name('admin.')->grou
 // -----------------
 Route::middleware(LogVisit::class)->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/realtime', function(){
+    Route::get('/placed', function(){
         echo 123;
         $order = (object)[
+            'id' => '2',
             'invoice_code' => 'HBZ123123',
             'recipient_name' => 'tueeee',
             'total' => 12312313
         ];
         event(new OrderPlaced($order));
+    });
+    Route::get('/cancel', function(){
+        echo 123;
+        $order = (object)[
+            'id' => '2',
+            'invoice_code' => 'HBZ123123',
+            'recipient_name' => 'tueeee',
+            'total' => 12312313
+        ];
+        event(new OrderCancel($order));
     });
     Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::get('/products', [ProductUserController::class, 'index'])->name('products.index');
@@ -114,7 +125,7 @@ Route::middleware(LogVisit::class)->group(function () {
             // Thiết lập thông báo thành công
             $request->session()->flash('success', "Đã gửi mail thành công!");
         } catch (\Exception $e) {
-            // Thiết lập thông báo lỗi
+            // Thiết lập thông báo lỗi  
             $request->session()->flash('error', "Có lỗi xảy ra: " . $e->getMessage());
         }
 
@@ -128,7 +139,6 @@ Route::middleware(LogVisit::class)->group(function () {
         Route::post('/checkout/remove-discount', [CheckoutController::class, 'removeDiscountCode'])->name('discount.remove');
         Route::post('/checkout/order', [CheckoutController::class, 'order'])->name('checkout.order');
     });
-
         Route::get('/payment', [VnPayController::class, 'createPayment'])->name('payment.create');
         Route::get('/vnpay-return', [VnPayController::class, 'vnpayReturn'])->name('vnpay.return');
 
@@ -180,5 +190,4 @@ Route::middleware(LogVisit::class)->group(function () {
             $index1 = 0; // Khởi tạo biến $index1
             return response()->view('errors.404', ['index1' => $index1], 404);
         });
-
 });

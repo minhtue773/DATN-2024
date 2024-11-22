@@ -12,31 +12,21 @@ use App\Models\OrderDetail;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $revenue = $this->getRevenueData($request->chartOrder ?? 'month');
-        $productTop = $this->getTopProducts($request->input('productTop', 5));
         $access = $this->getAccess();
         $monthVisit = $this->getMonthVisits();
+        $revenue = $this->getRevenueData($request->chartOrder ?? 'month');
+        $productTop = $this->getTopProducts($request->input('productTop', 5));
         $orderStatus = $this->getOrderStatus();
-        
-        return view('admin.home', compact('revenue', 'productTop', 'access', 'monthVisit', 'orderStatus'));
+        return view('admin.home', compact('access', 'monthVisit', 'revenue', 'productTop', 'orderStatus'));
     }
-
-    public function filterProductTop(Request $request)
-    {
-        return response()->json($this->getTopProducts($request->input('productTop', 5)));
-    }
-
-    public function filterRevenue(Request $request)
-    {
-        return response()->json($this->getRevenueData($request->input('chartOrder', 'month')));
-    }
-
+    
     private function getRevenueData($filterBy)
     {
         $currentYear = Carbon::now()->year;
@@ -77,6 +67,11 @@ class AdminController extends Controller
         ];
     }
 
+    public function filterRevenue(Request $request)
+    {
+        return response()->json($this->getRevenueData($request->input('chartOrder', 'month')));
+    }
+
     private function getTopProducts($limit)
     {
         $topProducts = OrderDetail::select('product_id', Product::raw('SUM(quantity) as total_quantity'))
@@ -92,6 +87,11 @@ class AdminController extends Controller
         ];
     }
     
+    public function filterProductTop(Request $request)
+    {
+        return response()->json($this->getTopProducts($request->input('productTop', 5)));
+    }
+
     private function getAccess()
     {
         $onlineUsers = User::where('status', 'online')->count() ?? '';
@@ -344,4 +344,21 @@ class AdminController extends Controller
                 return redirect()->back()->with('error', 'Có lỗi khi xóa các mục đã chọn');
         }
     }
+
+    public function notification() {
+        $notifications = Notification::whereNull('read_at')
+            ->orderBy('created_at', 'desc')->get();
+        return response()->json($notifications, 200);
+    }
+    
+    public function markAsRead($id) {
+        $notification = Notification::findOrFail($id); 
+        if ($notification) {
+            $notification->read_at = now();
+            $notification->save();
+            $order_id = json_decode($notification->data)->order_id;
+            return redirect()->route('admin.order.show', $order_id);
+        }
+        return redirect()->back()->with('error','Có lỗi hệ thống');
+    }    
 }

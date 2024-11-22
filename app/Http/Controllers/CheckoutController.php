@@ -38,9 +38,7 @@ class CheckoutController extends Controller
             if ($product->is_hidden == 1) {
                 return redirect('cart')->with('error', "Sản phẩm {$product->name} không còn bán.");
             }
-
         }
-
         $addressDetail = $tinh = $quan = $phuong = '';
 
         if ($user && $user->address) {
@@ -174,10 +172,7 @@ class CheckoutController extends Controller
             return redirect()->route('cart')->with(compact('index1'))->with('error', 'Giỏ hàng trống');
         }
 
-
         $discounts = session('applied_discounts', []);
-
-
         $tinh = $request->input('tinh');
         $quan = $request->input('quan');
         $phuong = $request->input('phuong');
@@ -207,8 +202,6 @@ class CheckoutController extends Controller
         $order->total = $request->input('total');
         $order->invoice_code = 'HBZ-' . strtoupper(uniqid());
         $order->save();
-        // Gữi realtime -> admin
-        event(new OrderPlaced($order));
 
         foreach ($cart as $item) {
             $product = Product::find($item['id']);
@@ -221,7 +214,6 @@ class CheckoutController extends Controller
             $order_detail->quantity = $item['soluong'];
             $order_detail->price = $item['price'];
             $order_detail->save();
-
         }
 
         if ($order->payment_method == 'vnpay') {
@@ -238,6 +230,10 @@ class CheckoutController extends Controller
 
         session()->forget('applied_discounts');
         session()->forget('cart');
+        
+        // Gữi realtime -> admin
+        event(new OrderPlaced($order));
+        
         return redirect()->route('orders')->with(compact('index1'))->with('success', 'Đặt hàng thành công');
     }
 }

@@ -43,7 +43,7 @@
                                         @break
                                         @case(4)
                                             <span class="lead fw-normal text-warning">(*) Yêu cầu hủy đơn hàng #{{ $order->invoice_code }}</span>
-                                            <span class="text-muted small">Lý do của khách hàng: Tôi muốn thay đổi địa chỉ nhận hàng.</span>
+                                            <span class="text-muted small">Lý do của khách hàng: {{ $order->note }}</span>
                                         @break
                                         @case(5)
                                             <span class="lead fw-normal text-danger">(*) Đơn hàng đã bị hủy!</span>

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Email Notification</title>
+    <title>Thông báo</title>
     <style>
         body {
             margin: 0;
@@ -102,7 +102,7 @@
             <!-- Header -->
             <tr>
                 <td class="email-header">
-                    <img src="{{ asset('uploads/images/logo/logo.png') }}" alt="HobbyZone Logo">
+                    <img src="https://hobbyzone.fun/public/uploads/images/logo/1731825611_67398fcb5b07c.png" alt="HobbyZone Logo">
                 </td>
             </tr>
             <!-- Body -->
@@ -111,7 +111,7 @@
                     <h2>Cập nhật đơn hàng #{{ $order->invoice_code }}</h2>
                     <p>{{ $statusMessage }}</p>
                     <div class="email-button">
-                        <a href="{{ url('/orders/' . $order->id) }}">Xem chi tiết</a>
+                        <a href="https://hobbyzone.fun/public/orders">Xem chi tiết</a>
                     </div>
                     <p>Cảm ơn bạn đã sử dụng dịch vụ của <strong>HobbyZone</strong>.</p>
                     <p>Trân trọng,<br>HobbyZone Team</p>
@@ -120,8 +120,8 @@
             <!-- Footer -->
             <tr>
                 <td class="email-footer">
-                    <p>&copy; {{ date('Y') }} HobbyZone. Mọi quyền được bảo lưu.</p>
-                    <p><a href="{{ url('/') }}">Trang chủ</a> | <a href="{{ url('/contact') }}">Liên hệ</a></p>
+                    <p>&copy; {{ date('Y') }} HobbyZone. Love you 3000.</p>
+                    <p><a href="https://hobbyzone.fun/public/">Trang chủ</a> | <a href="https://hobbyzone.fun/public/contact">Liên hệ</a></p>
                 </td>
             </tr>
         </table>

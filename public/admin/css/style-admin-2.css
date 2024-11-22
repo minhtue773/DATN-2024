@@ -12678,3 +12678,23 @@ body.sidebar-toggled footer.sticky-footer {
 #snowflakeContainer{position:absolute;left:0px;top:0px;}
 .snowflake{padding-left:15px;font-size:14px;line-height:24px;position:fixed;color:#ebebeb;user-select:none;z-index:1000;-moz-user-select:none;-ms-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;}
 .snowflake:hover {cursor:default}
+
+/* CSS cho màn hình điện thoại */
+@media only screen and (max-width: 768px) {
+  #visited,
+  #productTop,
+  #revenue,
+  #orderStatus {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
+
+/* style-admin-2.css */
+#accordionSidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}

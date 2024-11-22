@@ -5,10 +5,11 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderStatusUpdatedMail extends Mailable
+class OrderStatusUpdatedMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -33,15 +34,5 @@ class OrderStatusUpdatedMail extends Mailable
         return new Content(
             view: 'emails.order_status_updated', // Chỉ định view chứa nội dung email
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return []; // Không đính kèm tệp nào
     }
 }

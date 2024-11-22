@@ -23,7 +23,7 @@
                                         class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                         <i class="fa-solid fa-user fa-2x mb-2"></i>
                                         <h6 class="m-0 mb-1">Đang online</h6>
-                                        <h5 class="m-0">{{ number_format($access['online' ?? ''], 0, '.', '.') }}</h5>
+                                        <h5 class="m-0"></h5>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
@@ -31,8 +31,7 @@
                                         class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                         <i class="fa-solid fa-user-group fa-2x mb-2"></i>
                                         <h6 class="m-0 mb-1">Truy cập tuần này</h6>
-                                        <h5 class="m-0">{{ number_format($access['access_week' ?? ''], 0, '.', '.') }}
-                                        </h5>
+                                        <h5 class="m-0"></h5>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
@@ -40,8 +39,7 @@
                                         class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                         <i class="fa-solid fa-users fa-2x mb-2"></i>
                                         <h6 class="m-0 mb-1">Truy cập tháng {{ \Carbon\Carbon::now()->format('m-Y') }}</h6>
-                                        <h5 class="m-0">{{ number_format($access['access_month' ?? ''], 0, '.', '.') }}
-                                        </h5>
+                                        <h5 class="m-0"></h5>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
@@ -49,8 +47,7 @@
                                         class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
                                         <i class="fa-solid fa-chart-simple fa-2x mb-2"></i>
                                         <h6 class="m-0 mb-1">Tổng lượng truy cập</h6>
-                                        <h5 class="m-0">{{ number_format($access['access_total' ?? ''], 0, '.', '.') }}
-                                        </h5>
+                                        <h5 class="m-0"></h5>
                                     </div>
                                 </div>
                             </div>
@@ -101,11 +98,11 @@
                             <div class="dropdown no-arrow">
                                 <form id="filterRevenueForm" method="GET">
                                     <div class="d-flex">
-                                        <select class="form-select form-select-sm" name="chartOrder"
+                                        <select class="form-select form-select-sm" name="fillter"
                                             onchange="updateRevenue()">
                                             <option value="month"
-                                                {{ request()->chartOrder === 'month' ? 'selected' : '' }}>Tháng</option>
-                                            <option value="year" {{ request()->chartOrder === 'year' ? 'selected' : '' }}>
+                                                {{ request()->fillter === 'month' ? 'selected' : '' }}>Tháng</option>
+                                            <option value="year" {{ request()->fillter === 'year' ? 'selected' : '' }}>
                                                 Năm</option>
                                         </select>
                                     </div>
@@ -132,11 +129,11 @@
                             <div class="dropdown no-arrow">
                                 <form id="filterProductTopForm" method="GET">
                                     <div class="d-flex">
-                                        <select class="form-select form-select-sm" name="productTop"
+                                        <select class="form-select form-select-sm" name="limit"
                                             onchange="updateProductTop()">
-                                            <option value="5" {{ request()->productTop === '5' ? 'selected' : '' }}>Top
+                                            <option value="5" {{ request()->limit === '5' ? 'selected' : '' }}>Top
                                                 5</option>
-                                            <option value="10" {{ request()->productTop === '10' ? 'selected' : '' }}>
+                                            <option value="10" {{ request()->limit === '10' ? 'selected' : '' }}>
                                                 Top 10</option>
                                         </select>
                                     </div>
@@ -177,33 +174,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const productTopSelect = document.querySelector('select[name="productTop"]');
-            const chartOrderSelect = document.querySelector('select[name="chartOrder"]');
-
-            function updateProductTop() {
-                const limit = productTopSelect.value;
-                fetch(`{{ route('admin.filterProductTop') }}?productTop=${limit}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        productTopChart.data.labels = data.labels;
-                        productTopChart.data.datasets[0].data = data.data;
-                        productTopChart.update();
-                    });
-            }
-
-            function updateRevenue() {
-                const filterBy = chartOrderSelect.value;
-                fetch(`{{ route('admin.filterRevenue') }}?chartOrder=${filterBy}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        revenueChart.data.labels = data.labels;
-                        revenueChart.data.datasets[0].data = data.data;
-                        revenueChart.update();
-                    });
-            }
-
-            productTopSelect.addEventListener('change', updateProductTop);
-            chartOrderSelect.addEventListener('change', updateRevenue);
+            
 
             const productTopChart = new Chart(document.getElementById('productTop'), {
                 type: 'bar',
@@ -218,114 +189,6 @@
                     }]
                 }
             });
-
-            const revenueChart = new Chart(document.getElementById('revenue'), {
-                type: 'bar',
-                data: {
-                    labels: @json($revenue['labels']),
-                    datasets: [{
-                        label: 'Tổng doanh thu (VNĐ)',
-                        data: @json($revenue['data']),
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value.toLocaleString('vi-VN') + ' VNĐ';
-                                }
-                            }
-                        }
-                    }
-                }
-            });
         });
-    </script>
-    <script>
-        const visited = new Chart(document.getElementById('visited'), {
-            type: 'line',
-            data: {
-                labels: @json($monthVisit['labels']),
-                datasets: [{
-                    label: 'Lượt truy cập',
-                    data: @json($monthVisit['data']),
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            }
-        });
-        const orderStatus = new Chart(document.getElementById('orderStatus'), {
-            type: 'pie',
-            data: {
-                labels: @json($orderStatus['labels']),
-                datasets: [{
-                    data: @json($orderStatus['data']),
-                    backgroundColor: [
-                        'rgb(72, 187, 120)',
-                        'rgb(247, 104, 120)', // Màu danger nhạt hơn
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                aspectRatio: 2,
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            loadNotifications();
-        });
-        function loadNotifications() {
-            const notificationContainer = document.querySelector('#notification');
-            fetch('/admin/notification')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        notificationContainer.innerHTML = '';
-                        data.forEach(notification => {
-                            const parsedData = JSON.parse(notification.data);
-                            const date = new Date(notification.created_at);
-                            const formattedDate = date.toLocaleDateString();
-                            const notificationContent = notification.type.includes('OrderPlacedNotification') ?
-                                `Đơn hàng mới (#${parsedData.invoice_code}) từ khách hàng ${parsedData.customer_name} vừa được đặt. <small class="text-primary">(Xem chi tiết)</small>` :
-                                `Yêu cầu hủy đơn hàng (#${parsedData.invoice_code}) từ khách hàng ${parsedData.customer_name}. <small class="text-primary">(Xem chi tiết)</small>`;
-                            const orderDetail = '/admin/notification/read/' + notification.id
-                            const timeAgo = Math.floor((Date.now() - date.getTime()) / (1000 * 60)) + " phút trước";
-                            notificationContainer.innerHTML += `
-                                <div class="card shadow border-left-${notification.type.includes('OrderPlacedNotification') ? 'danger' : 'warning'} mb-2 notification-item">
-                                    <a href="${orderDetail}" class="text-decoration-none">
-                                        <div class="card-body p-2">
-                                            <div class="notification d-flex align-items-center">
-                                                <div class="notification-list_img me-3">
-                                                    <i class="fa-solid ${notification.type.includes('OrderPlacedNotification') ? 'fa-cart-flatbed-suitcase text-danger' : 'fa-circle-question text-warning'} fa-2x"></i>
-                                                </div>
-                                                <div class="notification-list_detail w-100">
-                                                    <div class="d-flex justify-content-between mb-1">
-                                                        <span class="text-muted m-0"><small>${timeAgo}</small></span>
-                                                        <span class="text-muted m-0"><small>${formattedDate}</small></span>
-                                                    </div>
-                                                    <p class="text-muted m-0">${notificationContent}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>`;
-                        });
-                    } else {
-                        notificationContainer.innerHTML =
-                            '<p class="text-muted text-center">Không có thông báo mới nào!</p>';
-                    }
-                })
-                .catch(error => console.error('Error fetching notifications:', error));
-        };
     </script>
 @endsection

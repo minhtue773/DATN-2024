@@ -87,7 +87,7 @@
                                             </td>
                                             <td><input type="checkbox" {{ $item->is_featured == 1 ? 'checked' : '' }}
                                                 onchange="updateCategoryStatus({{ $item->id }}, this.checked)"></td>
-                                            <td><a href=""><i class="fa-solid fa-eye text-success"></i>chưa</a></td>
+                                            <td><a href="{{ route('posts.show', ['slug' => $item->slug]) }}" target="_blank"><i class="fa-solid fa-eye text-success"></i></a></td>
                                             <td><a href="{{route('admin.post.edit',$item)}}"><i class="fa fa-edit text-primary"></i></a></td>
                                             <td><a style="cursor: pointer" onclick="confirmDeletePath('{{ route('admin.post.delete', $item) }}')"><i class="fa fa-trash text-danger"></i></a></td>
                                         </tr>

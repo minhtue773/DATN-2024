@@ -13,7 +13,6 @@ class ProductCategoryController extends Controller
         $categories = ProductCategory::all();
         return view('admin.category.category', compact('categories'));
     }
-
     public function create()
     {
         return view('admin.category.create');
@@ -97,22 +96,18 @@ class ProductCategoryController extends Controller
 
     public function destroy(ProductCategory $category)
     {
-        try {
-            if ($category->products()->exists()) {
-                return redirect()->back()->with('no', 'Vẫn còn tồn tại mô hình thuộc danh mục này.');
-            }
-            $trashedProducts = $category->products()->onlyTrashed()->get();
-            foreach ($trashedProducts as $product) {
-                $product->forceDelete(); 
-            }
-            if ($category->image && file_exists(public_path('uploads/images/product_category/' . $category->image))) {
-                unlink(public_path('uploads/images/product_category/' . $category->image));
-            }
-            $category->delete();
-            return redirect()->back()->with('success',"Xóa $category->name thành công!");
-        } catch (\Throwable $th) {
-            return redirect()->back()->with('no', "Xóa $category->name thất bại do lỗi hệ thống!");
+        if ($category->products()->exists()) {
+            return redirect()->back()->with('no', 'Vẫn còn tồn tại mô hình thuộc danh mục này.');
         }
+        $trashedProducts = $category->products()->onlyTrashed()->get();
+        foreach ($trashedProducts as $product) {
+            $product->forceDelete(); 
+        }
+        if ($category->image && file_exists(public_path('uploads/images/product_category/' . $category->image))) {
+            unlink(public_path('uploads/images/product_category/' . $category->image));
+        }
+        $category->delete();
+        return redirect()->back()->with('success',"Xóa $category->name thành công!");
     }
 
     public function updateStatus(Request $request)

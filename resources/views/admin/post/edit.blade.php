@@ -106,7 +106,7 @@
                                                 <img src="{{ asset('uploads/images/post') }}/{{ $post->image }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
-                                                        <input type="file" name="file" id="file-zone" onchange="previewImage(event)">
+                                                        <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
                                                         <div class="d-flex flex-column justify-content-center ">
                                                             <i class="fas fa-cloud-upload-alt"></i>
                                                             <p class="photoUpload-choose btn btn-outline-primary btn-sm">Chọn hình</p>

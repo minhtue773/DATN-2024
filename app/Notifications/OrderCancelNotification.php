@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderPlacedNotification extends Notification
+class OrderCancelNotification extends Notification
 {
     use Queueable;
 
@@ -29,7 +29,6 @@ class OrderPlacedNotification extends Notification
             'order_id' => $this->order->id,
             'invoice_code' => $this->order->invoice_code,
             'customer_name' => $this->order->recipient_name,
-            'total' => $this->order->total,
         ];
     }
 }

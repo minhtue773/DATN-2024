@@ -3,19 +3,20 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
-class OrderPlaced implements ShouldBroadcastNow
+class OrderCancel implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $order;
+
     public function __construct($order)
     {
         $this->order = $order;
@@ -28,7 +29,7 @@ class OrderPlaced implements ShouldBroadcastNow
 
     public function broadcastAs()
     {
-        return 'order.placed';
+        return 'order.cancel';
     }
 
     public function broadcastWith() {
@@ -36,7 +37,6 @@ class OrderPlaced implements ShouldBroadcastNow
             'order_id' => $this->order->id,
             'invoice_code' => $this->order->invoice_code,
             'customer_name' => $this->order->recipient_name,
-            'total' => $this->order->total,
         ];
     }
 }

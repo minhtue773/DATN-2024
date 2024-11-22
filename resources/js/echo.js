@@ -9,8 +9,12 @@ window.Echo = new Echo({
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true
 });
+
 window.Echo.channel('orders')
 .listen('.order.placed', function(data) {
+    if (typeof loadNotifications === 'function') {
+        loadNotifications();
+    }
     const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
@@ -21,20 +25,44 @@ window.Echo.channel('orders')
         text: 'Đơn hàng mới #' + data.invoice_code + ' từ ' + data.customer_name + ': ' + totalFormatted,
         className: "success",
         duration: 3000,
-        destination: false,
+        destination: '/admin/order/' + data.order_id,
         newWindow: true,
         close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
         style: {
-            background: "#198754", // Sử dụng màu xanh đơn giản
-            color: "#ffffff", // Chữ trắng để dễ đọc
-            borderRadius: "8px", // Bo góc cho mềm mại
-            padding: "10px 15px", // Tăng khoảng cách nội dung
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" // Tạo hiệu ứng đổ bóng nhẹ
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+            color: "#ffffff",
+            borderRadius: "8px",
+            padding: "10px 15px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
         },    
-        onClick: function(){} // Callback after click
+        onClick: function(){}
     }).showToast();
 });
-
+window.Echo.channel('orders')
+.listen('.order.cancel', function(data) {
+    if (typeof loadNotifications === 'function') {
+        loadNotifications();
+    }
+    Toastify({
+        text: 'Yêu cầu hủy đơn hàng #' + data.invoice_code + ' từ ' + data.customer_name ,
+        className: "success",
+        duration: 3000,
+        destination: '/admin/order/' + data.order_id,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #ffcc00, #ff5733)",
+            color: "#ffffff",
+            borderRadius: "8px",
+            padding: "10px 15px",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)"
+        },    
+        onClick: function(){}
+    }).showToast();
+});

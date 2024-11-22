@@ -22,12 +22,12 @@
                         </div>
                     </div> --}}
                     <div class="row">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="mb-3">
                                 <h4 class="text-gray-800 p-0 m-0">Danh sách người dùng</h4>
                             </div>
                             <form method="GET">
-                                <div class="d-flex">
+                                <div class="d-flex mb-3">
                                     <div class="me-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="role">
                                             <option value="" selected>Tất cả vai trò --</option>
@@ -48,7 +48,7 @@
                             </form>
                         </div>
                         <div class="col-12">
-                            <table id="myTable" class="table table-hover table-bordered">
+                            <table id="myTable" class="table table-hover table-bordered display responsive nowrap">
                                 <thead>
                                     <tr class="text-center">
                                         <th rowspan="2">Ảnh đại diện</th>

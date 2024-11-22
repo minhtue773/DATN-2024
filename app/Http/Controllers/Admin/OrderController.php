@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderStatusUpdatedMail;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
-
 
 class OrderController extends Controller
 {
@@ -88,9 +85,8 @@ class OrderController extends Controller
                 }
                 break;
         }
-    
         // Gửi email cho khách hàng
-        Mail::to($order->user->email)->send(new OrderStatusUpdatedMail($order, $statusMessage));
+        Mail::to($order->user->email)->queue(new OrderStatusUpdatedMail($order, $statusMessage));
     }
     
 

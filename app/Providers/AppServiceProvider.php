@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Chia sẻ dữ liệu cho tất cả các view
+        //Chia sẻ dữ liệu cho tất cả các view
         View::composer('*', function ($view) {
             $categories = Cache::remember('product_categories', 60, function () {
                 return ProductCategory::all(); // Lấy danh mục sản phẩm
@@ -38,8 +38,8 @@ class AppServiceProvider extends ServiceProvider
             }
 
             // Truyền dữ liệu tới tất cả các view
-            $view->with('categories', $categories);
-            $view->with('categoriesPost', $categoriesPost);
+            $view->with('1categories', $categories);
+            // $view->with('categoriesPost', $categoriesPost);
             $view->with('websiteSettings', $websiteSettings);
             $view->with('favoriteCount', $favoriteCount); // Truyền số lượng yêu thích
         });

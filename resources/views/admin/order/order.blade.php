@@ -247,7 +247,7 @@
     function confirmStatusCancel(urlPath) {
         Swal.fire({
             title: 'Thông báo',
-            text: 'Đơn hàng này yêu cầu hủy vì lý do khách hàng muốn đổi địa chỉ. Bạn có muốn hủy đơn hàng này?',
+            text: 'Đơn hàng này yêu cầu hủy. Bạn có muốn hủy đơn hàng này?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
