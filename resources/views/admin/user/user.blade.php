@@ -14,28 +14,24 @@
             </nav>
             <div class="card border-top-primary shadow">
                 <div class="card-body">
-                    {{-- <div class="row">
-                        <div class="d-flex">
-                            <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-plus me-1"></i>Thêm người dùng mới
-                            </a>
-                        </div>
-                    </div> --}}
                     <div class="row">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-gray-800 mb-3">Danh sách người dùng</h4>
+                        <div class="d-flex flex-column flex-md-row flex-lg-row justify-content-between align-items-center">
                             <div class="mb-3">
-                                <h4 class="text-gray-800 p-0 m-0">Danh sách người dùng</h4>
+                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-person-fill-add me-2"></i>Thêm người dùng mới
+                                </a>
                             </div>
                             <form method="GET">
-                                <div class="d-flex mb-3">
-                                    <div class="me-3">
+                                <div class="d-flex flex-column flex-md-row flex-lg-row mb-3">
+                                    <div class="me-0 mb-3 mb-md-0 me-md-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="role">
                                             <option value="" selected>Tất cả vai trò --</option>
                                             <option value="customer" {{ request('role') === 'customer' ? 'selected' : '' }}>Khách hàng</option>
                                             <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin</option>
                                         </select>
                                     </div>
-                                    <div class="me-3">
+                                    <div class="me-0 mb-3 mb-md-0 me-md-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="" selected>Tất cả trạng thái --</option>
                                             <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Chưa kích hoạt</option>
@@ -47,7 +43,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12" style="overflow: hidden">
                             <table id="myTable" class="table table-hover table-bordered display responsive nowrap">
                                 <thead>
                                     <tr class="text-center">

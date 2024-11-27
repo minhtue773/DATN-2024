@@ -17,15 +17,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="card border-top-success shadow h-100 p-2 bg-success-subtle">
                         <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
-                                    <div
-                                        class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
-                                        <i class="fa-solid fa-user fa-2x mb-2"></i>
-                                        <h6 class="m-0 mb-1">Đang online</h6>
-                                        <h5 class="m-0">{{ number_format($access['online' ?? ''], 0, '.', '.') }}</h5>
-                                    </div>
-                                </div>
+                            <div class="row align-items-center justify-content-center">
                                 <div class="col-12 col-sm-12 col-md-3 col-xl-3 mb-3">
                                     <div
                                         class="d-flex flex-column align-items-center justify-content-center border rounded-3 p-3 bg-gray-100">
@@ -115,7 +107,7 @@
                         <!-- Card Body -->
                         <div class="card-body align-content-center">
                             <div class="row d-flex justify-content-center">
-                                <div class="col-8">
+                                <div class="col-12 col-sm-12 col-md-8 col-lg-8">
                                     <canvas id="revenue"></canvas>
                                 </div>
                             </div>
@@ -284,6 +276,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadNotifications();
         });
+        function timeAgo(date) {
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const weeks = Math.floor(days / 7);
+
+            if (seconds < 60) {
+                return `${seconds} giây trước`;
+            } else if (minutes < 60) {
+                return `${minutes} phút trước`;
+            } else if (hours < 24) {
+                return `${hours} giờ trước`;
+            } else if (days < 7) {
+                return `${days} ngày trước`;
+            } else {
+                return `${weeks} tuần trước`;
+            }
+        }
         function loadNotifications() {
             const notificationContainer = document.querySelector('#notification');
             fetch('/admin/notification')
@@ -299,7 +311,7 @@
                                 `Đơn hàng mới (#${parsedData.invoice_code}) từ khách hàng ${parsedData.customer_name} vừa được đặt. <small class="text-primary">(Xem chi tiết)</small>` :
                                 `Yêu cầu hủy đơn hàng (#${parsedData.invoice_code}) từ khách hàng ${parsedData.customer_name}. <small class="text-primary">(Xem chi tiết)</small>`;
                             const orderDetail = '/admin/notification/read/' + notification.id
-                            const timeAgo = Math.floor((Date.now() - date.getTime()) / (1000 * 60)) + " phút trước";
+                            const formattedTimeAgo = timeAgo(date);
                             notificationContainer.innerHTML += `
                                 <div class="card shadow border-left-${notification.type.includes('OrderPlacedNotification') ? 'danger' : 'warning'} mb-2 notification-item">
                                     <a href="${orderDetail}" class="text-decoration-none">
@@ -310,7 +322,7 @@
                                                 </div>
                                                 <div class="notification-list_detail w-100">
                                                     <div class="d-flex justify-content-between mb-1">
-                                                        <span class="text-muted m-0"><small>${timeAgo}</small></span>
+                                                        <span class="text-muted m-0"><small>${formattedTimeAgo}</small></span>
                                                         <span class="text-muted m-0"><small>${formattedDate}</small></span>
                                                     </div>
                                                     <p class="text-muted m-0">${notificationContent}</p>

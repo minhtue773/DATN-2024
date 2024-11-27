@@ -12688,6 +12688,27 @@ body.sidebar-toggled footer.sticky-footer {
     width: 300px !important;
     height: 300px !important;
   }
+
+  .info-more i{
+    min-width: 60px;
+  }
+  .socical-btn {
+    min-width: 120px !important;
+  }
+  .sidebar {
+    z-index: 999;
+  }
+  #accordionSidebar {
+    width: 140px;
+  }
+  .sidebar .nav-item .collapse .collapse-inner,
+  .sidebar .nav-item .collapsing .collapse-inner {
+    position: fixed;
+    z-index: 999;
+  }
+  .sidebar .nav-item .collapse {
+    left: calc(6rem + 1rem / 2);
+  }
 }
 
 /* style-admin-2.css */

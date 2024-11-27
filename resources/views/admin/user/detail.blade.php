@@ -6,8 +6,8 @@
                 <div class="row g-0">
                     <div class="col-md-4 gradient-custom text-center text-white"
                         style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                            alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                        <img src=" {{ !empty($user->image) ? asset('uploads/images/user/'.$user->image) : asset('uploads/images/user/avatar.jpg') }} "
+                            alt="Avatar" class="img-fluid my-5 rounded-circle" style="width: 100px; height:100px" />
                         <h5>{{ $user->name }}</h5>
                         <p>{{ $user->role == 'admin' ? 'Admin' : "khách hàng" }}</p>
                     </div>

@@ -13,7 +13,7 @@
                 </ol>
             </nav>
             <div class="row mb-3">
-                <div class="col-3">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-2">
                     <div class="card border-left-primary">
                         <div class="card-body p-0">
                             <div class="d-flex">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-2">
                     <div class="card border-left-info">
                         <div class="card-body p-0">
                             <div class="d-flex">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-2">
                     <div class="card border-left-success">
                         <div class="card-body p-0">
                             <div class="d-flex">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 mb-2">
                     <div class="card border-left-warning">
                         <div class="card-body p-0">
                             <div class="d-flex">
@@ -73,13 +73,13 @@
             <div class="card border-top-primary shadow">
                 <div class="card-body">
                     <div class="row mt-2">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h4 class="text-gray-800 p-0 m-0">Danh sách đơn hàng</h4>
-                            </div>
+                        <div class="mb-3 block">
+                            <h4 class="text-gray-800 p-0 m-0">Danh sách đơn hàng</h4>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mb-3">
                             <form method="GET">
-                                <div class="d-flex">
-                                    <div class="me-3">
+                                <div class="d-flex flex-column flex-md-row flex-lg-row mb-3">
+                                    <div class="me-0 mb-3 mb-md-0 me-md-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="" selected>Tất cả trạng thái --</option>
                                             <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Chờ xác nhận</option>
@@ -171,7 +171,7 @@
                                         @endforeach 
                                     </tbody>
                                 </table>
-                                <div class="d-flex">
+                                <div class="d-flex mt-3">
                                     <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
                                     </button>

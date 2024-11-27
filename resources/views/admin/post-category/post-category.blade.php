@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <table class="table table-hover table-bordered" id="myTable">
+                            <table class="table table-hover table-bordered" id="myTable" style="overflow: hidden">
                                 <thead>
                                     <tr class="text-center">
                                         <th rowspan="2">Hình</th>

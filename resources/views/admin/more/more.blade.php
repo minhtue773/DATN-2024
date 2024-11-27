@@ -22,9 +22,9 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                 <a href="{{ route('admin.banner.index') }}" class="text-decoration-none text-dark">
-                                    <div class="d-flex align-items-center p-3 flex-grow-1">
+                                    <div class="d-flex align-items-center p-3 flex-grow-1 info-more">
                                         <i class="fa-solid fa-images fa-3x text-gray-800 me-4"></i>
                                         <div>
                                             <h6 class="m-0">Banner</h6>
@@ -33,9 +33,9 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                 <a href="{{ route('admin.promotion.index') }}" class="text-decoration-none text-dark">
-                                    <div class="d-flex align-items-center p-3 flex-grow-1">
+                                    <div class="d-flex align-items-center p-3 flex-grow-1 info-more">
                                         <i class="fa-solid fa-percent fa-3x text-gray-800 me-4"></i>
                                         <div>
                                             <h6 class="m-0">khuyến mãi</h6>
@@ -44,9 +44,9 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                 <a href="{{ route('admin.configuration.info') }}" class="text-decoration-none text-dark">
-                                    <div class="d-flex align-items-center p-3 flex-grow-1">
+                                    <div class="d-flex align-items-center p-3 flex-grow-1 info-more">
                                         <i class="fa-solid fa-circle-info fa-3x text-gray-800 me-4"></i>
                                         <div>
                                             <h6 class="m-0">Thông tin website</h6>
@@ -59,7 +59,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12 col-lg-12">
+            {{-- Phát triển sau --}}
+            {{-- <div class="col-xl-12 col-lg-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div
@@ -94,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

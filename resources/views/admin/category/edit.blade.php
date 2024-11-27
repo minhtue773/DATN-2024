@@ -17,7 +17,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 order-2 order-md-1">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Thông tin danh mục
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 no-gutters">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3 order-1 order-md-2 no-gutters">
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">
@@ -66,7 +66,7 @@
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12">
                                             <div class="photoUpload-zone" id="photo-zone">
-                                                <img src="{{ asset('uploads/images/product_category') }}/{{ $category->image }}" id="preview-image" class="img-fluid col-9">
+                                                <img src="{{ !empty($category->image) ? asset('uploads/images/product_category'.$category->image) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9gUXKwt2KErC_jWWlkZkGabxpeGchT-fyw&s' }}" id="preview-image" class="img-fluid col-9">
                                                 <div class="lable-zone">
                                                     <label class="photoUpload-file" for="file-zone">
                                                         <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">

@@ -17,7 +17,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 order-2 order-md-1">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Nội dung bài viết
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 no-gutters">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3 order-1 order-md-2 no-gutters">
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">

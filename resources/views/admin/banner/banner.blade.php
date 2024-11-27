@@ -25,7 +25,7 @@
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách banners</h4>
                         <div class="col-12">
-                            <table id="myTable" class="table table-hover table-bordered">
+                            <table id="myTable" class="table table-hover table-bordered" style="overflow: hidden">
                                 <thead>
                                     <tr class="text-center">
                                         <th rowspan="2">Hình ảnh</th>

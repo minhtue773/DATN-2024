@@ -16,15 +16,15 @@
                 <div class="card-body">
                     <div class="row mt-2">
                         <h4 class="text-gray-800 mb-3">Danh sách bài viết</h4>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="d-flex">
+                        <div class="d-flex flex-column flex-md-row flex-lg-row justify-content-between align-items-center">
+                            <div class="mb-3">
                                 <a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm">
                                     <i class="fa-solid fa-plus me-1"></i>Bài viết mới
                                 </a>
                             </div>
                             <form action="" method="GET">
-                                <div class="d-flex">
-                                    <div class="me-3">
+                                <div class="d-flex flex-column flex-md-row flex-lg-row mb-3">
+                                    <div class="me-0 mb-3 mb-md-0 me-md-3">
                                         <select class="form-select form-select-sm" name="category">
                                             <option value="">Tất cả chuyên mục --</option>
                                             @foreach ($postCategories as $item)
@@ -35,7 +35,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="me-3">
+                                    <div class="me-0 mb-3 mb-md-0 me-md-3">
                                         <select class="form-select form-select-sm form-outline-dark" name="status">
                                             <option value="">Tất cả trạng thái --</option>
                                             <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Công khai</option>
@@ -50,7 +50,7 @@
                         <div class="col-12">
                             <form action="{{ route('admin.post.destroyBox') }}" method="POST">
                                 @csrf
-                                <table id="myTable" class="table table-hover table-bordered">
+                                <table id="myTable" class="table table-hover table-bordered" style="overflow: hidden">
                                     <thead>
                                         <tr class="text-center">
                                             <th rowspan="2"><input type="checkbox" id="checkAll"></th>
@@ -94,7 +94,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="d-flex">
+                                <div class="d-flex mt-3">
                                     <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger btn-sm">
                                         <i class="fa-solid fa-trash-can me-1"></i>Xóa mục đã chọn
                                     </button>

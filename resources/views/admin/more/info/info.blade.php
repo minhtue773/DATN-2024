@@ -16,7 +16,7 @@
                 @csrf
                 @method('POST')
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 order-2 order-md-1">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Thiết lập
@@ -25,42 +25,42 @@
                                 <h5 class="text-center">Thông tin chính</h5>
                                 <div class="border border-bottom-danger mb-3"></div>    
                                 <div class="row">
-                                    <div class="col-6 mb-3">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Tên website <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập tên webiste" name="site_name" value="{{ old('site_name', $setting['site_name'] ?? '')}}">
                                         @error('site_name')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
-                                    <div class="col-6 mb-3">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Tên công ty <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập tên công ty" name="company_name" value="{{ old('company_name', $setting['company_name'] ?? '')}}">
                                         @error('company_name')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
-                                    <div class="col-6 mb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Email <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập email" name="email" value="{{ old('email', $setting['email'] ?? '')}}">
                                         @error('email')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
-                                    <div class="col-6 mb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Hotline <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập số điện thoại" name="phone_number" value="{{ old('phone_number', $setting['phone_number'] ?? '')}}">
                                         @error('phone_number')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
-                                    <div class="col-6 mb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Địa chỉ <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập địa chỉ" name="address" value="{{ old('address', $setting['address'] ?? '')}}">
                                         @error('address')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                
-                                    <div class="col-6 mb-3">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-3">
                                         <label class="form-label">Bản đồ: (Link nhúng) <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control form-control-sm" placeholder="Nhập link nhúng bản đồ" name="map" value="{{ old('map', $setting['map'] ?? '')}}">
                                         @error('map')
@@ -79,42 +79,42 @@
                                 <div class="border border-bottom-danger mb-3"></div>   
                                 <div class="row">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-facebook me-1"></i>/facebook</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-facebook me-1"></i>/facebook</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="facebook" value="{{ old('facebook', $setting['facebook'] ?? '')}}">
                                         @error('facebook')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-tiktok me-1"></i>/tiktok</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-tiktok me-1"></i>/tiktok</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="tiktok" value="{{ old('tiktok', $setting['tiktok'] ?? '')}}">
                                         @error('tiktok')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-instagram me-1"></i>/instagram</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-instagram me-1"></i>/instagram</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="instagram" value="{{ old('instagram', $setting['instagram'] ?? '')}}">
                                         @error('instagram')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-youtube me-1"></i>/youtube</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-youtube me-1"></i>/youtube</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="youtube" value="{{ old('youtube', $setting['youtube'] ?? '')}}">
                                         @error('youtube')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                      
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-twitter me-1"></i>/twitter</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-twitter me-1"></i>/twitter</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="twitter" value="{{ old('twitter', $setting['twitter'] ?? '')}}">
                                         @error('twitter')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
                                         @enderror
                                     </div>                                  
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" style="min-width: 150px"><i class="bi bi-linkedin me-1"></i>/linkedin</span>
+                                        <span class="input-group-text socical-btn" style="min-width: 150px"><i class="bi bi-linkedin me-1"></i>/linkedin</span>
                                         <input type="text" class="form-control" placeholder="Chưa có link" name="linkedin" value="{{ old('linkedin', $setting['linkedin'] ?? '')}}">
                                         @error('linkedin')
                                             <span class="text-danger m-0 mt-2">* {{ $message }}</span>
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 no-gutters">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3 order-1 order-md-2 no-gutters">
                         <div class="col-12 mb-3">
                             <div class="card border-top-primary shadow">
                                 <div class="card-header text-gray-800">

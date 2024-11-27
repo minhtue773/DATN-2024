@@ -59,18 +59,10 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOder"
-            aria-expanded="true" aria-controls="collapseOder">
+        <a class="nav-link collapsed" href="{{route('admin.order.index')}}">
             <i class="bi bi-box-seam-fill"></i>
             <span>Quản lý đơn hàng</span>
         </a>
-        <div id="collapseOder" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.order.index')}}">Đơn hàng</a>
-                <a class="collapse-item" href="#">Quản lý giao dịch</a>
-            </div>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.trash') }}">

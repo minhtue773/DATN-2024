@@ -8,6 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.configuration') }}">Thiết lập chung</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.banner.index') }}">Banner</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Thêm banner mới</li>
                 </ol>
@@ -16,7 +17,7 @@
             <form action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 order-2 order-md-1">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Thông tin banner
@@ -45,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 mb-3">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3 order-1 order-md-2">
                         <div class="card border-top-primary shadow">
                             <div class="card-header text-gray-800">
                                 Hình banner

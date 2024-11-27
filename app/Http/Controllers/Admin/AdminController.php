@@ -26,7 +26,51 @@ class AdminController extends Controller
         $orderStatus = $this->getOrderStatus();
         return view('admin.home', compact('access', 'monthVisit', 'revenue', 'productTop', 'orderStatus'));
     }
-    
+
+    private function getAccess()
+    {
+        // $onlineUsers = User::where('status', 'online')->count() ?? '';
+        // Lượt truy cập trong tuần (7 ngày gần nhất)
+        $accessWeek = Visit::whereBetween('visited_at', [Carbon::now()->subWeek(), Carbon::now()])->count();
+        // Lượt truy cập trong tháng (30 ngày gần nhất)
+        $accessMonth = Visit::whereMonth('visited_at', Carbon::now())->count();
+        // Tổng lượt truy cập
+        $accessTotal = Visit::count();
+        $access = [
+            // 'online' => $onlineUsers,
+            'access_week' => $accessWeek,
+            'access_month' => $accessMonth,
+            'access_total' => $accessTotal
+        ];
+
+        return $access;
+    }
+
+    private function getMonthVisits() {
+        $visitMonth = Visit::selectRaw('DAY(visited_at) as day, COUNT(*) as count')
+            ->whereMonth('visited_at', Carbon::now()->month)  
+            ->groupBy('day')
+            ->orderBy('day', 'asc')  
+            ->get();
+        $daysInMonth = Carbon::now()->daysInMonth;
+        $labels = [];
+        $data = [];
+        
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $labels[] = $day;  
+            $data[$day] = 0;  
+        }
+        foreach ($visitMonth as $visit) {
+            $data[$visit->day] = $visit->count;  
+        }
+
+        $getMonthVisit = [
+            'labels' => $labels,
+            'data' => array_values($data)  
+        ];
+        return $getMonthVisit;
+    }
+
     private function getRevenueData($filterBy)
     {
         $currentYear = Carbon::now()->year;
@@ -90,54 +134,6 @@ class AdminController extends Controller
     public function filterProductTop(Request $request)
     {
         return response()->json($this->getTopProducts($request->input('productTop', 5)));
-    }
-
-    private function getAccess()
-    {
-        $onlineUsers = User::where('status', 'online')->count() ?? '';
-        // Lượt truy cập trong tuần (7 ngày gần nhất)
-        $accessWeek = Visit::whereBetween('visited_at', [Carbon::now()->subWeek(), Carbon::now()])->count();
-        // Lượt truy cập trong tháng (30 ngày gần nhất)
-        $accessMonth = Visit::whereMonth('visited_at', Carbon::now())->count();
-        // Tổng lượt truy cập
-        $accessTotal = Visit::count();
-        $access = [
-            'online' => $onlineUsers,
-            'access_week' => $accessWeek,
-            'access_month' => $accessMonth,
-            'access_total' => $accessTotal
-        ];
-
-        return $access;
-    }
-
-    private function getMonthVisits() {
-        
-        $visitMonth = Visit::selectRaw('DAY(visited_at) as day, COUNT(*) as count')
-            ->whereMonth('visited_at', Carbon::now()->month)  
-            ->groupBy('day')
-            ->orderBy('day', 'asc')  
-            ->get();
-        
-        $daysInMonth = Carbon::now()->daysInMonth;
-        
-        $labels = [];
-        $data = [];
-        
-        for ($day = 1; $day <= $daysInMonth; $day++) {
-            $labels[] = $day;  
-            $data[$day] = 0;  
-        }
-    
-        foreach ($visitMonth as $visit) {
-            $data[$visit->day] = $visit->count;  
-        }
-
-        $getMonthVisit = [
-            'labels' => $labels,
-            'data' => array_values($data)  
-        ];
-        return $getMonthVisit;
     }
 
     private function getOrderStatus() {

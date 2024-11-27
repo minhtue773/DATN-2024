@@ -138,7 +138,7 @@
                             <div class="col-12">
                                 <h4 class="text-gray-800 mb-3">Danh sách đơn hàng đã xóa</h4>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" style="overflow: hidden">
                                 <form action="{{ route('admin.trash.deleteBox') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="type" value="order">

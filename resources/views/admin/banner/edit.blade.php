@@ -8,6 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.configuration') }}">Thiết lập chung</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.banner.index') }}">Banner</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{$banner->content}}</li>
                 </ol>
@@ -17,7 +18,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row h-100">
-                    <div class="col-8">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 order-2 order-md-1">
                         <div class="card border-top-primary shadow h-100">
                             <div class="card-header text-gray-800">
                                 Thông tin banner
@@ -40,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 mb-3">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3 order-1 order-md-2">
                         <div class="card border-top-primary shadow h-100">
                             <div class="card-header text-gray-800">
                                 Hình banner khuyến mãi
@@ -49,7 +50,7 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12">
                                         <div class="photoUpload-zone" id="photo-zone">
-                                            <img src=" {{asset('uploads/images/banner')}}/{{$banner->image}} " id="preview-image" class="img-fluid col-9">
+                                            <img src="{{ !empty($banner->image) ? asset('uploads/images/banner'.$banner->image) : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9gUXKwt2KErC_jWWlkZkGabxpeGchT-fyw&s' }}" id="preview-image" class="img-fluid col-9">
                                             <div class="lable-zone">
                                                 <label class="photoUpload-file" for="file-zone">
                                                     <input type="file" name="photo" id="file-zone" onchange="previewImage(event)">
